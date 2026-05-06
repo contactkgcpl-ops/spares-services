@@ -44,11 +44,11 @@ const Products = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-white">
       <Header title="Products" />
-      <div className="p-6">
+      <div className="p-6 py-16">
         {message && (
-          <div className="mb-4 rounded-lg border border-emerald-600/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
+          <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             {message}
           </div>
         )}
@@ -57,12 +57,12 @@ const Products = () => {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search by product name"
-            className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-white outline-none transition-colors focus:border-[#F47C20]"
+            className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-slate-600 outline-none transition-colors focus:border-[#f47c20]"
           />
           <select
             value={selectedCategory}
             onChange={(event) => setSelectedCategory(event.target.value)}
-            className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-white outline-none transition-colors focus:border-[#F47C20]"
+            className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-slate-600 outline-none transition-colors focus:border-[#f47c20]"
           >
             <option value="">All Categories</option>
             {CATEGORY_OPTIONS.map((category) => (
@@ -72,35 +72,35 @@ const Products = () => {
             ))}
           </select>
         </div>
-        <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900/80 shadow-lg">
-          <table className="min-w-full divide-y divide-slate-800">
-            <thead className="bg-slate-900">
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <table className="min-w-full divide-y divide-slate-200">
+            <thead className="bg-[#f8fafc]">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">Category</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-300">Actions</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Name</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Category</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800">
+            <tbody className="divide-y divide-slate-200">
               {sortedProducts.length === 0 ? (
                 <tr>
                   <td colSpan="3" className="px-4 py-10 text-center">
-                    <div className="mx-auto max-w-sm rounded-lg border border-dashed border-slate-700 bg-slate-950/60 p-6">
-                      <p className="text-base font-medium text-slate-200">No products found</p>
-                      <p className="mt-1 text-sm text-slate-400">Try changing search/filter or add a new product.</p>
+                    <div className="mx-auto max-w-sm rounded-lg border border-dashed border-slate-300 bg-[#f8fafc] p-6">
+                      <p className="text-base font-medium text-slate-700">No products found</p>
+                      <p className="mt-1 text-sm text-slate-500">Try changing search/filter or add a new product.</p>
                     </div>
                   </td>
                 </tr>
               ) : (
                 sortedProducts.map((product) => (
-                  <tr key={product.id} className="transition-colors hover:bg-slate-800/40">
-                    <td className="px-4 py-3 text-sm text-white">{product.productName}</td>
-                    <td className="px-4 py-3 text-sm text-slate-300">{product.category}</td>
+                  <tr key={product.id} className="transition-colors hover:bg-[#f8fafc]">
+                    <td className="px-4 py-3 text-sm text-slate-700">{product.productName}</td>
+                    <td className="px-4 py-3 text-sm text-slate-600">{product.category}</td>
                     <td className="px-4 py-3 text-sm">
                       <div className="flex items-center gap-3">
                         <Link
                           to={`/admin/edit-product/${product.id}`}
-                          className="rounded-md px-2 py-1 font-medium text-[#F47C20] transition-colors hover:bg-[#F47C20]/10"
+                          className="rounded-md px-2 py-1 font-medium text-[#f47c20] transition-colors hover:bg-[#f47c20]/10"
                         >
                           Edit
                         </Link>

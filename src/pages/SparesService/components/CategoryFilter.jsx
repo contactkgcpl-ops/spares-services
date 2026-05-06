@@ -1,15 +1,15 @@
 function CategoryFilter({ categories, selectedCategory, onCategoryChange }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2.5">
       {categories.map((category) => (
         <button
           key={category}
           type="button"
           onClick={() => onCategoryChange(category)}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+          className={`rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
             selectedCategory === category
-              ? 'bg-brand text-slate-950 shadow-soft'
-              : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'
+              ? 'bg-[#f47c20] text-white'
+              : 'border border-slate-200 bg-white text-slate-600 hover:-translate-y-1 hover:border-[#f47c20]'
           }`}
         >
           {category}

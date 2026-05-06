@@ -1,8 +1,8 @@
 function FilterSidebar({ categories, selectedCategory, onCategoryChange, resultCount }) {
   return (
-    <aside className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-soft lg:sticky lg:top-24 lg:self-start">
-      <h2 className="text-base font-semibold text-white">Filter catalog</h2>
-      <p className="mt-2 text-sm leading-6 text-slate-400">Find the right component by category or search keyword.</p>
+    <aside className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-24 lg:self-start">
+      <h2 className="text-base font-semibold text-slate-900">Filter catalog</h2>
+      <p className="mt-2 text-sm leading-relaxed text-slate-600">Find the right component by category or search keyword.</p>
       <div className="mt-6 space-y-5">
         <div>
           <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Category</p>
@@ -12,10 +12,10 @@ function FilterSidebar({ categories, selectedCategory, onCategoryChange, resultC
                 key={category}
                 type="button"
                 onClick={() => onCategoryChange(category)}
-                className={`rounded-2xl px-4 py-3 text-left text-sm transition ${
+                className={`rounded-lg px-4 py-3 text-left text-sm transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'border border-brand bg-brand/10 text-brand'
-                    : 'border border-slate-800 bg-slate-950 text-slate-300 hover:border-brand/40 hover:bg-slate-900'
+                    ? 'border border-[#f47c20] bg-[#f47c20]/10 text-[#f47c20]'
+                    : 'border border-slate-200 bg-white text-slate-600 hover:-translate-y-1 hover:border-[#f47c20]'
                 }`}
               >
                 {category}
@@ -23,10 +23,10 @@ function FilterSidebar({ categories, selectedCategory, onCategoryChange, resultC
             ))}
           </div>
         </div>
-        <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-4">
+        <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-4">
           <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Results</p>
-          <p className="mt-2 text-3xl font-semibold text-white">{resultCount}</p>
-          <p className="text-sm text-slate-400">items match your current filters</p>
+          <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">{resultCount}</p>
+          <p className="text-sm text-slate-600">items match your current filters</p>
         </div>
       </div>
     </aside>

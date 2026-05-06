@@ -18,17 +18,17 @@ const Dashboard = () => {
   }, [products]);
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-white">
       <Header title="Dashboard" />
-      <div className="p-6">
+      <div className="p-6 py-16">
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-6">
-            <p className="text-sm text-slate-400">Total Products</p>
-            <p className="mt-2 text-3xl font-bold text-white">{products.length}</p>
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
+            <p className="text-sm text-slate-600">Total Products</p>
+            <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">{products.length}</p>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-6">
-            <p className="text-sm text-slate-400">Total Categories</p>
-            <p className="mt-2 text-3xl font-bold text-white">{categoriesCount}</p>
+          <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
+            <p className="text-sm text-slate-600">Total Categories</p>
+            <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">{categoriesCount}</p>
           </div>
         </div>
       </div>

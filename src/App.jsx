@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SparesHome from './pages/SparesService/pages/SparesHome';
+import PremiumHome from './pages/SparesService/pages/PremiumHome';
 import ProductsPage from './pages/SparesService/pages/ProductsPage';
 import ProductDetails from './pages/SparesService/pages/ProductDetails';
 import ServicePage from './pages/SparesService/pages/ServicePage';
@@ -14,7 +15,7 @@ import AddProduct from './admin/pages/AddProduct';
 import EditProduct from './admin/pages/EditProduct';
 
 const AdminShell = ({ children }) => (
-  <div className="flex min-h-screen bg-slate-950 text-slate-100">
+  <div className="flex min-h-screen bg-white text-slate-600">
     <Sidebar />
     <div className="flex-1">{children}</div>
   </div>
@@ -25,11 +26,12 @@ function App() {
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-950 text-slate-100">
+    <div className="flex min-h-screen flex-col bg-white text-slate-600">
       {!isAdminRoute && <Navbar />}
-      <main className={isAdminRoute ? 'flex-1' : 'flex-1 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8'}>
+      <main className={isAdminRoute ? 'flex-1' : 'flex-1 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8'}>
         <Routes>
           <Route path="/" element={<Navigate to="/spares-service" replace />} />
+          <Route path="/spares-service/home" element={<PremiumHome />} />
           <Route path="/spares-service" element={<SparesHome />} />
           <Route path="/spares-service/products" element={<ProductsPage />} />
           <Route path="/spares-service/product/:id" element={<ProductDetails />} />
