@@ -4,17 +4,19 @@ import Header from '../components/Header';
 import { addProduct, CATEGORY_OPTIONS } from '../services/productService';
 
 const initialForm = {
-  productName: '',
+  title: '',
   description: '',
   image: '',
   category: '',
-  technicalDetails: '',
+  features: '',
+  specifications: '',
 };
 
 const AddProduct = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialForm);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [imageSource, setImageSource] = useState('');
 
   const handleChange = (event) => {
@@ -37,16 +39,25 @@ const AddProduct = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!formData.productName || !formData.description || !formData.category || !formData.technicalDetails || !formData.image) {
+    if (!formData.title || !formData.description || !formData.category || !formData.features || !formData.specifications || !formData.image) {
       setError('Please fill all fields including image.');
       return;
     }
 
-    addProduct(formData);
-    navigate('/admin/products', { state: { message: 'Product added successfully' } });
+    try {
+      setLoading(true);
+      setError('');
+      await addProduct(formData);
+      navigate('/admin/products', { state: { message: 'Product added successfully' } });
+    } catch (submitError) {
+      console.error('Save product failed:', submitError?.response?.data || submitError?.message || submitError);
+      setError(submitError?.response?.data?.message || 'Failed to save product');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,10 +66,10 @@ const AddProduct = () => {
       <div className="p-6 py-16">
         <form onSubmit={handleSubmit} className="mx-auto max-w-3xl space-y-4 rounded-xl border border-slate-200 bg-[#f8fafc] p-6 shadow-sm">
           <input
-            name="productName"
-            value={formData.productName}
+            name="title"
+            value={formData.title}
             onChange={handleChange}
-            placeholder="Product Name"
+            placeholder="Product Title"
             className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-slate-600 outline-none focus:border-[#f47c20]"
             required
           />
@@ -99,10 +110,19 @@ const AddProduct = () => {
             ))}
           </select>
           <textarea
-            name="technicalDetails"
-            value={formData.technicalDetails}
+            name="features"
+            value={formData.features}
             onChange={handleChange}
-            placeholder="Technical Details"
+            placeholder="Features (comma separated or line by line)"
+            rows="4"
+            className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-slate-600 outline-none focus:border-[#f47c20]"
+            required
+          />
+          <textarea
+            name="specifications"
+            value={formData.specifications}
+            onChange={handleChange}
+            placeholder="Specifications"
             rows="4"
             className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-slate-600 outline-none focus:border-[#f47c20]"
             required
@@ -120,9 +140,10 @@ const AddProduct = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="rounded-lg bg-[#f47c20] px-6 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#dc6e19]"
           >
-            Save Product
+            {loading ? 'Saving...' : 'Save Product'}
           </button>
         </form>
       </div>

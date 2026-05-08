@@ -10,7 +10,8 @@ function useProductFilter(products) {
   const filteredProducts = useMemo(() => {
     const normalizedQuery = normalizeSearch(query);
     return products.filter((product) => {
-      const matchesQuery = normalizeSearch(product.name).includes(normalizedQuery);
+      const productName = product.title || product.name || '';
+      const matchesQuery = normalizeSearch(productName).includes(normalizedQuery);
       const matchesCategory = category === 'All' || product.category === category;
       return matchesQuery && matchesCategory;
     });

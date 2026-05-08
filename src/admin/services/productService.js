@@ -1,63 +1,77 @@
-export const PRODUCT_STORAGE_KEY = 'admin_products';
-export const CATEGORY_OPTIONS = ['Food', 'Pharma', 'Beverage', 'FMCG', 'Cosmetics'];
+import axios from 'axios';
 
-const parseProducts = (value) => {
-  try {
-    const parsed = JSON.parse(value);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
+export const CATEGORY_OPTIONS = ['Pump Systems', 'Valves', 'Motors', 'Filters', 'Bearings', 'Controls'];
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+const normalizeProduct = (product) => ({
+  ...product,
+  id: product._id || product.id,
+  productName: product.title || product.productName || '',
+  technicalDetails: Array.isArray(product.specifications)
+    ? product.specifications.join('\n')
+    : product.specifications || product.technicalDetails || '',
+  features: Array.isArray(product.features) ? product.features.join(', ') : product.features || '',
+  specifications: Array.isArray(product.specifications)
+    ? product.specifications.join('\n')
+    : product.specifications || '',
+});
+
+const toArrayFromInput = (value) =>
+  (value || '')
+    .split(/\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+export const getProducts = async () => {
+  const response = await api.get('/api/products');
+  const products = response.data?.data || [];
+  return products.map(normalizeProduct);
 };
 
-export const getProducts = () => {
-  const stored = localStorage.getItem(PRODUCT_STORAGE_KEY);
-  return parseProducts(stored);
+export const getProductById = async (id) => {
+  const response = await api.get(`/api/products/${id}`);
+  return normalizeProduct(response.data?.data);
 };
 
-export const addProduct = (product) => {
-  const products = getProducts();
-  const newProduct = {
-    id: product.id || Date.now().toString(),
-    productName: product.productName?.trim() || '',
-    description: product.description?.trim() || '',
-    image: (product.image || '').trim(),
+export const addProduct = async (product) => {
+  const payload = {
+    title: product.title?.trim() || product.productName?.trim() || '',
     category: product.category?.trim() || '',
-    technicalDetails: product.technicalDetails?.trim() || '',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    image: (product.image || '').trim(),
+    description: product.description?.trim() || '',
+    features: toArrayFromInput(product.features),
+    specifications: toArrayFromInput(product.specifications || product.technicalDetails),
+    slug: product.slug?.trim() || (product.title || product.productName || '').toLowerCase().trim().replace(/\s+/g, '-'),
   };
 
-  const updatedProducts = [...products, newProduct];
-  localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(updatedProducts));
-  return newProduct;
+  const response = await api.post('/api/products', payload);
+  return normalizeProduct(response.data?.data);
 };
 
-export const updateProduct = (id, updates) => {
-  const products = getProducts();
-  const updatedProducts = products.map((product) =>
-    product.id === id
-      ? {
-          ...product,
-          ...updates,
-          productName: updates.productName?.trim() ?? product.productName,
-          description: updates.description?.trim() ?? product.description,
-          image: updates.image?.trim() ?? product.image,
-          category: updates.category?.trim() ?? product.category,
-          technicalDetails: updates.technicalDetails?.trim() ?? product.technicalDetails,
-          updatedAt: new Date().toISOString(),
-        }
-      : product
-  );
+export const updateProduct = async (id, updates) => {
+  const payload = {
+    title: updates.title?.trim() || updates.productName?.trim() || '',
+    category: updates.category?.trim() || '',
+    image: updates.image?.trim() || '',
+    description: updates.description?.trim() || '',
+    features: toArrayFromInput(updates.features),
+    specifications: toArrayFromInput(updates.specifications || updates.technicalDetails),
+  };
 
-  localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(updatedProducts));
-  return updatedProducts.find((product) => product.id === id) || null;
+  if (updates.slug?.trim()) {
+    payload.slug = updates.slug.trim();
+  }
+
+  const response = await api.put(`/api/products/${id}`, payload);
+  return normalizeProduct(response.data?.data);
 };
 
-export const deleteProduct = (id) => {
-  const products = getProducts();
-  const filteredProducts = products.filter((product) => product.id !== id);
-  localStorage.setItem(PRODUCT_STORAGE_KEY, JSON.stringify(filteredProducts));
+export const deleteProduct = async (id) => {
+  const response = await api.delete(`/api/products/${id}`);
+  return response.data;
 };
-
-export const getProductById = (id) => getProducts().find((product) => product.id === id) || null;

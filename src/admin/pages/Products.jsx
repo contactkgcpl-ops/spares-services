@@ -1,21 +1,42 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import DeleteConfirmModal from '../components/DeleteConfirmModal';
 import { CATEGORY_OPTIONS, deleteProduct, getProducts } from '../services/productService';
 
 const Products = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [products, setProducts] = useState(getProducts());
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [message, setMessage] = useState(location.state?.message || '');
+  const [deleteTargetId, setDeleteTargetId] = useState('');
 
   useEffect(() => {
     if (location.state?.message) {
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [location.pathname, location.state, navigate]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const data = await getProducts();
+        setProducts(data);
+      } catch (fetchError) {
+        setError(fetchError?.response?.data?.message || 'Failed to load products');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     if (!message) return;
@@ -32,15 +53,17 @@ const Products = () => {
     return filtered.sort((a, b) => a.productName.localeCompare(b.productName));
   }, [products, searchTerm, selectedCategory]);
 
-  const handleDelete = (id) => {
-    const shouldDelete = window.confirm('Are you sure?');
-    if (!shouldDelete) {
-      return;
+  const handleDelete = async () => {
+    if (!deleteTargetId) return;
+    try {
+      await deleteProduct(deleteTargetId);
+      const data = await getProducts();
+      setProducts(data);
+      setMessage('Product deleted');
+      setDeleteTargetId('');
+    } catch (deleteError) {
+      setError(deleteError?.response?.data?.message || 'Failed to delete product');
     }
-
-    deleteProduct(id);
-    setProducts(getProducts());
-    setMessage('Product deleted');
   };
 
   return (
@@ -50,6 +73,11 @@ const Products = () => {
         {message && (
           <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             {message}
+          </div>
+        )}
+        {error && (
+          <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
           </div>
         )}
         <div className="mb-4 grid gap-3 sm:grid-cols-2">
@@ -85,10 +113,14 @@ const Products = () => {
               {sortedProducts.length === 0 ? (
                 <tr>
                   <td colSpan="3" className="px-4 py-10 text-center">
-                    <div className="mx-auto max-w-sm rounded-lg border border-dashed border-slate-300 bg-[#f8fafc] p-6">
-                      <p className="text-base font-medium text-slate-700">No products found</p>
-                      <p className="mt-1 text-sm text-slate-500">Try changing search/filter or add a new product.</p>
-                    </div>
+                    {loading ? (
+                      <p className="text-sm text-slate-500">Loading products...</p>
+                    ) : (
+                      <div className="mx-auto max-w-sm rounded-lg border border-dashed border-slate-300 bg-[#f8fafc] p-6">
+                        <p className="text-base font-medium text-slate-700">No products found</p>
+                        <p className="mt-1 text-sm text-slate-500">Try changing search/filter or add a new product.</p>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ) : (
@@ -106,7 +138,7 @@ const Products = () => {
                         </Link>
                         <button
                           type="button"
-                          onClick={() => handleDelete(product.id)}
+                          onClick={() => setDeleteTargetId(product.id)}
                           className="rounded-md px-2 py-1 font-medium text-red-400 transition-colors hover:bg-red-500/10"
                         >
                           Delete
@@ -120,6 +152,11 @@ const Products = () => {
           </table>
         </div>
       </div>
+      <DeleteConfirmModal
+        open={Boolean(deleteTargetId)}
+        onCancel={() => setDeleteTargetId('')}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };

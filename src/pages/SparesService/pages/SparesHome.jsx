@@ -1,18 +1,61 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import products from '../data/products';
 import { getFeaturedProducts } from '../utils/productUtils';
 import useProductFilter from '../hooks/useProductFilter';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
-import heroGraphic from '../assets/hero-graphic.svg';
+import heroGraphic from '../assets/hero-img.jpeg';
+
+const resolveApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+
+  if (typeof window !== 'undefined') {
+    return `${window.location.protocol}//${window.location.hostname}:5000`;
+  }
+
+  return 'http://localhost:5000';
+};
+
+const api = axios.create({
+  baseURL: resolveApiBaseUrl(),
+});
 
 function SparesHome() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const { categories, category, filteredProducts, query, setCategory, setQuery } = useProductFilter(products);
   const featured = getFeaturedProducts(products);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const response = await api.get('/api/products');
+        const apiProducts = response.data?.data || [];
+        const normalizedProducts = apiProducts.map((product) => ({
+          ...product,
+          id: product._id || product.id,
+          name: product.title || product.name || '',
+        }));
+        setProducts(normalizedProducts);
+      } catch (error) {
+        setError(error?.response?.data?.message || 'Failed to load products');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
-    <section className="space-y-12 py-16">
+    <section id="about" className="space-y-12 py-16">
       <div className="overflow-hidden rounded-xl border border-slate-200 bg-white p-8 sm:p-10 hero-gradient shadow-sm">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
           <div className="space-y-6">
@@ -69,9 +112,13 @@ function SparesHome() {
           <p className="text-sm uppercase tracking-[0.24em] text-[#f47c20]">Current catalog</p>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">{filteredProducts.length} parts matching your selection</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {featured.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {loading ? (
+              <p className="text-sm text-slate-500">Loading products...</p>
+            ) : error ? (
+              <p className="text-sm text-red-500">{error}</p>
+            ) : (
+              featured.map((product) => <ProductCard key={product.id} product={product} />)
+            )}
           </div>
         </div>
       </div>

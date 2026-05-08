@@ -1,6 +1,7 @@
 import { MdEmail } from 'react-icons/md';
 import { FiPhone } from 'react-icons/fi';
 import { FaMapMarkerAlt, FaLinkedinIn, FaInstagram, FaFacebookF } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const services = [
   'Turnkey Automation',
@@ -10,7 +11,12 @@ const services = [
   'Plant Optimization'
 ];
 
-const companyLinks = ['About Us', 'Projects', 'Careers', 'Contact'];
+const navLinks = [
+  { label: 'Home', to: '/spares-service/home' },
+  { label: 'About', to: '/spares-service/about' },
+  { label: 'Products', to: '/spares-service/products' },
+  { label: 'Service', to: '/spares-service/service' }
+];
 
 function Footer() {
   return (
@@ -58,17 +64,49 @@ function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-base font-semibold tracking-wide text-white">Company</h3>
+            <h3 className="mb-4 text-base font-semibold tracking-wide text-white">Navigation</h3>
             <ul className="space-y-3 text-sm text-slate-300">
-              {companyLinks.map((link) => (
-                <li key={link} className="transition-all duration-300 hover:text-[#f47c20]">{link}</li>
+              {navLinks.map((link) => (
+                <li key={link.to} className="transition-all duration-300 hover:text-[#f47c20]">
+                  <Link to={link.to} className="hover:text-[#f47c20] transition-all duration-300">
+                    {link.label}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-slate-700 pt-6 text-sm text-slate-400">
-          <p>© {new Date().getFullYear()} Salvin Industrial. All rights reserved.</p>
+        <div className="mt-10 border-t border-slate-700 pt-6">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+            <p className="text-sm text-slate-400">&copy; {new Date().getFullYear()} Salvin Industrial. All rights reserved.</p>
+            <div className="flex gap-4">
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-slate-800 text-slate-300 transition-all duration-300 hover:text-[#f47c20] hover:border-[#f47c20]"
+              >
+                <FaInstagram className="h-4 w-4" />
+              </a>
+              <a 
+                href="https://linkedin.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-slate-800 text-slate-300 transition-all duration-300 hover:text-[#f47c20] hover:border-[#f47c20]"
+              >
+                <FaLinkedinIn className="h-4 w-4" />
+              </a>
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-slate-800 text-slate-300 transition-all duration-300 hover:text-[#f47c20] hover:border-[#f47c20]"
+              >
+                <FaFacebookF className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

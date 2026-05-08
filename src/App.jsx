@@ -28,11 +28,13 @@ function App() {
   return (
     <div className="flex min-h-screen flex-col bg-white text-slate-600">
       {!isAdminRoute && <Navbar />}
-      <main className={isAdminRoute ? 'flex-1' : 'flex-1 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8'}>
+      <main className={isAdminRoute ? 'flex-1' : 'mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8'}>
         <Routes>
-          <Route path="/" element={<Navigate to="/spares-service" replace />} />
+          <Route path="/" element={<Navigate to="/spares-service/home" replace />} />
           <Route path="/spares-service/home" element={<PremiumHome />} />
-          <Route path="/spares-service" element={<SparesHome />} />
+          <Route path="/spares-service" element={<Navigate to="/spares-service/about" replace />} />
+          <Route path="/spares-service/overview" element={<Navigate to="/spares-service/about" replace />} />
+          <Route path="/spares-service/about" element={<SparesHome />} />
           <Route path="/spares-service/products" element={<ProductsPage />} />
           <Route path="/spares-service/product/:id" element={<ProductDetails />} />
           <Route path="/spares-service/service" element={<ServicePage />} />
@@ -77,7 +79,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/spares-service" replace />} />
+          <Route path="*" element={<Navigate to="/spares-service/about" replace />} />
         </Routes>
       </main>
       {!isAdminRoute && <Footer />}

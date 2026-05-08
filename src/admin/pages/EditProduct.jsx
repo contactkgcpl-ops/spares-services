@@ -14,26 +14,39 @@ const EditProduct = () => {
     technicalDetails: '',
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [imageSource, setImageSource] = useState('');
 
   useEffect(() => {
-    const foundProduct = getProductById(id);
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const foundProduct = await getProductById(id);
 
-    if (!foundProduct) {
-      navigate('/admin/products', { replace: true });
-      return;
-    }
+        setFormData({
+          productName: foundProduct.productName || '',
+          description: foundProduct.description || '',
+          image: foundProduct.image || '',
+          category: foundProduct.category || '',
+          technicalDetails: foundProduct.technicalDetails || '',
+        });
+        if (foundProduct.image) {
+          setImageSource(foundProduct.image.startsWith('data:image') ? 'file' : 'url');
+        }
+      } catch (fetchError) {
+        if (fetchError?.response?.status === 404) {
+          navigate('/admin/products', { replace: true });
+          return;
+        }
+        setError(fetchError?.response?.data?.message || 'Failed to load product');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    setFormData({
-      productName: foundProduct.productName || '',
-      description: foundProduct.description || '',
-      image: foundProduct.image || '',
-      category: foundProduct.category || '',
-      technicalDetails: foundProduct.technicalDetails || '',
-    });
-    if (foundProduct.image) {
-      setImageSource(foundProduct.image.startsWith('data:image') ? 'file' : 'url');
-    }
+    fetchProduct();
   }, [id, navigate]);
 
   const handleChange = (event) => {
@@ -56,7 +69,7 @@ const EditProduct = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!formData.productName || !formData.description || !formData.category || !formData.technicalDetails || !formData.image) {
@@ -64,14 +77,27 @@ const EditProduct = () => {
       return;
     }
 
-    updateProduct(id, formData);
-    navigate('/admin/products', { state: { message: 'Product updated successfully' } });
+    try {
+      setSaving(true);
+      setError('');
+      await updateProduct(id, formData);
+      navigate('/admin/products', { state: { message: 'Product updated successfully' } });
+    } catch (submitError) {
+      setError(submitError?.response?.data?.message || 'Failed to update product');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-white">
       <Header title="Edit Product" />
       <div className="p-6 py-16">
+        {loading ? (
+          <div className="mx-auto max-w-3xl rounded-xl border border-slate-200 bg-[#f8fafc] p-6 text-sm text-slate-500 shadow-sm">
+            Loading product...
+          </div>
+        ) : (
         <form onSubmit={handleSubmit} className="mx-auto max-w-3xl space-y-4 rounded-xl border border-slate-200 bg-[#f8fafc] p-6 shadow-sm">
           <input
             name="productName"
@@ -139,11 +165,13 @@ const EditProduct = () => {
 
           <button
             type="submit"
+            disabled={saving}
             className="rounded-lg bg-[#f47c20] px-6 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#dc6e19]"
           >
-            Update Product
+            {saving ? 'Updating...' : 'Update Product'}
           </button>
         </form>
+        )}
       </div>
     </div>
   );

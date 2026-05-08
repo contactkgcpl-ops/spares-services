@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
-import heroGraphic from '../assets/hero-graphic.svg';
-import pumpImage from '../assets/product-pump.svg';
-import filterImage from '../assets/product-filter.svg';
-import controlImage from '../assets/product-control.svg';
-import motorImage from '../assets/product-motor.svg';
-import bearingImage from '../assets/product-bearing.svg';
-import valveImage from '../assets/product-valve.svg';
-import serviceImage from '../assets/service-graphic.svg';
+import heroGraphic from '../assets/hero-img.jpeg';
+import pumpImage from '../assets/img2.jpg';
+import filterImage from '../assets/img3.png';
+import controlImage from '../assets/img4.jpeg';
+import motorImage from '../assets/img5.jpeg';
+import bearingImage from '../assets/img6.jpeg';
+import valveImage from '../assets/Valves.jpeg';
+import serviceImage from '../assets/img7.jpeg';
+import automationImage from '../assets/img8.jpeg';
+import processImage from '../assets/img9.jpeg';
+import deliveryImage from '../assets/img10.jpeg';
+import manufacturingImage from '../assets/img11.jpeg';
+import facilityImage from '../assets/img12.jpeg';
 
 const companyStats = [
   { label: 'Years Experience', value: '18+' },
@@ -23,7 +28,7 @@ const categories = [
   { name: 'Bearings', image: bearingImage },
   { name: 'Filtration Systems', image: filterImage },
   { name: 'Valves', image: valveImage },
-  { name: 'Spare Parts', image: bearingImage },
+  { name: 'Spare Parts', image: manufacturingImage },
 ];
 
 const reasons = [
@@ -139,7 +144,7 @@ function PremiumHome() {
         </div>
         <div className="space-y-8">
           <div className="grid gap-6 rounded-xl border border-slate-200 bg-white p-5 lg:grid-cols-2 lg:items-center">
-            <img src={controlImage} alt="PLC panel and control automation systems" className="h-64 w-full rounded-xl bg-[#f8fafc] object-cover p-4" />
+            <img src={automationImage} alt="PLC panel and control automation systems" className="h-64 w-full rounded-xl bg-[#f8fafc] object-cover p-4" />
             <div className="space-y-3">
               <h3 className="text-2xl font-semibold tracking-tight text-[#0f172a]">Automation and control modernization</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -156,10 +161,10 @@ function PremiumHome() {
                 contamination-related downtime.
               </p>
             </div>
-            <img src={filterImage} alt="Industrial filtration systems and process equipment" className="order-1 h-64 w-full rounded-xl bg-white object-cover p-4 lg:order-2" />
+            <img src={processImage} alt="Industrial filtration systems and process equipment" className="order-1 h-64 w-full rounded-xl bg-white object-cover p-4 lg:order-2" />
           </div>
           <div className="grid gap-6 rounded-xl border border-slate-200 bg-white p-5 lg:grid-cols-2 lg:items-center">
-            <img src={serviceImage} alt="Industrial logistics and nationwide technical support" className="h-64 w-full rounded-xl bg-[#f8fafc] object-cover p-4" />
+            <img src={deliveryImage} alt="Industrial logistics and nationwide technical support" className="h-64 w-full rounded-xl bg-[#f8fafc] object-cover p-4" />
             <div className="space-y-3">
               <h3 className="text-2xl font-semibold tracking-tight text-[#0f172a]">Delivery, commissioning, and field support</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -204,7 +209,7 @@ function PremiumHome() {
               Connect with Engineering Team
             </a>
           </div>
-          <img src={pumpImage} alt="Industrial process equipment and engineering infrastructure" className="h-64 w-full rounded-xl bg-white/5 object-cover p-4" />
+          <img src={facilityImage} alt="Industrial facility and engineering infrastructure" className="h-64 w-full rounded-xl bg-white/5 object-cover p-4" />
         </div>
       </section>
     </div>

@@ -1,21 +1,24 @@
 import ServiceCard from '../components/ServiceCard';
-import serviceGraphic from '../assets/service-graphic.svg';
+import serviceGraphic from '../assets/img7.jpeg';
+import maintenanceImage from '../assets/img8.jpeg';
+import retrofitImage from '../assets/img2.jpg';
+import supportImage from '../assets/img3.png';
 
 const serviceOptions = [
   {
     title: 'Preventive Maintenance',
     description: 'Scheduled inspections, part audits and calibration to keep operations running without surprises.',
-    icon: serviceGraphic
+    icon: maintenanceImage
   },
   {
     title: 'Repair & Retrofit',
     description: 'Fast response repair teams and upgrade plans for older equipment with new performance metrics.',
-    icon: serviceGraphic
+    icon: retrofitImage
   },
   {
     title: 'Remote Support',
     description: 'Online diagnostics, process optimization and technical advisory for maintenance teams.',
-    icon: serviceGraphic
+    icon: supportImage
   }
 ];
 
