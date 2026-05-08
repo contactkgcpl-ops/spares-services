@@ -4,6 +4,16 @@
 
 :root {
   color-scheme: light;
+  --bg: #F6F3F0;
+  --card: #FBF7F1;
+  --panel: #F3EBE1;
+  --border-warm: #D3C2B6;
+  --text-strong: #25303B;
+  --text-muted: #5C6572;
+  --accent: #D87F2A;
+  --accent-dark: #B95F1C;
+  --surface-dark: #122136;
+  --shadow-soft: 0 12px 28px rgba(19, 20, 25, 0.08);
 }
 
 html {
@@ -11,12 +21,13 @@ html {
 }
 
 body {
-  @apply bg-white text-slate-600 antialiased;
+  @apply bg-[#F6F3F0] text-slate-700 antialiased;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 ::selection {
-  @apply bg-[#f47c20] text-white;
+  background-color: var(--accent);
+  color: white;
 }
 
 button,
@@ -27,10 +38,90 @@ select {
 }
 
 .hero-gradient {
-  background: radial-gradient(circle at top left, rgba(244, 124, 32, 0.12), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(148, 163, 184, 0.12), transparent 28%);
+  background: radial-gradient(circle at top left, rgba(216, 127, 42, 0.16), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(85, 104, 121, 0.12), transparent 28%);
 }
 
 .card-border {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-warm);
+}
+
+.bg-white {
+  background-color: var(--card) !important;
+}
+
+.border-slate-200 {
+  border-color: var(--border-warm) !important;
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-soft) !important;
+}
+
+.text-slate-600 {
+  color: var(--text-muted) !important;
+}
+
+.text-slate-500 {
+  color: #6B7482 !important;
+}
+
+.bg-\[\#f8fafc\] {
+  background-color: #F4ECE4 !important;
+}
+
+.bg-\[\#f47c20\] {
+  background-color: var(--accent) !important;
+}
+
+.bg-\[\#f47c20\]\/10 {
+  background-color: rgba(216, 127, 42, 0.12) !important;
+}
+
+.border-\[\#f47c20\] {
+  border-color: var(--accent) !important;
+}
+
+.text-\[\#f47c20\] {
+  color: var(--accent) !important;
+}
+
+.hover\:text-\[\#f47c20\]\:hover {
+  color: var(--accent) !important;
+}
+
+.hover\:border-\[\#f47c20\]\:hover {
+  border-color: var(--accent) !important;
+}
+
+.hover\:bg-\[\#dc6e19\]\:hover {
+  background-color: var(--accent-dark) !important;
+}
+
+.bg-\[\#07182f\] {
+  background-color: var(--surface-dark) !important;
+}
+
+.border-slate-700 {
+  border-color: #2D3A4A !important;
+}
+
+.bg-slate-800 {
+  background-color: #1F2C39 !important;
+}
+
+.text-\[\#0f172a\] {
+  color: #14212A !important;
+}
+
+.bg-blue-50 {
+  background-color: #F5EEE8 !important;
+}
+
+.bg-indigo-50 {
+  background-color: #EFF0ED !important;
+}
+
+.hover\:bg-orange-50\:hover {
+  background-color: rgba(216, 127, 42, 0.12) !important;
 }

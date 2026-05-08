@@ -86,9 +86,8 @@ function SparesHome() {
             </div>
           </div>
 
-          <div className="relative mx-auto max-w-xl">
-            <img src={heroGraphic} alt="Industrial equipment illustration" className="w-full rounded-lg border border-slate-200 bg-[#f8fafc] object-cover" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/90 to-transparent" />
+          <div className="relative mx-auto max-w-xl h-80">
+            <img src={heroGraphic} alt="Industrial equipment illustration" className="h-full w-full rounded-lg border border-slate-200 bg-[#f8fafc] object-contain" />
           </div>
         </div>
       </div>

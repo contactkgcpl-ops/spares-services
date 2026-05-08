@@ -9,10 +9,11 @@ function useProductFilter(products) {
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = normalizeSearch(query);
+    const normalizedCategory = normalizeSearch(category);
     return products.filter((product) => {
       const productName = product.title || product.name || '';
-      const matchesQuery = normalizeSearch(productName).includes(normalizedQuery);
-      const matchesCategory = category === 'All' || product.category === category;
+      const matchesQuery = normalizedQuery === '' || normalizeSearch(productName).includes(normalizedQuery);
+      const matchesCategory = normalizedCategory === 'all' || normalizeSearch(product.category) === normalizedCategory;
       return matchesQuery && matchesCategory;
     });
   }, [category, products, query]);

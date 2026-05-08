@@ -9,10 +9,10 @@ const navItems = [
 
 function Navbar() {
   return (
-    <header className="border-b border-slate-200 bg-white">
+    <header className="border-b border-[#D3C2B6] bg-[#FBF7F1]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-6 lg:px-8">
-        <Link to="/spares-service/about" className="flex items-center gap-3 text-lg font-bold tracking-tight text-[#0f172a]">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#f47c20] text-white">
+        <Link to="/spares-service/about" className="flex items-center gap-3 text-lg font-bold tracking-tight text-[#14212A]">
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#D87F2A] text-white shadow-sm">
             SS
           </span>
           <span>SPARES & SERVICE</span>
@@ -25,8 +25,7 @@ function Navbar() {
               to={item.to}
               end
               className={({ isActive }) =>
-                `border-b-2 pb-1 text-sm font-medium transition-all duration-300 ${
-                  isActive ? 'border-[#f47c20] text-[#f47c20]' : 'border-transparent text-slate-700 hover:text-[#f47c20]'
+                `border-b-2 pb-1 text-sm font-medium transition-all duration-300 ${isActive ? 'border-[#D87F2A] text-[#D87F2A]' : 'border-transparent text-slate-700 hover:text-[#D87F2A]'
                 }`
               }
             >
@@ -37,7 +36,7 @@ function Navbar() {
 
         <Link
           to="/spares-service/products"
-          className="rounded-lg bg-[#f47c20] px-6 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#dc6e19]"
+          className="rounded-lg bg-[#D87F2A] px-6 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#B95F1C] shadow-sm"
         >
           Explore Parts
         </Link>

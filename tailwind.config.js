@@ -3,13 +3,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: '#f47c20',
-        surface: '#0f172a',
-        panel: '#111827',
-        text: '#e2e8f0'
+        brand: '#d87f2a',
+        accent: '#d87f2a',
+        accentDark: '#b95f1c',
+        surface: '#122136',
+        panel: '#0f172a',
+        text: '#25303b'
       },
       boxShadow: {
-        soft: '0 18px 50px rgba(15, 23, 42, 0.18)'
+        soft: '0 18px 50px rgba(19, 20, 25, 0.12)'
       }
     }
   },

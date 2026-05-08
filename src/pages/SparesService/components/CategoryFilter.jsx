@@ -6,11 +6,10 @@ function CategoryFilter({ categories, selectedCategory, onCategoryChange }) {
           key={category}
           type="button"
           onClick={() => onCategoryChange(category)}
-          className={`rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
-            selectedCategory === category
-              ? 'bg-[#f47c20] text-white'
-              : 'border border-slate-200 bg-white text-slate-600 hover:-translate-y-1 hover:border-[#f47c20]'
-          }`}
+          className={`rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-300 ${selectedCategory === category
+              ? 'bg-[#D87F2A] text-white'
+              : 'border border-[#D3C2B6] bg-[#FBF7F1] text-slate-700 hover:-translate-y-1 hover:border-[#D87F2A]'
+            }`}
         >
           {category}
         </button>

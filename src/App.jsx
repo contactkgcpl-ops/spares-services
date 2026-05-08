@@ -15,7 +15,7 @@ import AddProduct from './admin/pages/AddProduct';
 import EditProduct from './admin/pages/EditProduct';
 
 const AdminShell = ({ children }) => (
-  <div className="flex min-h-screen bg-white text-slate-600">
+  <div className="flex min-h-screen bg-[#F6F3F0] text-slate-700">
     <Sidebar />
     <div className="flex-1">{children}</div>
   </div>
@@ -26,7 +26,7 @@ function App() {
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-slate-600">
+    <div className="flex min-h-screen flex-col bg-[#F6F3F0] text-slate-700">
       {!isAdminRoute && <Navbar />}
       <main className={isAdminRoute ? 'flex-1' : 'mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8'}>
         <Routes>
