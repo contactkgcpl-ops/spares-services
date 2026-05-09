@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="flex min-h-screen flex-col bg-[#F6F3F0] text-slate-700">
       {!isAdminRoute && <Navbar />}
-      <main className={isAdminRoute ? 'flex-1' : isHomePage ? 'flex-1' : 'mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8'}>
+      <main className={isAdminRoute ? 'flex-1' : isHomePage ? 'flex-1' : 'w-full'}>
         <Routes>
           <Route path="/" element={<Navigate to="/spares-service/home" replace />} />
           <Route path="/spares-service/home" element={<PremiumHome />} />

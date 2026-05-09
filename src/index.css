@@ -31,6 +31,18 @@
 html { scroll-behavior: smooth; }
 
 body {
+  margin: 0;
+  padding: 0;
+  background: white;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  background: white;
+}
+
+body {
   @apply antialiased;
   background-color: var(--bg);
   color: var(--text-muted);

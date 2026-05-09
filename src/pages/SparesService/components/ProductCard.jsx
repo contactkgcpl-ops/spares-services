@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { MessageCircle, ArrowRight, Package } from 'lucide-react';
 
 function ProductCard({ product }) {
   const productTitle = product.title || product.name;
 
-  const handleWhatsAppQuote = () => {
+  const handleWhatsAppQuote = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     const message = `Hello, I want a quote for ${productTitle}${product.category ? ` (${product.category})` : ''}`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/919023979663?text=${encodedMessage}`;
@@ -11,38 +15,63 @@ function ProductCard({ product }) {
   };
 
   return (
-    <Link
-      to={`/spares-service/product/${product.id}`}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-[#D3C2B6] bg-[#FBF7F1] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#D87F2A]"
+    <motion.div
+      whileHover={{ y: -8, shadow: "0 20px 40px rgba(30,42,74,0.15)" }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="group h-full"
     >
-      <div className="flex items-center justify-between gap-4">
-        <span className="rounded-full bg-[#D87F2A]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-[#D87F2A]">
-          {product.category}
-        </span>
-        <img src={product.image} alt={productTitle} className="h-20 w-20 rounded-lg object-cover" />
-      </div>
-      <h3 className="mt-6 text-lg font-semibold text-[#14212A] transition group-hover:text-[#D87F2A]">
-        {productTitle}
-      </h3>
-      <p className="mt-3 text-sm leading-relaxed text-slate-600">{product.description}</p>
-      <div className="mt-auto flex items-center justify-between gap-3 pt-5">
-        <div className="inline-flex items-center gap-2 text-sm font-medium text-[#f47c20]">
-          View details <span aria-hidden="true">&rarr;</span>
+      <Link
+        to={`/spares-service/product/${product.id}`}
+        className="flex h-full flex-col bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 p-5 border border-slate-100"
+      >
+        {/* Product Image */}
+        <div className="flex justify-center mb-4">
+          <img 
+            src={product.image} 
+            alt={productTitle} 
+            className="w-full h-44 object-contain mx-auto transition-transform duration-300 group-hover:scale-105" 
+          />
         </div>
 
-        <button
-          onClick={handleWhatsAppQuote}
-          className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-green-700 hover:scale-105"
-          title="Get a Quote via WhatsApp"
-        >
-          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-.595-.149-.893 0l-.495.492c-.057.057-.114.122-.114.187 0 .415.336.75.75.75h4.5c.415 0 .75-.335.75-.75s-.335-.75-.75-.75h-4.492l-.492-.491c-.298-.149-.595-.149-.893 0l-7.5 7.5c-.149.298-.149.595 0 .893l7.5 7.5c.149.298.149.595 0 .893z" />
-            <path d="M12.016 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10zm0 17.5c-4.136 0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5-3.364 7.5-7.5z" />
-          </svg>
-          Get a Quote
-        </button>
-      </div>
-    </Link>
+        {/* Product Category Badge */}
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <div className="flex-1">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-500/10 to-orange-600/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-orange-600 border border-orange-200/50">
+              <Package className="h-3 w-3" />
+              {product.category || 'Industrial'}
+            </span>
+          </div>
+        </div>
+
+        {/* Product Content */}
+        <div className="flex-1 flex flex-col">
+          <h3 className="text-2xl font-bold text-slate-900 leading-tight mb-3 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300">
+            {productTitle}
+          </h3>
+          
+          <p className="text-sm leading-relaxed text-slate-600 mb-6 line-clamp-3 flex-1">
+            {product.description || 'High-quality industrial component designed for reliable performance in demanding applications.'}
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex items-center justify-between gap-3 pt-4 border-t border-gray-100">
+            <div className="flex items-center gap-2 text-sm font-semibold text-orange-500 group-hover:text-orange-600 transition-colors duration-300">
+              <span>View Details</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
+
+            <button
+              onClick={handleWhatsAppQuote}
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-green-500 to-green-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-green-500/40 hover:-translate-y-0.5 hover:from-green-600 hover:to-green-700"
+              title="Get a Quote via WhatsApp"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span className="hidden sm:inline">Quote</span>
+            </button>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
   );
 }
 

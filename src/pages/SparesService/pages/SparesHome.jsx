@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import useProductFilter from '../hooks/useProductFilter';
-import ProductCard from '../components/ProductCard';
-import SearchBar from '../components/SearchBar';
-import CategoryFilter from '../components/CategoryFilter';
 import heroGraphic from '../assets/hero-img.jpeg';
+import { ShieldCheck, Cog, Zap, Users, Factory, Briefcase, ArrowRight, Target, Award, Lightbulb, CheckCircle2 } from 'lucide-react';
 
 const resolveApiBaseUrl = () => {
   if (import.meta.env.VITE_API_BASE_URL) {
@@ -27,7 +25,7 @@ function SparesHome() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { categories, category, filteredProducts, query, setCategory, setQuery } = useProductFilter(products);
+  const { filteredProducts } = useProductFilter(products);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,90 +51,159 @@ function SparesHome() {
   }, []);
 
   return (
-    <section id="about" className="space-y-12 py-16">
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white p-8 sm:p-10 hero-gradient shadow-sm">
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
-          <div className="space-y-6">
-            <span className="inline-flex items-center rounded-full bg-[#f47c20]/10 px-4 py-2 text-sm font-medium text-[#f47c20]">
-              Industrial spare parts & service platform
-            </span>
-            <div className="space-y-4">
-              <h1 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
-                Reliable spares, optimized service, better uptime.
-              </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-slate-600">
-                Discover modern replacement parts, preventive maintenance packages, and engineering support built for heavy industry.
+    <div className="w-full bg-white overflow-x-hidden font-sans">
+      
+      {/* 1. CORPORATE HERO SECTION */}
+      <section className="relative bg-[#EEF2F7] pt-32 pb-24 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white rounded-l-full opacity-50 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <h2 className="text-[#FF7A1A] text-sm font-bold tracking-[0.2em] uppercase">About Salvin Industries</h2>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F1E4A] leading-tight">
+              Driving Industrial Excellence Forward
+            </h1>
+            <p className="text-xl text-slate-600 font-medium max-w-lg leading-relaxed">
+              We deliver premium mechanical solutions, reliable automation components, and expert support tailored for modern manufacturing.
+            </p>
+            <div>
+              <Link to="/spares-service/products" className="inline-flex items-center gap-2 bg-[#0F1E4A] text-white px-8 py-4 rounded-lg font-bold hover:bg-[#162B68] transition-colors duration-300">
+                Explore Our Solutions
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="absolute -left-8 -bottom-8 w-64 h-64 bg-[#FF7A1A]/10 rounded-full blur-3xl z-0 pointer-events-none"></div>
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80" alt="Corporate Facility" className="relative z-10 w-full h-[550px] object-cover rounded-tr-[5rem] rounded-bl-[5rem] shadow-xl" />
+          </div>
+        </div>
+      </section>
+
+      {/* 2. COMPANY STORY (ALTERNATING LAYOUTS) */}
+      <section className="py-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto space-y-32">
+          
+          {/* Block 1: Who We Are (Image Left, Text Right) */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1 relative">
+               <div className="w-full h-[450px] bg-[#EEF2F7] rounded-3xl p-4">
+                 <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&w=800&q=80" alt="Who We Are" className="w-full h-full object-cover rounded-2xl shadow-sm" />
+               </div>
+            </div>
+            <div className="order-1 lg:order-2 space-y-6">
+              <h3 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Who We Are</h3>
+              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+                Salvin Industries is a leading provider of industrial spare parts and automated systems. Founded on the principle of uncompromised quality, we have spent years building a robust supply chain that heavy industries rely on daily.
+              </p>
+              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+                Our team consists of seasoned engineers and dedicated support staff who understand that in modern manufacturing, every second of downtime counts.
               </p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Link
-                to="/spares-service/products"
-                className="rounded-lg bg-[#f47c20] px-6 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#dc6e19]"
-              >
-                Browse catalog
-              </Link>
-              <Link
-                to="/spares-service/service"
-                className="rounded-lg border border-slate-200 bg-white px-6 py-2.5 text-sm font-medium text-slate-700 transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]"
-              >
-                Learn about services
-              </Link>
+          </div>
+
+          {/* Block 2: Our Mission (Text Left, Image Right) */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-6">
+              <h3 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Our Mission</h3>
+              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+                Our mission is to empower industrial facilities globally by providing top-tier mechanical components and smart automation solutions. We strive to be the invisible force that keeps your operations running at peak efficiency.
+              </p>
+              <ul className="space-y-4 pt-2">
+                {[
+                  'Minimize operational downtime',
+                  'Provide highly durable engineering components',
+                  'Deliver continuous technical support'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-6 h-6 text-[#FF7A1A]" />
+                    <span className="font-bold text-[#0F1E4A] text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative">
+               <div className="w-full h-[450px] bg-[#0F1E4A] rounded-3xl p-4">
+                 <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80" alt="Our Mission" className="w-full h-full object-cover rounded-2xl opacity-90 shadow-sm" />
+               </div>
             </div>
           </div>
 
-          <div className="relative mx-auto max-w-xl h-80">
-            <img src={heroGraphic} alt="Industrial equipment illustration" className="h-full w-full rounded-lg border border-slate-200 bg-[#f8fafc] object-contain" />
-          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-8 shadow-sm">
-          <h2 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">Search parts in one place</h2>
-          <p className="mt-3 text-slate-600 leading-relaxed">Use instant search and category filters to locate the spare part you need without delay.</p>
-          <div className="mt-6 space-y-6">
-            <SearchBar query={query} onChange={setQuery} />
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.24em] text-slate-500">Browse by category</p>
-              <div className="mt-4">
-                <CategoryFilter categories={categories} selectedCategory={category} onCategoryChange={setCategory} />
+      {/* 3. WHY COMPANIES TRUST US (HORIZONTAL ICONS) */}
+      <section className="py-24 px-6 bg-[#EEF2F7]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Why Companies Trust Us</h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: 'Reliable Solutions', icon: ShieldCheck },
+              { title: 'Fast Support', icon: Zap },
+              { title: 'Industrial Experience', icon: Factory },
+              { title: 'Quality Products', icon: Award }
+            ].map((feature, i) => (
+              <div key={i} className="flex items-center gap-4 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                <div className="w-12 h-12 flex-shrink-0 bg-[#EEF2F7] rounded-full flex items-center justify-center">
+                  <feature.icon className="w-6 h-6 text-[#FF7A1A]" />
+                </div>
+                <h4 className="text-lg font-bold text-[#0F1E4A]">{feature.title}</h4>
               </div>
-            </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
-          <p className="text-sm uppercase tracking-[0.24em] text-[#f47c20]">Current catalog</p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">{filteredProducts.length} parts matching your selection</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {loading ? (
-              <p className="text-sm text-slate-500">Loading products...</p>
-            ) : error ? (
-              <p className="text-sm text-red-500">{error}</p>
-            ) : filteredProducts.length === 0 ? (
-              <p className="text-sm text-slate-500">No products found.</p>
-            ) : (
-              filteredProducts.map((product) => <ProductCard key={product.id} product={product} />)
-            )}
+
+
+      {/* 5. INDUSTRIES WE SERVE (LARGE IMAGE CARDS) */}
+      <section className="py-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-[#FF7A1A] text-sm font-bold tracking-[0.2em] uppercase mb-4">Core Focus</h2>
+            <h3 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Industries We Serve</h3>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { title: 'Automation', desc: 'Advanced control systems and integration for modern manufacturing.', img: 'https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&w=800&q=80' },
+              { title: 'Pneumatic Systems', desc: 'High-pressure air systems driving heavy mechanical operations.', img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80' },
+              { title: 'Robotics', desc: 'Precision robotic arms and intelligent assembly line components.', img: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=800&q=80' },
+              { title: 'Processing Machinery', desc: 'Durable components engineered for continuous material processing.', img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80' }
+            ].map((industry, i) => (
+              <div key={i} className="group relative h-[350px] rounded-2xl overflow-hidden shadow-sm">
+                <img src={industry.img} alt={industry.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E4A] via-[#0F1E4A]/60 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 w-full p-10">
+                  <h4 className="text-3xl font-extrabold text-white mb-3">{industry.title}</h4>
+                  <p className="text-blue-100 text-lg font-medium max-w-sm">{industry.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
-          <h3 className="text-lg font-semibold text-slate-900">Precision sourcing</h3>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">Every spare part is selected for fit, durability, and compatibility with industrial equipment.</p>
+      {/* 6. CTA SECTION */}
+      <section className="py-24 px-6 bg-[#EEF2F7] pb-20 mb-0">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F1E4A] leading-tight">
+            Ready to Upgrade Your Industrial Supply Chain?
+          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <a href="mailto:info.salvinindustries@gmail.com" className="inline-flex items-center gap-2 bg-[#FF7A1A] text-white px-10 py-5 rounded-lg font-bold hover:bg-[#e66a12] transition-colors duration-300">
+              Partner With Us
+            </a>
+            <Link to="/spares-service/products" className="inline-flex items-center gap-2 border-2 border-[#0F1E4A] text-[#0F1E4A] px-10 py-5 rounded-lg font-bold hover:bg-[#0F1E4A] hover:text-white transition-colors duration-300">
+              View Product Catalog
+            </Link>
+          </div>
         </div>
-        <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
-          <h3 className="text-lg font-semibold text-slate-900">Fast track support</h3>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">Field service, commissioning, and repair available for shutdown windows and urgent replacements.</p>
-        </div>
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
-          <h3 className="text-lg font-semibold text-slate-900">Connected maintenance</h3>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">Track part lifecycle and get service recommendations that reduce downtime and increase reliability.</p>
-        </div>
-      </div>
-    </section>
+      </section>
+
+    </div>
   );
 }
 
