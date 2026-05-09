@@ -21,7 +21,7 @@ const navLinks = [
 function Footer() {
   return (
     <footer className="border-t border-[#2D3A4A] bg-[#122136] text-slate-300">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1700px] px-6 py-16 sm:px-10 lg:px-16 xl:px-24">
         <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr_1fr]">
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold tracking-wide text-white">Salvin Industrial</h2>

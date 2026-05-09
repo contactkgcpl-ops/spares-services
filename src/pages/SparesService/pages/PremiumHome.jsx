@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Factory, ShieldCheck, Truck, Sparkles, SlidersHorizontal, MapPin, Box, Globe, Clock4 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Truck, Box, Star, Quote, Clock4, CreditCard, CheckCircle2 } from 'lucide-react';
+
 import heroGraphic from '../assets/hero-img.jpeg';
 import pumpImage from '../assets/img2.jpg';
 import filterImage from '../assets/img3.png';
@@ -8,19 +9,14 @@ import controlImage from '../assets/img4.jpeg';
 import motorImage from '../assets/img5.jpeg';
 import bearingImage from '../assets/img6.jpeg';
 import valveImage from '../assets/Valves.jpeg';
-import serviceImage from '../assets/img7.jpeg';
-import automationImage from '../assets/img8.jpeg';
-import processImage from '../assets/img9.jpeg';
-import deliveryImage from '../assets/img10.jpeg';
 import manufacturingImage from '../assets/img11.jpeg';
-import facilityImage from '../assets/img12.jpeg';
 
-const companyStats = [
-  { label: 'Years Experience', value: '18+', icon: Factory },
-  { label: 'Projects', value: '420+', icon: Box },
-  { label: 'Industries Served', value: '28', icon: Globe },
-  { label: 'Technical Support', value: '24/7', icon: ShieldCheck },
-];
+import pickPlaceImg from '../assets/img8.jpeg';
+import roboticArmImg from '../assets/img5.jpeg';
+
+import heroMain from "../assets/heromain-removebg-preview.jpg";
+import menuImg from "../assets/1m-removebg-preview.jpg";
+import robotImg from "../assets/2m-removebg-preview.jpg";
 
 const categories = [
   { name: 'Pump Systems', image: pumpImage },
@@ -33,371 +29,261 @@ const categories = [
   { name: 'Spare Parts', image: manufacturingImage },
 ];
 
-const reasons = [
-  { title: 'Fast Delivery', icon: Truck },
-  { title: 'Industrial Expertise', icon: Factory },
-  { title: 'Genuine Spare Parts', icon: Box },
-  { title: 'Technical Support', icon: ShieldCheck },
-  { title: 'Custom Solutions', icon: SlidersHorizontal },
-  { title: 'Nationwide Supply', icon: Globe },
+const trustFeatures = [
+  { title: 'Fast Delivery', desc: 'Nationwide industrial dispatch', icon: Truck },
+  { title: 'Secure Service', desc: 'Protected transactions & data', icon: ShieldCheck },
+  { title: '24/7 Support', desc: 'Dedicated engineering team', icon: Clock4 },
+  { title: 'Quality Assurance', desc: '100% genuine guaranteed', icon: CheckCircle2 },
 ];
 
-const workflow = [
-  { label: 'Inquiry', icon: MapPin },
-  { label: 'Consultation', icon: ShieldCheck },
-  { label: 'Sourcing', icon: Box },
-  { label: 'Quality Check', icon: Sparkles },
-  { label: 'Dispatch', icon: Truck },
-  { label: 'Support', icon: Clock4 },
+const testimonials = [
+  { 
+    name: 'Rajesh Sharma', 
+    role: 'Operations Head',
+    company: 'TechFlow Industries', 
+    text: 'Salvin has completely transformed our spare parts sourcing. Their fast delivery and technical support are unmatched in the industry. Highly recommended for heavy automation.',
+    avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
+  },
+  { 
+    name: 'Vikram Singh', 
+    role: 'Chief Engineer',
+    company: 'Prime Manufacturing', 
+    text: 'High quality pneumatic spares and reliable PLCs. We trust Salvin for all our critical plant automation and modernization needs. The engineering depth they provide is excellent.',
+    avatar: 'https://randomuser.me/api/portraits/men/46.jpg'
+  },
+  { 
+    name: 'Anita Desai', 
+    role: 'Plant Manager',
+    company: 'Apex Process Systems', 
+    text: 'The engineering team at Salvin is exceptional. They understand our requirements perfectly and deliver genuine parts right on time, every time. A true industrial partner.',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg'
+  }
 ];
+
+/* ── animation presets ─────────────────────────── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (d = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: d } }),
+};
+
+/* ── reusable section label ────────────────────── */
+const SectionLabel = ({ icon: Icon, children }) => (
+  <div className="inline-flex items-center gap-2.5 text-[11px] font-black uppercase tracking-[0.2em] text-[#1E2A4A] mb-4 bg-white/60 backdrop-blur-md px-4 py-2 rounded-full border border-gray-200/60 shadow-sm">
+    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+    {Icon && <Icon className="w-3.5 h-3.5 text-blue-600" />}
+    <span>{children}</span>
+  </div>
+);
 
 function PremiumHome() {
   return (
-    <div className="space-y-20 pb-8">
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-        className="relative overflow-hidden rounded-2xl border border-[#D3C2B6]/60 bg-gradient-to-br from-[#FBF7F1] via-[#FBF7F1] to-[#F4ECE4]"
-      >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute -right-32 top-12 h-96 w-96 rounded-full bg-[#D87F2A]/8 blur-3xl" />
-          <div className="absolute -left-28 -bottom-12 h-80 w-80 rounded-full bg-[#D87F2A]/5 blur-3xl" />
-          <div className="absolute right-1/3 top-1/2 h-48 w-48 rounded-full bg-[#122136]/3 blur-2xl" />
-        </div>
-        <div className="relative grid gap-12 px-8 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:px-14 lg:py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-            className="space-y-8"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="inline-flex items-center gap-3 rounded-full border border-[#D87F2A]/30 bg-gradient-to-r from-[#D87F2A]/15 to-[#D87F2A]/5 px-5 py-3 text-sm font-semibold text-[#D87F2A] shadow-sm backdrop-blur-sm"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-[#D87F2A]/30 blur-sm" />
-                <Factory className="relative h-5 w-5" />
+    <div className="bg-[#EEF2F7] min-h-screen text-[#536488] font-sans antialiased overflow-x-hidden relative">
+      
+
+
+      {/* ═══════════  1. HERO SECTION  ═══════════ */}
+      <section className="bg-[#EEF2F7] px-6 py-6 lg:px-10 xl:px-12 pb-10">
+        <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-6 lg:gap-8 lg:grid-cols-[1.25fr_1fr]">
+
+          {/* LEFT BIG CARD */}
+          <div className="flex min-h-[440px] items-center justify-between rounded-[24px] bg-white p-8 lg:p-10 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white">
+            <div className="max-w-xl flex flex-col justify-center">
+              <span className="mb-4 inline-flex w-fit rounded-full bg-[#EEF2F7] px-4 py-1.5 text-[13px] font-bold tracking-wide text-[#1E2A4A]">
+                Premium Industrial Partner
+              </span>
+
+              <h1 className="text-4xl font-extrabold leading-[1.1] text-[#1E2A4A] md:text-4xl lg:text-5xl tracking-tight">
+                High-Quality
+                <br />
+                Pneumatic Spares &
+                <br />
+                Industrial Parts
+              </h1>
+
+              <p className="mt-5 max-w-lg text-[1.05rem] leading-relaxed text-[#536488] font-medium pr-4">
+                Easy to find quality pneumatic parts with quick delivery
+                and dependable engineering service.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <button className="rounded-xl bg-[#1E2A4A] px-8 py-4 text-[15px] font-bold text-white shadow-[0_4px_14px_rgba(30,42,74,0.15)] transition hover:bg-blue-600">
+                  Shop Now →
+                </button>
+
+                <button className="rounded-xl border border-gray-200 bg-white px-8 py-4 text-[15px] font-bold text-[#1E2A4A] transition hover:bg-[#EEF2F7]">
+                  Explore Catalog
+                </button>
               </div>
-              Industrial Engineering Excellence
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
-              className="text-3xl font-bold tracking-tight text-[#14212A] lg:text-5xl xl:text-6xl leading-tight"
-            >
-              Advanced Industrial Spare & Process Solutions
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-              className="max-w-2xl text-lg leading-relaxed text-slate-700"
-            >
-              Delivering dependable components, automation expertise, and lifecycle support for critical plant operations
-              across manufacturing and process industries.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.25 }}
-              className="flex flex-wrap gap-4 pt-2"
-            >
-              <Link
-                to="/spares-service/products"
-                className="group relative inline-flex items-center gap-3 rounded-xl bg-gradient-to-br from-[#D87F2A] to-[#B95F1C] px-8 py-4 text-base font-semibold text-white shadow-xl shadow-[#D87F2A]/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#D87F2A]/35 active:translate-y-0"
-              >
-                <span>Explore Products</span>
-                <motion.div
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ArrowRight className="h-5 w-5" />
-                </motion.div>
-              </Link>
-              <a
-                href="mailto:info@salvinindustries.com"
-                className="group inline-flex items-center gap-3 rounded-xl border-2 border-[#D87F2A] bg-white/50 px-8 py-4 text-base font-semibold text-[#14212A] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#B95F1C] hover:bg-white hover:text-[#D87F2A] hover:shadow-lg hover:shadow-[#D87F2A]/15"
-              >
-                <span>Contact Team</span>
-                <motion.div
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ArrowRight className="h-5 w-5 text-[#D87F2A]" />
-                </motion.div>
-              </a>
-            </motion.div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-            className="group relative"
-          >
-            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[#D87F2A]/20 via-transparent to-[#D87F2A]/10 blur-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            <div className="relative rounded-2xl border-2 border-[#D3C2B6] bg-gradient-to-br from-white to-[#F4ECE4] p-4 shadow-xl shadow-[#D87F2A]/10 transition-all duration-500 group-hover:border-[#D87F2A]/30 group-hover:shadow-2xl group-hover:shadow-[#D87F2A]/15">
+            </div>
+
+            {/* MAIN IMAGE */}
+            <div className="relative flex items-center justify-center bg-transparent">
               <img
-                src={heroGraphic}
-                alt="Industrial operations and engineering systems"
-                className="h-72 w-full rounded-xl object-cover ring-4 ring-[#F6F3F0] transition-transform duration-500 group-hover:scale-105"
+                src={heroMain}
+                alt="Industrial Product"
+                className="w-[420px] lg:w-[500px] object-contain"
               />
             </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="rounded-2xl border border-[#D3C2B6]/60 bg-gradient-to-br from-[#F4ECE4] via-white to-[#FBF7F1] px-8 py-20 lg:px-14 lg:py-24"
-      >
-        <div className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr]">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="space-y-6"
-          >
-            <div className="inline-flex items-center gap-3 text-sm uppercase tracking-[0.2em] font-semibold text-[#D87F2A]">
-              <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-[#D87F2A]/30 blur-sm" />
-                <Sparkles className="relative h-5 w-5" />
-              </div>
-              Who We Are
-            </div>
-            <h2 className="text-3xl font-bold tracking-tight text-[#14212A] lg:text-5xl leading-tight">
-              Engineering-first industrial partner
-            </h2>
-            <p className="text-lg text-slate-700 leading-relaxed max-w-xl">
-              We support plant reliability with integrated spare sourcing, process system understanding, and automation-backed
-              service. Our team works directly with operations and maintenance units to maintain uptime and improve process
-              performance through practical, field-ready solutions.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
-            className="grid grid-cols-2 gap-6"
-          >
-            {companyStats.map((stat, index) => {
-              const StatIcon = stat.icon;
-              return (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
-                  whileHover={{ y: -6 }}
-                  className="group relative rounded-2xl border border-[#D3C2B6] bg-gradient-to-br from-white to-[#FBF7F1] p-6 shadow-lg shadow-[#D87F2A]/5 transition-all duration-300 hover:border-[#D87F2A]/40 hover:shadow-xl hover:shadow-[#D87F2A]/12"
-                >
-                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[#D87F2A]/10 to-transparent opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#D87F2A]/15 to-[#D87F2A]/5 text-[#D87F2A] shadow-md shadow-[#D87F2A]/10 transition-all duration-300 group-hover:from-[#D87F2A]/25 group-hover:to-[#D87F2A]/10 group-hover:shadow-lg group-hover:shadow-[#D87F2A]/15">
-                    <StatIcon className="h-6 w-6" />
-                  </div>
-                  <p className="mt-5 text-3xl font-bold tracking-tight text-[#14212A]">
-                    {stat.value}
-                  </p>
-                  <p className="mt-2 text-sm font-medium text-slate-600 uppercase tracking-wide">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="space-y-8"
-      >
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#D87F2A]">
-            <SlidersHorizontal className="h-4 w-4" />
-            Product Categories
           </div>
-          <h2 className="text-3xl font-semibold tracking-tight text-[#14212A] md:text-4xl">Built for demanding industrial environments</h2>
+
+          {/* RIGHT SIDE CARDS */}
+          <div className="flex flex-col gap-6 lg:gap-8">
+
+            {/* CARD 1 */}
+            <div className="flex min-h-[204px] flex-1 items-center justify-between rounded-[24px] bg-white p-8 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
+              <div className="flex flex-col h-full justify-center">
+                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-blue-600">
+                  Featured Item
+                </p>
+
+                <h3 className="text-2xl font-extrabold leading-tight text-[#1E2A4A]">
+                  Pick & Place
+                  <br />
+                  System
+                </h3>
+              </div>
+
+              <div className="relative flex items-center justify-center bg-transparent">
+                <img
+                  src={menuImg}
+                  alt="Pick & Place"
+                  className="w-[180px] object-contain"
+                />
+              </div>
+            </div>
+
+            {/* CARD 2 */}
+            <div className="flex min-h-[204px] flex-1 items-center justify-between rounded-[24px] bg-white p-8 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
+              <div className="flex flex-col h-full justify-center">
+                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-blue-600">
+                  Automation
+                </p>
+
+                <h3 className="text-2xl font-extrabold leading-tight text-[#1E2A4A]">
+                  Robotic Arm
+                </h3>
+              </div>
+
+              <div className="relative flex items-center justify-center bg-transparent">
+                <img
+                  src={robotImg}
+                  alt="Robotic Arm"
+                  className="w-[180px] object-contain"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      </section>
+
+      {/* ═══════════  2. OUR CATEGORIES  ═══════════ */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        className="py-12 md:py-20 px-6 sm:px-10 lg:px-16 xl:px-24 mx-auto max-w-[1700px] relative z-10"
+      >
+        <motion.div variants={fadeUp} custom={0} className="mb-14 flex flex-col items-center text-center">
+          <SectionLabel icon={Box}>Our Categories</SectionLabel>
+          <h2 className="text-3xl md:text-[2.5rem] font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
           {categories.map((category, idx) => (
-            <motion.article
+            <motion.div
               key={`${category.name}-${idx}`}
-              whileHover={{ y: -4 }}
-              className="rounded-xl border border-[#D3C2B6] bg-white p-4 shadow-sm transition-all duration-300 hover:border-[#D87F2A]"
+              variants={fadeUp}
+              custom={0.05 + idx * 0.05}
+              className="bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,42,74,0.02)] overflow-hidden group hover:border-blue-200 hover:shadow-[0_20px_40px_rgba(37,99,235,0.08)] transition-all duration-500 cursor-pointer flex flex-col"
             >
-              <img src={category.image} alt={category.name} className="h-40 w-full rounded-xl bg-[#F4ECE4] object-cover p-4" />
-              <h3 className="mt-4 text-lg font-semibold text-[#14212A]">{category.name}</h3>
-            </motion.article>
+              <div className="p-8 flex justify-center items-center bg-gradient-to-b from-white to-gray-50/50 h-[220px] relative overflow-hidden">
+                <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/[0.02] transition-colors duration-500"></div>
+                <img src={category.image} alt={category.name} className="relative z-10 max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply drop-shadow-sm" />
+              </div>
+              <div className="px-6 py-5 border-t border-gray-50 bg-white text-center flex-1 flex items-center justify-center">
+                <h3 className="text-[1.1rem] font-bold text-[#1E2A4A] group-hover:text-blue-600 transition-colors duration-300">{category.name}</h3>
+              </div>
+            </motion.div>
           ))}
         </div>
       </motion.section>
 
+      {/* ═══════════  3. TESTIMONIALS (REDESIGNED)  ═══════════ */}
       <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="rounded-xl border border-[#D3C2B6] bg-[#F4ECE4] px-6 py-16 lg:px-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        className="py-16 md:py-24 px-6 sm:px-10 lg:px-16 xl:px-24 mx-auto max-w-[1700px] relative z-10"
       >
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#D87F2A]">
-            <ShieldCheck className="h-4 w-4" />
-            Why Choose Us
-          </div>
-          <h2 className="text-3xl font-semibold tracking-tight text-[#14212A] md:text-4xl">Performance with accountability</h2>
-        </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {reasons.map((reason) => {
-            const ReasonIcon = reason.icon;
-            return (
-              <motion.div
-                key={reason.title}
-                whileHover={{ y: -4 }}
-                className="rounded-xl border border-[#D3C2B6] bg-white p-4 shadow-sm transition-all duration-300 hover:border-[#D87F2A]"
-              >
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#D87F2A]/10 text-[#D87F2A] shadow-sm">
-                  <ReasonIcon className="h-5 w-5" />
+        <motion.div variants={fadeUp} custom={0} className="mb-16 flex flex-col items-center text-center">
+          <SectionLabel icon={Star}>Client Reviews</SectionLabel>
+          <h2 className="text-3xl md:text-[2.5rem] font-extrabold text-[#0B1527] tracking-tight">Trusted by industry leaders</h2>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {testimonials.map((review, idx) => (
+            <motion.div
+              key={idx}
+              variants={fadeUp}
+              custom={0.1 + idx * 0.1}
+              className="bg-white p-10 rounded-[24px] border border-gray-100 shadow-[0_8px_30px_rgb(30,42,74,0.03)] hover:shadow-[0_20px_40px_rgba(30,42,74,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative group"
+            >
+              <div className="absolute top-0 right-10 w-20 h-24 bg-gradient-to-b from-blue-50/50 to-transparent rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+              
+              <Quote className="absolute top-10 right-10 w-12 h-12 text-[#EEF2F7] opacity-60 group-hover:text-blue-100 transition-colors duration-500 z-10" />
+              
+              <div className="flex text-amber-400 mb-8 gap-1 relative z-10">
+                {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 fill-current" />)}
+              </div>
+              
+              <p className="text-[1.1rem] leading-relaxed text-[#536488] mb-10 flex-1 font-medium relative z-10">
+                "{review.text}"
+              </p>
+              
+              <div className="flex items-center gap-5 border-t border-gray-100 pt-6 relative z-10">
+                <img src={review.avatar} alt={review.name} className="w-14 h-14 rounded-full object-cover shadow-[0_4px_10px_rgba(0,0,0,0.08)] border-2 border-white group-hover:scale-105 transition-transform duration-300" />
+                <div>
+                  <h4 className="font-extrabold text-[#0B1527] text-base">{review.name}</h4>
+                  <p className="text-[13px] font-semibold text-[#536488]">{review.role}, <span className="text-blue-600">{review.company}</span></p>
                 </div>
-                <p className="mt-4 text-base font-medium text-[#14212A]">{reason.title}</p>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </motion.section>
 
-      <section className="space-y-10">
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#D87F2A]">
-            <Factory className="h-4 w-4" />
-            Industrial Solutions
+      {/* ═══════════  4. POLICY / WHY CHOOSE US  ═══════════ */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+        className="py-8 md:py-16 px-6 sm:px-10 lg:px-16 xl:px-24 mx-auto max-w-[1700px] mb-8 relative z-20"
+      >
+        <div className="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(30,42,74,0.03)] border border-gray-100/80 p-6 md:p-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
+            {trustFeatures.map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div 
+                  key={feature.title}
+                  variants={fadeUp}
+                  custom={idx * 0.1}
+                  className={`flex flex-col sm:flex-row items-center sm:items-start gap-5 px-2 lg:px-8 group cursor-default text-center sm:text-left ${idx > 1 ? 'pt-6 lg:pt-0' : ''}`}
+                >
+                  <div className="w-14 h-14 rounded-full bg-[#EEF2F7] text-[#1E2A4A] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#1E2A4A] group-hover:text-white transition-all duration-300 shadow-sm">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div className="flex flex-col justify-center h-full">
+                    <h4 className="text-[1.05rem] font-extrabold text-[#0B1527] mb-1.5">{feature.title}</h4>
+                    <p className="text-[0.9rem] text-[#536488] leading-tight font-medium">{feature.desc}</p>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
-          <h2 className="text-3xl font-semibold tracking-tight text-[#14212A] md:text-4xl">Solutions aligned to plant lifecycle needs</h2>
         </div>
-        <div className="space-y-8">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="grid gap-6 rounded-xl border border-[#D3C2B6] bg-white p-5 lg:grid-cols-2 lg:items-center shadow-sm"
-          >
-            <img src={automationImage} alt="PLC panel and control automation systems" className="h-64 w-full rounded-xl bg-[#F4ECE4] object-cover p-4" />
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#D87F2A]">
-                <SlidersHorizontal className="h-4 w-4" />
-                Automation and control modernization
-              </div>
-              <h3 className="text-2xl font-semibold tracking-tight text-[#14212A]">Automation and control modernization</h3>
-              <p className="text-slate-700 leading-relaxed">
-                From PLC integration to control panel optimization, we help plants improve process consistency and reduce
-                intervention through engineered control strategies.
-              </p>
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.05 }}
-            className="grid gap-6 rounded-xl border border-[#D3C2B6] bg-[#F4ECE4] p-5 lg:grid-cols-2 lg:items-center shadow-sm"
-          >
-            <div className="order-2 space-y-3 lg:order-1">
-              <div className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#D87F2A]">
-                <Sparkles className="h-4 w-4" />
-                Filtration and process reliability packages
-              </div>
-              <h3 className="text-2xl font-semibold tracking-tight text-[#14212A]">Filtration and process reliability packages</h3>
-              <p className="text-slate-700 leading-relaxed">
-                We design dependable filtration and spare replacement programs to secure process quality and minimize
-                contamination-related downtime.
-              </p>
-            </div>
-            <img src={processImage} alt="Industrial filtration systems and process equipment" className="order-1 h-64 w-full rounded-xl bg-white object-cover p-4 lg:order-2" />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
-            className="grid gap-6 rounded-xl border border-[#D3C2B6] bg-white p-5 lg:grid-cols-2 lg:items-center shadow-sm"
-          >
-            <img src={deliveryImage} alt="Industrial logistics and nationwide technical support" className="h-64 w-full rounded-xl bg-[#F4ECE4] object-cover p-4" />
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#D87F2A]">
-                <Truck className="h-4 w-4" />
-                Delivery, commissioning, and field support
-              </div>
-              <h3 className="text-2xl font-semibold tracking-tight text-[#14212A]">Delivery, commissioning, and field support</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Our coordinated supply and service teams ensure dependable dispatch, commissioning guidance, and quick support
-                response across critical operating zones.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      </motion.section>
 
-      <section className="rounded-xl border border-[#D3C2B6] bg-white px-6 py-16 lg:px-10">
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-[#D87F2A]">
-            <MapPin className="h-4 w-4" />
-            Workflow
-          </div>
-          <h2 className="text-3xl font-semibold tracking-tight text-[#14212A] md:text-4xl">How we execute every requirement</h2>
-        </div>
-        <div className="mt-8 grid gap-4 md:grid-cols-3 xl:grid-cols-6">
-          {workflow.map((step, index) => {
-            const StepIcon = step.icon;
-            return (
-              <div key={step.label} className="rounded-xl border border-[#D3C2B6] bg-[#F4ECE4] p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#D87F2A]">
-                <div className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white text-[#D87F2A] shadow-sm">
-                  <StepIcon className="h-4 w-4" />
-                </div>
-                <p className="mt-3 text-xs uppercase tracking-[0.18em] text-slate-500">Step {index + 1}</p>
-                <p className="mt-2 text-sm font-medium text-[#14212A]">{step.label}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="overflow-hidden rounded-xl border border-slate-800 bg-[#07182f] px-6 py-16 lg:px-10">
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <div className="space-y-4">
-            <p className="text-sm uppercase tracking-[0.2em] text-[#f47c20]">Ready to Scale Operations?</p>
-            <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Partner with a team built for high-performance industrial supply and support
-            </h2>
-            <p className="text-slate-300 leading-relaxed">
-              Share your technical requirement and operating constraints. We will map the right spare and process solution with
-              speed, quality focus, and engineering clarity.
-            </p>
-            <a
-              href="mailto:info@salvinindustries.com"
-              className="inline-flex rounded-lg bg-[#f47c20] px-6 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:bg-[#dc6e19]"
-            >
-              Connect with Engineering Team
-            </a>
-          </div>
-          <img src={facilityImage} alt="Industrial facility and engineering infrastructure" className="h-64 w-full rounded-xl bg-white/5 object-cover p-4" />
-        </div>
-      </section>
     </div>
   );
 }
