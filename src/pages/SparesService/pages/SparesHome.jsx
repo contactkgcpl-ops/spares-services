@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { getFeaturedProducts } from '../utils/productUtils';
 import useProductFilter from '../hooks/useProductFilter';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
@@ -29,7 +28,6 @@ function SparesHome() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { categories, category, filteredProducts, query, setCategory, setQuery } = useProductFilter(products);
-  const featured = getFeaturedProducts(products);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -115,8 +113,10 @@ function SparesHome() {
               <p className="text-sm text-slate-500">Loading products...</p>
             ) : error ? (
               <p className="text-sm text-red-500">{error}</p>
+            ) : filteredProducts.length === 0 ? (
+              <p className="text-sm text-slate-500">No products found.</p>
             ) : (
-              featured.map((product) => <ProductCard key={product.id} product={product} />)
+              filteredProducts.map((product) => <ProductCard key={product.id} product={product} />)
             )}
           </div>
         </div>
