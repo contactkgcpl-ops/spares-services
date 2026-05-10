@@ -2,10 +2,18 @@ import axios from 'axios';
 
 export const CATEGORY_OPTIONS = ['Pump Systems', 'Valves', 'Motors', 'Filters', 'Bearings', 'Controls'];
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
   headers: {
     'Content-Type': 'application/json',
   },
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('admin_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 const normalizeProduct = (product) => ({

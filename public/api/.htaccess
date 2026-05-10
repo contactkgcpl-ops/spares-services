@@ -1,0 +1,13 @@
+<FilesMatch "^(config|config\.local|config\.local\.example|helpers)\.php$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^health/?$ health.php [QSA,L]
+  RewriteRule ^auth/login/?$ auth/login.php [QSA,L]
+  RewriteRule ^products/?([0-9]+)?$ products.php [QSA,L]
+  RewriteRule ^upload/?$ upload.php [QSA,L]
+  RewriteRule ^contact/?$ contact.php [QSA,L]
+  RewriteRule ^enquiries/?([0-9]+)?$ enquiries.php [QSA,L]
+</IfModule>

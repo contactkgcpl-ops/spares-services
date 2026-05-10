@@ -14,11 +14,7 @@ const resolveApiBaseUrl = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
 
-  if (typeof window !== 'undefined') {
-    return `${window.location.protocol}//${window.location.hostname}:5000`;
-  }
-
-  return 'http://localhost:5000';
+  return '';
 };
 
 const api = axios.create({

@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+});
 
 const Login = () => {
   const navigate = useNavigate();
@@ -8,17 +13,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (email === 'admin@gmail.com' && password === '123456') {
+    try {
+      const response = await api.post('/api/auth/login', { email, password });
       localStorage.setItem('admin_auth', 'true');
+      localStorage.setItem('admin_token', response.data.token);
       const targetPath = location.state?.from?.pathname || '/admin/dashboard';
       navigate(targetPath, { replace: true });
       return;
+    } catch (loginError) {
+      setError(loginError?.response?.data?.message || 'Invalid credentials');
     }
-
-    setError('Invalid credentials. Use admin@gmail.com / 123456');
   };
 
   return (

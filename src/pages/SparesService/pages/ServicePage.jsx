@@ -1,9 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, ShieldCheck, Zap, Factory, Award, ArrowRight } from 'lucide-react';
+import axios from 'axios';
 import heroGraphic from '../assets/hero-img.jpeg';
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+});
+
 function ServicePage() {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    companyName: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  });
+  const [formStatus, setFormStatus] = useState('');
+  const [formError, setFormError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setSubmitting(true);
+      setFormStatus('');
+      setFormError('');
+      await api.post('/api/contact', formData);
+      setFormStatus('Inquiry submitted successfully.');
+      setFormData({ fullName: '', companyName: '', email: '', phone: '', subject: '', message: '' });
+    } catch (error) {
+      setFormError(error?.response?.data?.message || 'Failed to submit inquiry');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="w-full bg-white overflow-x-hidden font-sans pb-20 mb-0">
       
@@ -108,39 +146,42 @@ function ServicePage() {
             <p className="text-slate-600 font-medium">Fill out the form below and our technical team will get back to you shortly.</p>
           </div>
           
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#0F1E4A] ml-1">Full Name</label>
-                <input type="text" placeholder="John Doe" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
+                <input name="fullName" value={formData.fullName} onChange={handleChange} type="text" placeholder="John Doe" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#0F1E4A] ml-1">Company Name</label>
-                <input type="text" placeholder="Your Company Ltd." className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
+                <input name="companyName" value={formData.companyName} onChange={handleChange} type="text" placeholder="Your Company Ltd." className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#0F1E4A] ml-1">Email Address</label>
-                <input type="email" placeholder="john@company.com" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
+                <input name="email" value={formData.email} onChange={handleChange} type="email" placeholder="john@company.com" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#0F1E4A] ml-1">Phone Number</label>
-                <input type="tel" placeholder="+91 98765 43210" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
+                <input name="phone" value={formData.phone} onChange={handleChange} type="tel" placeholder="+91 98765 43210" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
               </div>
             </div>
             
             <div className="space-y-2">
               <label className="text-sm font-bold text-[#0F1E4A] ml-1">Subject</label>
-              <input type="text" placeholder="Inquiry about Pneumatic Systems" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
+              <input name="subject" value={formData.subject} onChange={handleChange} type="text" placeholder="Inquiry about Pneumatic Systems" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-bold text-[#0F1E4A] ml-1">Message</label>
-              <textarea rows="5" placeholder="Please describe your requirements..." className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all resize-none"></textarea>
+              <textarea name="message" value={formData.message} onChange={handleChange} rows="5" placeholder="Please describe your requirements..." className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all resize-none" required></textarea>
             </div>
 
+            {formStatus && <p className="text-center text-sm font-semibold text-green-600">{formStatus}</p>}
+            {formError && <p className="text-center text-sm font-semibold text-red-600">{formError}</p>}
+
             <div className="pt-4 text-center">
-              <button type="button" className="inline-flex items-center justify-center bg-[#FF7A1A] text-white px-10 py-4 rounded-xl font-bold hover:bg-[#e66a12] transition-colors duration-300 w-full sm:w-auto min-w-[200px]">
-                Send Inquiry
+              <button type="submit" disabled={submitting} className="inline-flex items-center justify-center bg-[#FF7A1A] text-white px-10 py-4 rounded-xl font-bold hover:bg-[#e66a12] transition-colors duration-300 w-full sm:w-auto min-w-[200px] disabled:cursor-not-allowed disabled:opacity-70">
+                {submitting ? 'Sending...' : 'Send Inquiry'}
               </button>
             </div>
           </form>
