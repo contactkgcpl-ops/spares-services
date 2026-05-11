@@ -46,7 +46,7 @@ function ServicePage() {
     <div className="w-full bg-white overflow-x-hidden font-sans pb-20 mb-0">
       
       {/* 1. NEW PREMIUM HERO SECTION */}
-      <section className="w-full bg-white pt-24 pb-8 px-6">
+      <section className="w-full bg-white pt-20 pb-8 px-6 md:px-8 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#0F1E4A] to-[#162B68] rounded-[2.5rem] overflow-hidden p-8 lg:p-16 grid lg:grid-cols-2 gap-12 items-center shadow-2xl">
             
@@ -61,15 +61,15 @@ function ServicePage() {
                 <span className="text-xs font-bold uppercase tracking-widest text-white">Contact Salvin Industries</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tight">
                 Let’s Build Better <span className="text-[#FF7A1A]">Industrial Solutions</span> Together
               </h1>
               
-              <p className="text-lg text-blue-100 font-medium max-w-lg leading-relaxed">
+              <p className="text-base text-blue-100 font-medium max-w-lg leading-8">
                 Get in touch with our dedicated engineering support team. From specialized components to fully automated systems, we provide the expertise to keep your manufacturing operations at peak performance.
               </p>
               
-              <div className="flex flex-wrap items-center gap-4 pt-4">
+              <div className="flex flex-wrap justify-center gap-6 md:gap-8">
                 <a href="#contact-form" className="inline-flex items-center gap-2 bg-[#FF7A1A] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#e66a12] transition-colors shadow-lg">
                   Send Inquiry
                   <ArrowRight className="w-5 h-5" />
@@ -83,7 +83,7 @@ function ServicePage() {
             {/* Right: Visual */}
             <div className="relative z-10 lg:h-[450px] flex items-center justify-center mt-10 lg:mt-0">
               {/* Main Image Base */}
-              <div className="relative w-full max-w-[350px] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border border-white/20">
+              <div className="relative w-full max-w-[320px] aspect-[4/5] rounded-3xl overflow-hidden shadow-xl border border-white/20">
                 <img src={heroGraphic} alt="Industrial Facility" className="w-full h-full object-cover object-center" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E4A] via-transparent to-transparent opacity-80"></div>
               </div>
@@ -117,14 +117,14 @@ function ServicePage() {
 
       {/* 2. CONTACT INFORMATION SECTION */}
       <section className="py-20 px-6 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { icon: Phone, title: 'Phone Number', detail: '+91 90239 79663', subDetail: 'Mon-Sat, 9AM-6PM' },
             { icon: Mail, title: 'Email Address', detail: 'info.salvinindustries@gmail.com', subDetail: 'Online support 24/7' },
-            { icon: MapPin, title: 'Office Address', detail: 'Phase-1, Vatva GIDC', subDetail: 'Ahmedabad, Gujarat 382445' },
+            { icon: MapPin, title: 'Office Address', detail: '210, Arved Transcube Mall', subDetail: 'Bandhu Nagar, Vijay Nagar, Ranip, Ahmedabad, Gujarat 382480' },
             { icon: Clock, title: 'Business Hours', detail: 'Monday - Saturday', subDetail: '9:00 AM - 6:00 PM' }
           ].map((info, index) => (
-            <div key={index} className="flex flex-col items-center text-center space-y-4">
+            <div key={index} className="flex flex-col items-center text-center space-y-3">
               <div className="w-14 h-14 bg-[#EEF2F7] rounded-full flex items-center justify-center mb-2">
                 <info.icon className="w-6 h-6 text-[#FF7A1A]" />
               </div>
@@ -139,18 +139,18 @@ function ServicePage() {
       </section>
 
       {/* 3. CONTACT FORM */}
-      <section id="contact-form" className="py-24 px-6 bg-[#EEF2F7]">
-        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-sm p-8 md:p-12 border border-slate-100">
-          <div className="text-center mb-10">
+      <section id="contact-form" className="py-20 px-6 md:px-8 lg:px-10 bg-[#EEF2F7]">
+        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-sm p-6 md:p-8 border border-slate-100">
+          <div className="text-center mb-6">
             <h2 className="text-3xl font-extrabold text-[#0F1E4A] mb-4">Send Us a Message</h2>
             <p className="text-slate-600 font-medium">Fill out the form below and our technical team will get back to you shortly.</p>
           </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#0F1E4A] ml-1">Full Name</label>
-                <input name="fullName" value={formData.fullName} onChange={handleChange} type="text" placeholder="John Doe" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
+                <input name="fullName" value={formData.fullName} onChange={handleChange} type="text" placeholder="John Doe" className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#0F1E4A] ml-1">Company Name</label>
@@ -168,12 +168,12 @@ function ServicePage() {
             
             <div className="space-y-2">
               <label className="text-sm font-bold text-[#0F1E4A] ml-1">Subject</label>
-              <input name="subject" value={formData.subject} onChange={handleChange} type="text" placeholder="Inquiry about Pneumatic Systems" className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
+              <input name="subject" value={formData.subject} onChange={handleChange} type="text" placeholder="Inquiry about Pneumatic Systems" className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-bold text-[#0F1E4A] ml-1">Message</label>
-              <textarea name="message" value={formData.message} onChange={handleChange} rows="5" placeholder="Please describe your requirements..." className="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all resize-none" required></textarea>
+              <textarea name="message" value={formData.message} onChange={handleChange} rows="5" placeholder="Please describe your requirements..." className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all resize-none" required></textarea>
             </div>
 
             {formStatus && <p className="text-center text-sm font-semibold text-green-600">{formStatus}</p>}
@@ -203,17 +203,23 @@ function ServicePage() {
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-[#0F1E4A]">Salvin Headquarters</h4>
-                  <p className="text-slate-600 mt-1">Phase-1, Vatva GIDC,<br/>Ahmedabad, Gujarat 382445, India</p>
+                  <p className="text-slate-600 mt-1">210, Arved Transcube Mall,<br/>Bandhu Nagar, Vijay Nagar,<br/>Ranip, Ahmedabad, Gujarat 382480, India</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-full h-[400px] bg-[#EEF2F7] rounded-3xl overflow-hidden border border-slate-200 flex items-center justify-center relative">
-            {/* Simple Map Placeholder for visual layout */}
-            <div className="absolute inset-0 bg-slate-100 flex flex-col items-center justify-center">
-               <MapPin className="w-12 h-12 text-[#FF7A1A] mb-4 opacity-50" />
-               <span className="text-slate-500 font-bold uppercase tracking-widest text-sm">Interactive Map</span>
-            </div>
+          <div className="w-full h-[260px] md:h-[320px] lg:h-[380px] bg-[#EEF2F7] rounded-3xl overflow-hidden shadow-sm border border-slate-200 relative">
+            <iframe
+              src="https://www.google.com/maps?q=210%20Arved%20Transcube%20Mall%2C%20Bandhu%20Nagar%2C%20Vijay%20Nagar%2C%20Ranip%2C%20Ahmedabad%2C%20Gujarat%20382480&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Salvin Industries Location Map"
+              className="absolute inset-0 w-full h-full"
+            />
           </div>
         </div>
       </section>
@@ -238,7 +244,7 @@ function ServicePage() {
       {/* 6. FINAL CTA SECTION */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto bg-[#0F1E4A] rounded-3xl p-12 text-center shadow-lg">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-8">
+          <h2 className="text-3xl font-extrabold text-white mb-6">
             Need Industrial Solutions?
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-5">

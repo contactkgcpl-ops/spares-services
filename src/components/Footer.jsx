@@ -15,43 +15,19 @@ const navLinks = [
   { label: 'Home', to: '/spares-service/home' },
   { label: 'About', to: '/spares-service/about' },
   { label: 'Products', to: '/spares-service/products' },
-  { label: 'Service', to: '/spares-service/service' }
+  { label: 'Contact Us', to: '/spares-service/contact' }
 ];
 
 function Footer() {
   return (
     <footer className="border-t border-[#2D3A4A] bg-[#122136] text-slate-300">
       <div className="mx-auto max-w-[1700px] px-6 py-16 sm:px-10 lg:px-16 xl:px-24">
-        <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr_1fr]">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.2fr]">
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold tracking-wide text-white">Salvin Industrial</h2>
             <p className="max-w-lg text-sm leading-relaxed text-slate-300">
               Delivering industrial spare parts, engineering support, and process optimization with clear execution and operational reliability.
             </p>
-            <div className="space-y-3 text-sm text-slate-300">
-              <div className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#2D3A4A] bg-[#1F2C39] text-slate-300 transition-all duration-300 hover:text-[#D87F2A]">
-                  <FaMapMarkerAlt className="h-4 w-4" />
-                </span>
-                <span>123 Industrial Way, Pune, Maharashtra</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#2D3A4A] bg-[#1F2C39] text-slate-300 transition-all duration-300 hover:text-[#D87F2A]">
-                  <FiPhone className="h-4 w-4" />
-                </span>
-                <a href="tel:+912345678901" className="text-slate-300 transition-all duration-300 hover:text-[#D87F2A]">
-                  +91 23456 78901
-                </a>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#2D3A4A] bg-[#1F2C39] text-slate-300 transition-all duration-300 hover:text-[#D87F2A]">
-                  <MdEmail className="h-4 w-4" />
-                </span>
-                <a href="mailto:info@salvinindustries.com" className="text-slate-300 transition-all duration-300 hover:text-[#D87F2A]">
-                  info@salvinindustries.com
-                </a>
-              </div>
-            </div>
           </div>
 
           <div>
@@ -74,6 +50,32 @@ function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-base font-semibold tracking-wide text-white">Contact Us</h3>
+            <div className="space-y-4 text-sm text-slate-300">
+              <div className="flex items-start gap-3">
+                <MdEmail className="mt-1 h-4 w-4 text-[#D87F2A]" />
+                <a href="mailto:info.salvinindustries@gmail.com" className="hover:text-[#D87F2A] transition-all duration-300">
+                  info.salvinindustries@gmail.com
+                </a>
+              </div>
+              <div className="flex items-start gap-3">
+                <FiPhone className="mt-1 h-4 w-4 text-[#D87F2A]" />
+                <a href="tel:+919023979663" className="hover:text-[#D87F2A] transition-all duration-300">
+                  +91 90239 79663
+                </a>
+              </div>
+              <div className="flex items-start gap-3">
+                <FaMapMarkerAlt className="mt-1 h-4 w-4 text-[#D87F2A]" />
+                <span className="leading-relaxed">
+                  210, Arved Transcube Mall,<br />
+                  Ranip, Ahmedabad,<br />
+                  Gujarat 382480
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 

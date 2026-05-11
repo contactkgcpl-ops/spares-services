@@ -4,6 +4,8 @@
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
   RewriteRule ^health/?$ health.php [QSA,L]
   RewriteRule ^auth/login/?$ auth/login.php [QSA,L]
   RewriteRule ^products/?([0-9]+)?$ products.php [QSA,L]

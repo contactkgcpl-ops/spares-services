@@ -55,10 +55,10 @@ function SparesHome() {
         <div className="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <h2 className="text-[#FF7A1A] text-sm font-bold tracking-[0.2em] uppercase">About Salvin Industries</h2>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F1E4A] leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0F1E4A] leading-tight">
               Driving Industrial Excellence Forward
             </h1>
-            <p className="text-xl text-slate-600 font-medium max-w-lg leading-relaxed">
+            <p className="text-base text-slate-600 font-medium max-w-lg leading-8">
               We deliver premium mechanical solutions, reliable automation components, and expert support tailored for modern manufacturing.
             </p>
             <div>
@@ -70,7 +70,7 @@ function SparesHome() {
           </div>
           <div className="relative">
             <div className="absolute -left-8 -bottom-8 w-64 h-64 bg-[#FF7A1A]/10 rounded-full blur-3xl z-0 pointer-events-none"></div>
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80" alt="Corporate Facility" className="relative z-10 w-full h-[550px] object-cover rounded-tr-[5rem] rounded-bl-[5rem] shadow-xl" />
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80" alt="Corporate Facility" className="relative z-10 w-full h-[450px] object-cover rounded-tr-[4rem] rounded-bl-[4rem] shadow-xl" />
           </div>
         </div>
       </section>
@@ -82,16 +82,16 @@ function SparesHome() {
           {/* Block 1: Who We Are (Image Left, Text Right) */}
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1 relative">
-               <div className="w-full h-[450px] bg-[#EEF2F7] rounded-3xl p-4">
+               <div className="w-full h-[380px] bg-[#EEF2F7] rounded-3xl p-4">
                  <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&w=800&q=80" alt="Who We Are" className="w-full h-full object-cover rounded-2xl shadow-sm" />
                </div>
             </div>
             <div className="order-1 lg:order-2 space-y-6">
-              <h3 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Who We Are</h3>
-              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#0F1E4A]">Who We Are</h3>
+              <p className="text-base text-slate-600 font-medium leading-8">
                 Salvin Industries is a leading provider of industrial spare parts and automated systems. Founded on the principle of uncompromised quality, we have spent years building a robust supply chain that heavy industries rely on daily.
               </p>
-              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+              <p className="text-base text-slate-600 font-medium leading-8">
                 Our team consists of seasoned engineers and dedicated support staff who understand that in modern manufacturing, every second of downtime counts.
               </p>
             </div>
@@ -100,8 +100,8 @@ function SparesHome() {
           {/* Block 2: Our Mission (Text Left, Image Right) */}
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
-              <h3 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Our Mission</h3>
-              <p className="text-lg text-slate-600 font-medium leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#0F1E4A]">Our Mission</h3>
+              <p className="text-base text-slate-600 font-medium leading-8">
                 Our mission is to empower industrial facilities globally by providing top-tier mechanical components and smart automation solutions. We strive to be the invisible force that keeps your operations running at peak efficiency.
               </p>
               <ul className="space-y-4 pt-2">
@@ -112,7 +112,7 @@ function SparesHome() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-6 h-6 text-[#FF7A1A]" />
-                    <span className="font-bold text-[#0F1E4A] text-lg">{item}</span>
+                    <span className="font-bold text-[#0F1E4A] text-base">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -131,7 +131,7 @@ function SparesHome() {
       <section className="py-24 px-6 bg-[#EEF2F7]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Why Companies Trust Us</h2>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-[#0F1E4A]">Why Companies Trust Us</h2>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -145,7 +145,7 @@ function SparesHome() {
                 <div className="w-12 h-12 flex-shrink-0 bg-[#EEF2F7] rounded-full flex items-center justify-center">
                   <feature.icon className="w-6 h-6 text-[#FF7A1A]" />
                 </div>
-                <h4 className="text-lg font-bold text-[#0F1E4A]">{feature.title}</h4>
+                <h4 className="text-xl font-semibold text-[#0F1E4A]">{feature.title}</h4>
               </div>
             ))}
           </div>
@@ -159,7 +159,7 @@ function SparesHome() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-[#FF7A1A] text-sm font-bold tracking-[0.2em] uppercase mb-4">Core Focus</h2>
-            <h3 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A]">Industries We Serve</h3>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-[#0F1E4A]">Industries We Serve</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -169,12 +169,12 @@ function SparesHome() {
               { title: 'Robotics', desc: 'Precision robotic arms and intelligent assembly line components.', img: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=800&q=80' },
               { title: 'Processing Machinery', desc: 'Durable components engineered for continuous material processing.', img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80' }
             ].map((industry, i) => (
-              <div key={i} className="group relative h-[350px] rounded-2xl overflow-hidden shadow-sm">
+              <div key={i} className="group relative h-[300px] rounded-2xl overflow-hidden shadow-sm">
                 <img src={industry.img} alt={industry.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E4A] via-[#0F1E4A]/60 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 w-full p-10">
-                  <h4 className="text-3xl font-extrabold text-white mb-3">{industry.title}</h4>
-                  <p className="text-blue-100 text-lg font-medium max-w-sm">{industry.desc}</p>
+                <div className="absolute bottom-0 left-0 w-full p-8">
+                  <h4 className="text-2xl font-extrabold text-white mb-2">{industry.title}</h4>
+                  <p className="text-blue-100 text-base font-medium max-w-sm">{industry.desc}</p>
                 </div>
               </div>
             ))}
@@ -185,7 +185,7 @@ function SparesHome() {
       {/* 6. CTA SECTION */}
       <section className="py-24 px-6 bg-[#EEF2F7] pb-20 mb-0">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F1E4A] leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#0F1E4A] leading-tight">
             Ready to Upgrade Your Industrial Supply Chain?
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">

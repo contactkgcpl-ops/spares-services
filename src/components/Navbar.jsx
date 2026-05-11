@@ -7,7 +7,10 @@ const resolveApiBaseUrl = () => {
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
-  return '';
+  if (typeof window !== 'undefined') {
+    return `${window.location.protocol}//${window.location.hostname}:5000`;
+  }
+  return 'http://localhost:5000';
 };
 
 const api = axios.create({
@@ -94,8 +97,8 @@ function Navbar() {
             <FaPhoneAlt size={11} /> +91 90239 79663
           </a>
           <span className="text-gray-500 hidden sm:inline">|</span>
-          <a href="mailto:info@salvinspares.com" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
-            <FaEnvelope size={12} /> info@salvinspares.com
+          <a href="mailto:info.salvinindustries@gmail.com" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+            <FaEnvelope size={12} /> info.salvinindustries@gmail.com
           </a>
         </div>
         <div className="hidden sm:flex items-center gap-4">
@@ -223,6 +226,7 @@ function Navbar() {
                 </div>
               </div>
             )}
+
           </div>
           {navItems.map((item) => (
             <NavLink

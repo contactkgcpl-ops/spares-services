@@ -65,7 +65,7 @@ function ProductsPage() {
       <section className="w-full bg-gradient-to-r from-[#081635] to-[#1E3268]">
         {/* Hero Content */}
         <div className="relative z-20 flex w-full items-center">
-          <div className="max-w-7xl mx-auto px-6 py-24">
+          <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10 py-10 md:py-12">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -76,9 +76,9 @@ function ProductsPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-                className="mb-8 inline-flex items-center gap-3 rounded-full border border-orange-500/30 bg-orange-500/10 px-8 py-4 text-sm font-bold text-orange-200 backdrop-blur-sm shadow-lg shadow-orange-500/30"
+                className="mb-8 inline-flex items-center gap-3 rounded-full border border-orange-500/30 bg-orange-500/10 px-8 py-4 text-sm tracking-wide font-bold text-orange-200 backdrop-blur-sm shadow-lg shadow-orange-500/30"
               >
-                <Package className="h-6 w-6 text-orange-300" />
+                <Package className="h-5 w-5 text-orange-300" />
                 <span className="text-orange-100">Industrial Product Catalog</span>
               </motion.div>
 
@@ -86,7 +86,7 @@ function ProductsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
-                className="mb-8 text-5xl font-black tracking-tight text-white sm:text-6xl md:text-7xl leading-tight"
+                className="mb-4 text-4xl font-black tracking-tight text-white sm:text-3xl md:text-4xl leading-tight"
               >
                 Premium Industrial
                 <br />
@@ -99,7 +99,7 @@ function ProductsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
-                className="mb-12 max-w-4xl text-xl leading-relaxed text-white/95 sm:text-2xl font-light mx-auto"
+                className="mb-8 max-w-3xl text-sm leading-7 text-white/95 sm:text-lg font-medium mx-auto"
               >
                 Discover our comprehensive catalog of high-quality industrial parts, 
                 from pumps and valves to motors and controls, engineered for excellence.
@@ -121,7 +121,7 @@ function ProductsPage() {
       </section>
 
       {/* Main Content Area */}
-      <div className="w-full bg-[#EEF2F7] pt-10 pb-6 mb-0">
+      <div className="w-full bg-[#EEF2F7] pt-6 pb-4 mb-0">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid gap-6 lg:grid-cols-[280px_1fr] items-start">
             {/* Left Sidebar */}
@@ -141,12 +141,12 @@ function ProductsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="bg-white rounded-3xl shadow-sm border border-slate-100 p-8"
+                className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5"
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h2 className="text-3xl font-bold text-slate-900">Available Products</h2>
-                    <p className="mt-2 text-sm text-slate-600">
+                    <h2 className="text-2xl font-bold text-slate-900">Available Products</h2>
+                    <p className="mt-1 text-xs text-slate-600">
                       {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
                     </p>
                   </div>
@@ -162,39 +162,39 @@ function ProductsPage() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="rounded-2xl bg-white p-16 text-center shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100"
+                  className="rounded-xl bg-white p-10 text-center shadow-sm border border-gray-100"
                 >
-                  <div className="mx-auto w-24 h-24 rounded-full bg-orange-100 flex items-center justify-center mb-8">
+                  <div className="mx-auto w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-6">
                     {loading ? (
-                      <RefreshCw className="h-12 w-12 text-orange-500 animate-spin" />
+                      <RefreshCw className="h-8 w-8 text-orange-500 animate-spin" />
                     ) : error ? (
-                      <AlertCircle className="h-12 w-12 text-orange-500" />
+                      <AlertCircle className="h-8 w-8 text-orange-500" />
                     ) : (
-                      <Search className="h-12 w-12 text-orange-500" />
+                      <Search className="h-8 w-8 text-orange-500" />
                     )}
                   </div>
                   
                   {loading ? (
                     <>
-                      <h3 className="text-3xl font-bold text-slate-900 mb-4">Loading Products</h3>
-                      <p className="text-slate-600 mb-8">Please wait while we fetch the latest industrial catalog...</p>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">Loading Products</h3>
+                      <p className="text-xs text-slate-600 mb-6">Please wait while we fetch the latest catalog...</p>
                     </>
                   ) : error ? (
                     <>
-                      <h3 className="text-3xl font-bold text-slate-900 mb-4">Unable to Load Products</h3>
-                      <p className="text-slate-600 mb-8">{error}</p>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">Unable to Load Products</h3>
+                      <p className="text-xs text-slate-600 mb-6">{error}</p>
                       <button
                         onClick={() => window.location.reload()}
-                        className="inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/40 hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-xs font-bold text-white shadow-md shadow-orange-500/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
                       >
-                        <RefreshCw className="h-5 w-5" />
+                        <RefreshCw className="h-4 w-4" />
                         Try Again
                       </button>
                     </>
                   ) : (
                     <>
-                      <h3 className="text-3xl font-bold text-slate-900 mb-4">No Products Found</h3>
-                      <p className="text-slate-600 mb-8">Try adjusting your search terms or browse different categories.</p>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">No Products Found</h3>
+                      <p className="text-xs text-slate-600 mb-6">Try adjusting your filters or browse different categories.</p>
                     </>
                   )}
                 </motion.div>
@@ -203,7 +203,7 @@ function ProductsPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
                 >
                   {filteredProducts.map((product, index) => (
                     <motion.div

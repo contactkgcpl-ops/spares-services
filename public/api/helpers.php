@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/config.php';
-
 function db(): PDO
 {
     static $pdo = null;
@@ -10,16 +8,16 @@ function db(): PDO
         return $pdo;
     }
 
-    $host = getenv('DB_HOST') ?: DB_HOST;
-    $name = getenv('DB_NAME') ?: DB_NAME;
-    $user = getenv('DB_USER') ?: DB_USER;
-    $pass = getenv('DB_PASS') ?: DB_PASS;
-    $charset = getenv('DB_CHARSET') ?: DB_CHARSET;
-
-    $pdo = new PDO("mysql:host={$host};dbname={$name};charset={$charset}", $user, $pass, [
+    $host = 'localhost';
+    $dbname = 'spares_service';
+    $user = 'root';
+    $pass = '';
+    
+    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+    
+    $pdo = new PDO($dsn, $user, $pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
     ]);
 
     return $pdo;
@@ -28,7 +26,7 @@ function db(): PDO
 function applyCors(): void
 {
     header('Content-Type: application/json; charset=utf-8');
-    header('Access-Control-Allow-Origin: ' . (getenv('ALLOWED_ORIGIN') ?: ALLOWED_ORIGIN));
+    header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
@@ -72,20 +70,28 @@ function base64UrlDecode(string $data): string|false
 
 function createToken(string $email): string
 {
+    $secret = 'your-secret-key-change-in-production';
     $header = base64UrlEncode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
     $payload = base64UrlEncode(json_encode([
         'email' => $email,
         'iat' => time(),
         'exp' => time() + 86400,
     ]));
-    $signature = base64UrlEncode(hash_hmac('sha256', "{$header}.{$payload}", getenv('AUTH_SECRET') ?: AUTH_SECRET, true));
+    $signature = base64UrlEncode(hash_hmac('sha256', "{$header}.{$payload}", $secret, true));
 
     return "{$header}.{$payload}.{$signature}";
 }
 
 function requireAdmin(): void
 {
-    $header = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+    $secret = 'your-secret-key-change-in-production';
+    $header = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
+
+    if ($header === '' && function_exists('apache_request_headers')) {
+        $headers = apache_request_headers();
+        $header = $headers['Authorization'] ?? $headers['authorization'] ?? '';
+    }
+
     if (!preg_match('/Bearer\s+(.+)/i', $header, $matches)) {
         respond(401, ['success' => false, 'message' => 'Unauthorized']);
     }
@@ -96,7 +102,7 @@ function requireAdmin(): void
     }
 
     [$headerPart, $payloadPart, $signaturePart] = $parts;
-    $expected = base64UrlEncode(hash_hmac('sha256', "{$headerPart}.{$payloadPart}", getenv('AUTH_SECRET') ?: AUTH_SECRET, true));
+    $expected = base64UrlEncode(hash_hmac('sha256', "{$headerPart}.{$payloadPart}", $secret, true));
     if (!hash_equals($expected, $signaturePart)) {
         respond(401, ['success' => false, 'message' => 'Invalid token']);
     }
@@ -225,7 +231,8 @@ function publicUrlForPath(string $relativePath): string
 {
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'] ?? '';
-    return $host ? "{$scheme}://{$host}{$relativePath}" : $relativePath;
+    $base = '/spares-service/public';
+    return $host ? "{$scheme}://{$host}{$base}{$relativePath}" : $relativePath;
 }
 
 function saveBase64ImageIfNeeded(string $image): string
@@ -238,19 +245,23 @@ function saveBase64ImageIfNeeded(string $image): string
         respond(400, ['success' => false, 'message' => 'Invalid image data']);
     }
 
+    $maxBytes = 5242880;
+    $uploadDir = __DIR__ . '/../uploads';
+    $uploadUrlPath = '/uploads';
+
     $extension = strtolower($matches[1]) === 'jpeg' ? 'jpg' : strtolower($matches[1]);
     $binary = base64_decode($matches[2], true);
-    if ($binary === false || strlen($binary) > MAX_UPLOAD_BYTES) {
+    if ($binary === false || strlen($binary) > $maxBytes) {
         respond(400, ['success' => false, 'message' => 'Image is invalid or too large']);
     }
 
-    if (!is_dir(UPLOAD_DIR)) {
-        mkdir(UPLOAD_DIR, 0755, true);
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
     }
 
     $name = uniqid('product_', true) . ".{$extension}";
-    $path = UPLOAD_DIR . '/' . $name;
+    $path = $uploadDir . '/' . $name;
     file_put_contents($path, $binary);
 
-    return publicUrlForPath(UPLOAD_URL_PATH . '/' . $name);
+    return publicUrlForPath($uploadUrlPath . '/' . $name);
 }

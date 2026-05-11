@@ -181,11 +181,11 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="py-12 md:py-20 px-6 sm:px-10 lg:px-16 xl:px-24 mx-auto max-w-[1700px] relative z-10"
+        className="py-14 md:py-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
       >
         <motion.div variants={fadeUp} custom={0} className="mb-14 flex flex-col items-center text-center">
           <SectionLabel icon={Box}>Our Categories</SectionLabel>
-          <h2 className="text-3xl md:text-[2.5rem] font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
@@ -196,12 +196,12 @@ function PremiumHome() {
               custom={0.05 + idx * 0.05}
               className="bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,42,74,0.02)] overflow-hidden group hover:border-blue-200 hover:shadow-[0_20px_40px_rgba(37,99,235,0.08)] transition-all duration-500 cursor-pointer flex flex-col"
             >
-              <div className="p-8 flex justify-center items-center bg-gradient-to-b from-white to-gray-50/50 h-[220px] relative overflow-hidden">
+              <div className="p-5 flex justify-center items-center bg-gradient-to-b from-white to-gray-50/50 h-[180px] relative overflow-hidden">
                 <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/[0.02] transition-colors duration-500"></div>
                 <img src={category.image} alt={category.name} className="relative z-10 max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply drop-shadow-sm" />
               </div>
-              <div className="px-6 py-5 border-t border-gray-50 bg-white text-center flex-1 flex items-center justify-center">
-                <h3 className="text-[1.1rem] font-bold text-[#1E2A4A] group-hover:text-blue-600 transition-colors duration-300">{category.name}</h3>
+              <div className="px-4 py-3 border-t border-gray-50 bg-white text-center flex-1 flex items-center justify-center">
+                <h3 className="text-base font-semibold text-[#1E2A4A] group-hover:text-blue-600 transition-colors duration-300">{category.name}</h3>
               </div>
             </motion.div>
           ))}
@@ -213,11 +213,11 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="py-16 md:py-24 px-6 sm:px-10 lg:px-16 xl:px-24 mx-auto max-w-[1700px] relative z-10"
+        className="py-14 md:py-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
       >
         <motion.div variants={fadeUp} custom={0} className="mb-16 flex flex-col items-center text-center">
           <SectionLabel icon={Star}>Client Reviews</SectionLabel>
-          <h2 className="text-3xl md:text-[2.5rem] font-extrabold text-[#0B1527] tracking-tight">Trusted by industry leaders</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-[#0B1527] tracking-tight">Trusted by industry leaders</h2>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -226,7 +226,7 @@ function PremiumHome() {
               key={idx}
               variants={fadeUp}
               custom={0.1 + idx * 0.1}
-              className="bg-white p-10 rounded-[24px] border border-gray-100 shadow-[0_8px_30px_rgb(30,42,74,0.03)] hover:shadow-[0_20px_40px_rgba(30,42,74,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative group"
+              className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-[0_8px_30px_rgb(30,42,74,0.03)] hover:shadow-[0_20px_40px_rgba(30,42,74,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative group"
             >
               <div className="absolute top-0 right-10 w-20 h-24 bg-gradient-to-b from-blue-50/50 to-transparent rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
               
@@ -236,15 +236,15 @@ function PremiumHome() {
                 {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 fill-current" />)}
               </div>
               
-              <p className="text-[1.1rem] leading-relaxed text-[#536488] mb-10 flex-1 font-medium relative z-10">
+              <p className="text-sm leading-6 text-[#536488] mb-6 flex-1 font-medium relative z-10">
                 "{review.text}"
               </p>
               
-              <div className="flex items-center gap-5 border-t border-gray-100 pt-6 relative z-10">
-                <img src={review.avatar} alt={review.name} className="w-14 h-14 rounded-full object-cover shadow-[0_4px_10px_rgba(0,0,0,0.08)] border-2 border-white group-hover:scale-105 transition-transform duration-300" />
+              <div className="flex items-center gap-4 border-t border-gray-100 pt-3 relative z-10">
+                <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover shadow-[0_4px_10px_rgba(0,0,0,0.08)] border-2 border-white group-hover:scale-105 transition-transform duration-300" />
                 <div>
-                  <h4 className="font-extrabold text-[#0B1527] text-base">{review.name}</h4>
-                  <p className="text-[13px] font-semibold text-[#536488]">{review.role}, <span className="text-blue-600">{review.company}</span></p>
+                  <h4 className="font-extrabold text-[#0B1527] text-sm">{review.name}</h4>
+                  <p className="text-xs font-semibold text-[#536488]">{review.role}, <span className="text-blue-600">{review.company}</span></p>
                 </div>
               </div>
             </motion.div>
@@ -257,9 +257,9 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
-        className="py-8 md:py-16 px-6 sm:px-10 lg:px-16 xl:px-24 mx-auto max-w-[1700px] mb-8 relative z-20"
+        className="mt-8 pt-8 pb-14 md:pb-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-20"
       >
-        <div className="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(30,42,74,0.03)] border border-gray-100/80 p-6 md:p-10">
+        <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(30,42,74,0.03)] border border-gray-100/80 p-5 md:p-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
             {trustFeatures.map((feature, idx) => {
               const Icon = feature.icon;
@@ -270,12 +270,12 @@ function PremiumHome() {
                   custom={idx * 0.1}
                   className={`flex flex-col sm:flex-row items-center sm:items-start gap-5 px-2 lg:px-8 group cursor-default text-center sm:text-left ${idx > 1 ? 'pt-6 lg:pt-0' : ''}`}
                 >
-                  <div className="w-14 h-14 rounded-full bg-[#EEF2F7] text-[#1E2A4A] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#1E2A4A] group-hover:text-white transition-all duration-300 shadow-sm">
-                    <Icon className="w-6 h-6" />
+                  <div className="w-12 h-12 rounded-full bg-[#EEF2F7] text-[#1E2A4A] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#1E2A4A] group-hover:text-white transition-all duration-300 shadow-sm">
+                    <Icon className="w-5 h-5" />
                   </div>
                   <div className="flex flex-col justify-center h-full">
-                    <h4 className="text-[1.05rem] font-extrabold text-[#0B1527] mb-1.5">{feature.title}</h4>
-                    <p className="text-[0.9rem] text-[#536488] leading-tight font-medium">{feature.desc}</p>
+                    <h4 className="text-base font-extrabold text-[#0B1527] mb-1.5">{feature.title}</h4>
+                    <p className="text-sm text-[#536488] leading-tight font-medium">{feature.desc}</p>
                   </div>
                 </motion.div>
               )

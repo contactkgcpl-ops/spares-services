@@ -14,7 +14,11 @@ if (!isset($_FILES['file']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
 }
 
 $file = $_FILES['file'];
-if ((int) $file['size'] > MAX_UPLOAD_BYTES) {
+$maxBytes = 5242880;
+$uploadDir = __DIR__ . '/../uploads';
+$uploadUrlPath = '/uploads';
+
+if ((int) $file['size'] > $maxBytes) {
     respond(400, ['success' => false, 'message' => 'File too large']);
 }
 
@@ -30,16 +34,16 @@ if (!isset($allowed[$mime])) {
     respond(400, ['success' => false, 'message' => 'Unsupported file type']);
 }
 
-if (!is_dir(UPLOAD_DIR)) {
-    mkdir(UPLOAD_DIR, 0755, true);
+if (!is_dir($uploadDir)) {
+    mkdir($uploadDir, 0755, true);
 }
 
 $name = uniqid('upload_', true) . '.' . $allowed[$mime];
-$target = UPLOAD_DIR . '/' . $name;
+$target = $uploadDir . '/' . $name;
 
 if (!move_uploaded_file($file['tmp_name'], $target)) {
     respond(500, ['success' => false, 'message' => 'Failed to save file']);
 }
 
-$url = publicUrlForPath(UPLOAD_URL_PATH . '/' . $name);
-respond(201, ['success' => true, 'message' => 'File uploaded successfully', 'data' => ['url' => $url, 'path' => UPLOAD_URL_PATH . '/' . $name]]);
+$url = publicUrlForPath($uploadUrlPath . '/' . $name);
+respond(201, ['success' => true, 'message' => 'File uploaded successfully', 'data' => ['url' => $url, 'path' => $uploadUrlPath . '/' . $name]]);
