@@ -34,9 +34,9 @@ try {
         $body = readJsonBody();
         $title = requireText($body, 'title');
         $category = requireText($body, 'category');
-        $image = saveBase64ImageIfNeeded(requireText($body, 'image'));
+        $image = saveBase64ImageIfNeeded(requireText($body, 'image'), $title);
         $description = requireText($body, 'description');
-        $slug = trim((string) ($body['slug'] ?? strtolower(preg_replace('/[^a-z0-9]+/i', '-', $title))), '-');
+        $slug = trim((string) ($body['slug'] ?? slugify($title)), '_');
 
         $stmt = $pdo->prepare(
             'INSERT INTO products (title, category, image, description, features, specifications, slug)
@@ -62,9 +62,9 @@ try {
         $body = readJsonBody();
         $title = requireText($body, 'title');
         $category = requireText($body, 'category');
-        $image = saveBase64ImageIfNeeded(requireText($body, 'image'));
+        $image = saveBase64ImageIfNeeded(requireText($body, 'image'), $title);
         $description = requireText($body, 'description');
-        $slug = trim((string) ($body['slug'] ?? strtolower(preg_replace('/[^a-z0-9]+/i', '-', $title))), '-');
+        $slug = trim((string) ($body['slug'] ?? slugify($title)), '_');
 
         $stmt = $pdo->prepare(
             'UPDATE products

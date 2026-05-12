@@ -10,11 +10,7 @@ import CategoryFilter from '../components/CategoryFilter';
 import useProductFilter from '../hooks/useProductFilter';
 
 const resolveApiBaseUrl = () => {
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-
-  return '';
+  return import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api';
 };
 
 const api = axios.create({
@@ -41,16 +37,25 @@ function ProductsPage() {
       try {
         setLoading(true);
         setError('');
-        const response = await api.get('/api/products');
-        const apiProducts = response.data?.data || [];
+        // Add timestamp to query to force bypass of any intermediate caches
+        const response = await api.get(`/api/products?t=${Date.now()}`);
+        
+        // Handle { success, count, data: [...] } structure
+        const apiProducts = Array.isArray(response.data?.data) 
+          ? response.data.data 
+          : (Array.isArray(response.data) ? response.data : []);
+
         const normalizedProducts = apiProducts.map((product) => ({
           ...product,
-          id: product._id || product.id,
-          name: product.title || product.name || '',
+          id: product.id || product._id || '',
+          title: product.title || product.productName || product.name || 'Industrial Part',
+          name: product.title || product.productName || product.name || 'Industrial Part', // Map both just in case
         }));
+
         setProducts(normalizedProducts);
       } catch (fetchError) {
-        setError(fetchError?.response?.data?.message || 'Failed to load products');
+        console.error('Fetch products failed:', fetchError);
+        setError(fetchError?.response?.data?.message || 'Failed to load products. Check console for details.');
       } finally {
         setLoading(false);
       }
@@ -86,7 +91,7 @@ function ProductsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
-                className="mb-4 text-4xl font-black tracking-tight text-white sm:text-3xl md:text-4xl leading-tight"
+                className="mb-3 text-3xl font-black tracking-tight text-white sm:text-2xl md:text-3xl leading-tight"
               >
                 Premium Industrial
                 <br />
@@ -99,9 +104,9 @@ function ProductsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
-                className="mb-8 max-w-3xl text-sm leading-7 text-white/95 sm:text-lg font-medium mx-auto"
+                className="mb-8 max-w-3xl text-xs sm:text-sm leading-relaxed text-white/95 font-medium mx-auto"
               >
-                Discover our comprehensive catalog of high-quality industrial parts, 
+                Discover our comprehensive catalog of high-quality industrial parts,
                 from pumps and valves to motors and controls, engineered for excellence.
               </motion.p>
 
@@ -145,8 +150,8 @@ function ProductsPage() {
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-900">Available Products</h2>
-                    <p className="mt-1 text-xs text-slate-600">
+                    <h2 className="text-xl font-bold text-slate-900">Available Products</h2>
+                    <p className="mt-0.5 text-[11px] text-slate-600">
                       {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
                     </p>
                   </div>
@@ -173,7 +178,7 @@ function ProductsPage() {
                       <Search className="h-8 w-8 text-orange-500" />
                     )}
                   </div>
-                  
+
                   {loading ? (
                     <>
                       <h3 className="text-xl font-bold text-slate-900 mb-2">Loading Products</h3>
@@ -203,7 +208,7 @@ function ProductsPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                 >
                   {filteredProducts.map((product, index) => (
                     <motion.div

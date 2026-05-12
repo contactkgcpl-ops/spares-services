@@ -38,11 +38,10 @@ function FilterSidebar({ categories, selectedCategory, onCategoryChange, resultC
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: 'easeOut', delay: index * 0.1 }}
-                className={`w-full rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'border-2 border-orange-500 bg-gradient-to-r from-orange-500/10 to-orange-600/10 text-orange-600 shadow-md shadow-orange-500/10'
-                    : 'border border-gray-200 bg-white text-slate-700 hover:border-orange-300 hover:bg-orange-50/50 hover:-translate-y-0.5 hover:shadow-sm'
-                }`}
+                className={`w-full rounded-lg px-3 py-2 text-left text-xs font-medium transition-all duration-300 ${selectedCategory === category
+                  ? 'border-2 border-orange-500 bg-gradient-to-r from-orange-500/10 to-orange-600/10 text-orange-600 shadow-md shadow-orange-500/10'
+                  : 'border border-gray-200 bg-white text-slate-700 hover:border-orange-300 hover:bg-orange-50/50 hover:-translate-y-0.5 hover:shadow-sm'
+                  }`}
               >
                 <div className="flex items-center justify-between">
                   <span>{category}</span>

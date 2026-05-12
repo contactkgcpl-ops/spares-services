@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const CATEGORY_OPTIONS = ['Pump Systems', 'Valves', 'Motors', 'Filters', 'Bearings', 'Controls'];
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -36,7 +36,7 @@ const toArrayFromInput = (value) =>
     .filter(Boolean);
 
 export const getProducts = async () => {
-  const response = await api.get('/api/products');
+  const response = await api.get(`/api/products?t=${Date.now()}`);
   const products = response.data?.data || [];
   return products.map(normalizeProduct);
 };
@@ -77,6 +77,20 @@ export const updateProduct = async (id, updates) => {
 
   const response = await api.put(`/api/products/${id}`, payload);
   return normalizeProduct(response.data?.data);
+};
+
+export const uploadImage = async (file, productTitle) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('title', productTitle);
+
+  const response = await api.post('/api/upload.php', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data?.data?.path || response.data?.path;
 };
 
 export const deleteProduct = async (id) => {

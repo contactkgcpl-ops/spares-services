@@ -4,11 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import TechnicalSpecs from '../components/TechnicalSpecs';
 
 const resolveApiBaseUrl = () => {
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-
-  return '';
+  return import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api';
 };
 
 const api = axios.create({
@@ -132,13 +128,13 @@ function ProductDetails() {
 
   return (
     <div className="w-full bg-[#EEF2F7]">
-      <div className="max-w-7xl mx-auto px-6 py-10 space-y-8">
-        
+      <div className="max-w-7xl mx-auto px-6 py-6 space-y-6">
+
         {/* Main Product Section */}
-        <div className="grid lg:grid-cols-2 gap-10 bg-white rounded-3xl p-8 shadow-sm">
-          
+        <div className="grid lg:grid-cols-2 gap-8 bg-white rounded-2xl p-6 shadow-sm">
+
           {/* Left: Product Image */}
-          <div className="flex items-center justify-center rounded-2xl bg-[#EEF2F7]/50 p-8">
+          <div className="flex items-center justify-center rounded-xl bg-[#EEF2F7]/50 p-6">
             <img
               src={product.image}
               alt={productTitle}
@@ -147,29 +143,29 @@ function ProductDetails() {
           </div>
 
           {/* Right: Product Details */}
-          <div className="flex flex-col justify-center space-y-8">
-            <div className="space-y-4">
-              <p className="text-[13px] font-bold uppercase tracking-[0.2em] text-[#FF7A1A]">
+          <div className="flex flex-col justify-center space-y-6">
+            <div className="space-y-3">
+              <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-[#FF7A1A]">
                 {product.category || 'Industrial Component'}
               </p>
-              <h1 className="text-4xl lg:text-5xl font-extrabold text-[#0F1E4A] leading-tight tracking-tight">
+              <h1 className="text-3xl lg:text-4xl font-extrabold text-[#0F1E4A] leading-tight tracking-tight">
                 {productTitle}
               </h1>
             </div>
 
-            <p className="text-lg text-slate-500 leading-relaxed font-medium">
+            <p className="text-base text-slate-500 leading-relaxed font-medium">
               {product.description}
             </p>
 
             {/* Quick Badges */}
-            <div className="flex items-center gap-6 py-6 border-y border-slate-100">
+            <div className="flex items-center gap-6 py-4 border-y border-slate-100">
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600 font-bold text-lg">✓</span>
-                <span className="text-[15px] font-bold text-[#0F1E4A]">In Stock</span>
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-50 text-green-600 font-bold text-base">✓</span>
+                <span className="text-[14px] font-bold text-[#0F1E4A]">In Stock</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-lg">✓</span>
-                <span className="text-[15px] font-bold text-[#0F1E4A]">12-Month Warranty</span>
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-base">✓</span>
+                <span className="text-[14px] font-bold text-[#0F1E4A]">12-Month Warranty</span>
               </div>
             </div>
 
@@ -185,7 +181,7 @@ function ProductDetails() {
                 </svg>
                 Request a Quote
               </button>
-              
+
               <Link
                 to="/spares-service/products"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-8 py-4 text-[15px] font-bold text-[#0F1E4A] transition-all duration-300 hover:border-slate-300 hover:bg-slate-50"
@@ -197,12 +193,12 @@ function ProductDetails() {
         </div>
 
         {/* Unified Content Section */}
-        <div className="bg-white rounded-3xl p-8 shadow-sm space-y-10">
-          
+        <div className="bg-white rounded-2xl p-6 shadow-sm space-y-8">
+
           {/* Overview */}
           <div>
-            <h2 className="text-2xl font-extrabold text-[#0F1E4A] mb-4">Product Overview</h2>
-            <div className="text-slate-500 text-lg leading-relaxed font-medium">
+            <h2 className="text-xl font-extrabold text-[#0F1E4A] mb-3">Product Overview</h2>
+            <div className="text-slate-500 text-base leading-relaxed font-medium">
               {product.fullDescription || product.description}
             </div>
           </div>
@@ -241,13 +237,13 @@ function ProductDetails() {
               )}
             </div>
           )}
-          
+
           {/* Technical Specs */}
           <div>
-            <h2 className="text-2xl font-extrabold text-[#0F1E4A] mb-6">Technical Specifications</h2>
+            <h2 className="text-xl font-extrabold text-[#0F1E4A] mb-4">Technical Specifications</h2>
             <TechnicalSpecs specs={productSpecifications} />
           </div>
-          
+
         </div>
       </div>
     </div>

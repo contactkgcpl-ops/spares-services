@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { addProduct, CATEGORY_OPTIONS } from '../services/productService';
+import { addProduct, uploadImage, CATEGORY_OPTIONS } from '../services/productService';
 
 const initialForm = {
   title: '',
@@ -18,6 +18,7 @@ const AddProduct = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [imageSource, setImageSource] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -31,18 +32,18 @@ const AddProduct = () => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setFormData((prev) => ({ ...prev, image: reader.result }));
-      setImageSource('file');
-    };
-    reader.readAsDataURL(file);
+    setSelectedFile(file);
+    setImageSource('file');
+    
+    // Create preview URL
+    const previewUrl = URL.createObjectURL(file);
+    setFormData((prev) => ({ ...prev, image: previewUrl }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!formData.title || !formData.description || !formData.category || !formData.features || !formData.specifications || !formData.image) {
+    if (!formData.title || !formData.description || !formData.category || !formData.features || !formData.specifications || (!formData.image && !selectedFile)) {
       setError('Please fill all fields including image.');
       return;
     }
@@ -50,7 +51,23 @@ const AddProduct = () => {
     try {
       setLoading(true);
       setError('');
-      await addProduct(formData);
+
+      let imagePath = formData.image;
+
+      // If file is selected, upload it first
+      if (selectedFile && imageSource === 'file') {
+        console.log('Uploading image:', selectedFile.name);
+        imagePath = await uploadImage(selectedFile, formData.title);
+        console.log('Image uploaded successfully:', imagePath);
+      }
+
+      // Create product with image path
+      const productData = {
+        ...formData,
+        image: imagePath,
+      };
+
+      await addProduct(productData);
       navigate('/admin/products', { state: { message: 'Product added successfully' } });
     } catch (submitError) {
       console.error('Save product failed:', submitError?.response?.data || submitError?.message || submitError);

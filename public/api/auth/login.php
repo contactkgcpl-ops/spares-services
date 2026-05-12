@@ -12,10 +12,10 @@ $body = readJsonBody();
 $email = trim((string) ($body['email'] ?? ''));
 $password = (string) ($body['password'] ?? '');
 
-$adminEmail = 'info.salvinindustries@gmail.com';
-$hash = '$2y$10$Vp7L6R3W/P2vDLXkpPX20eswoOfTTHq6JBsz1kp4zYkAYdkDtUKo2'; // 'admin123'
+$adminEmail = env('ADMIN_EMAIL', 'info.salvinindustries@gmail.com');
+$adminPass = env('ADMIN_PASSWORD', 'admin123');
 
-if ($email !== $adminEmail || !password_verify($password, $hash)) {
+if ($email !== $adminEmail || $password !== $adminPass) {
     respond(401, ['success' => false, 'message' => 'Invalid credentials']);
 }
 

@@ -15,8 +15,17 @@ if (!isset($_FILES['file']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
 
 $file = $_FILES['file'];
 $maxBytes = 5242880;
-$uploadDir = __DIR__ . '/../uploads';
+
+// FORCE ABSOLUTE XAMPP PATH - NO RELATIVE PATHS
+$uploadDir = 'C:/xampp/htdocs/spares-service/public/uploads';
 $uploadUrlPath = '/uploads';
+
+// Debug logging
+error_log("=== UPLOAD.PHP DEBUG START ===");
+error_log("Target directory: " . $uploadDir);
+error_log("Directory exists: " . (is_dir($uploadDir) ? "YES" : "NO"));
+error_log("Directory writable: " . (is_writable($uploadDir) ? "YES" : "NO"));
+error_log("Uploaded file info: " . print_r($file, true));
 
 if ((int) $file['size'] > $maxBytes) {
     respond(400, ['success' => false, 'message' => 'File too large']);
@@ -34,16 +43,64 @@ if (!isset($allowed[$mime])) {
     respond(400, ['success' => false, 'message' => 'Unsupported file type']);
 }
 
+// Create directory if needed
 if (!is_dir($uploadDir)) {
-    mkdir($uploadDir, 0755, true);
+    error_log("Creating uploads directory...");
+    mkdir($uploadDir, 0777, true);
+    error_log("Directory created: " . $uploadDir);
 }
 
-$name = uniqid('upload_', true) . '.' . $allowed[$mime];
+// Generate slugified filename from product title if available
+$productTitle = $_POST['title'] ?? '';
+if ($productTitle) {
+    // Simple slugification
+    $baseName = strtolower($productTitle);
+    $baseName = preg_replace('/[^a-z0-9]+/i', '_', $baseName);
+    $baseName = trim($baseName, '_');
+    $name = $baseName . '.' . $allowed[$mime];
+    
+    // Handle duplicates
+    $counter = 1;
+    while (file_exists($uploadDir . '/' . $name)) {
+        $name = $baseName . '_' . $counter . '.' . $allowed[$mime];
+        $counter++;
+    }
+} else {
+    $name = uniqid('upload_', true) . '.' . $allowed[$mime];
+}
+
 $target = $uploadDir . '/' . $name;
 
-if (!move_uploaded_file($file['tmp_name'], $target)) {
-    respond(500, ['success' => false, 'message' => 'Failed to save file']);
+error_log("Final filename: " . $name);
+error_log("Target path: " . $target);
+error_log("Attempting move_uploaded_file...");
+
+// Move uploaded file to absolute path
+$moveResult = move_uploaded_file($file['tmp_name'], $target);
+
+error_log("Move result: " . ($moveResult ? "SUCCESS" : "FAILED"));
+
+if (!$moveResult) {
+    error_log("CRITICAL: Failed to move uploaded file");
+    respond(500, ['success' => false, 'message' => 'Failed to save file to: ' . $target]);
 }
 
+// IMMEDIATE VERIFICATION - FILE MUST PHYSICALLY EXIST
+if (!file_exists($target)) {
+    error_log("CRITICAL: File does not exist after move: " . $target);
+    respond(500, ['success' => false, 'message' => 'File was not created: ' . $target]);
+}
+
+// Verify file has actual content
+$fileSize = filesize($target);
+if ($fileSize === false || $fileSize === 0) {
+    error_log("CRITICAL: File is empty or unreadable: " . $target);
+    respond(500, ['success' => false, 'message' => 'File is empty or unreadable: ' . $target]);
+}
+
+error_log("SUCCESS: Physically saved file to: " . $target . " (" . $fileSize . " bytes)");
+error_log("=== UPLOAD.PHP DEBUG END ===");
+
 $url = publicUrlForPath($uploadUrlPath . '/' . $name);
-respond(201, ['success' => true, 'message' => 'File uploaded successfully', 'data' => ['url' => $url, 'path' => $uploadUrlPath . '/' . $name]]);
+$relativePath = $uploadUrlPath . '/' . $name;
+respond(201, ['success' => true, 'message' => 'File uploaded successfully', 'data' => ['url' => $url, 'path' => $relativePath]]);

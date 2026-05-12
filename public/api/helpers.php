@@ -1,5 +1,6 @@
-<?php
 declare(strict_types=1);
+
+require_once __DIR__ . '/config.php';
 
 function db(): PDO
 {
@@ -8,12 +9,13 @@ function db(): PDO
         return $pdo;
     }
 
-    $host = 'localhost';
-    $dbname = 'spares_service';
-    $user = 'root';
-    $pass = '';
+    $host = env('DB_HOST', 'localhost');
+    $port = env('DB_PORT', '3306');
+    $dbname = env('DB_NAME', 'spares_service');
+    $user = env('DB_USER', 'root');
+    $pass = env('DB_PASSWORD', '');
     
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
     
     $pdo = new PDO($dsn, $user, $pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -29,6 +31,9 @@ function applyCors(): void
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, Authorization');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Cache-Control: post-check=0, pre-check=0', false);
+    header('Pragma: no-cache');
 
     if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
         http_response_code(204);
@@ -70,7 +75,7 @@ function base64UrlDecode(string $data): string|false
 
 function createToken(string $email): string
 {
-    $secret = 'your-secret-key-change-in-production';
+    $secret = env('JWT_SECRET', 'salvin_spares_secret_key');
     $header = base64UrlEncode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
     $payload = base64UrlEncode(json_encode([
         'email' => $email,
@@ -84,7 +89,7 @@ function createToken(string $email): string
 
 function requireAdmin(): void
 {
-    $secret = 'your-secret-key-change-in-production';
+    $secret = env('JWT_SECRET', 'salvin_spares_secret_key');
     $header = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
 
     if ($header === '' && function_exists('apache_request_headers')) {
@@ -200,6 +205,11 @@ function productFromRow(array $row): array
     $row['createdAt'] = $row['created_at'] ?? null;
     $row['updatedAt'] = $row['updated_at'] ?? null;
 
+    // Ensure image is a full URL for the frontend
+    if ($row['image'] && !str_starts_with($row['image'], 'http')) {
+        $row['image'] = publicUrlForPath($row['image']);
+    }
+
     return $row;
 }
 
@@ -229,14 +239,47 @@ function requireText(array $data, string $key): string
 
 function publicUrlForPath(string $relativePath): string
 {
+    $uploadUrl = env('UPLOAD_URL');
+    if ($uploadUrl) {
+        $name = basename($relativePath);
+        return rtrim($uploadUrl, '/') . '/' . $name;
+    }
+
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'] ?? '';
-    $base = '/spares-service/public';
-    return $host ? "{$scheme}://{$host}{$base}{$relativePath}" : $relativePath;
+    
+    // Dynamically determine the base path to the public folder
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+    $basePath = str_replace('/api', '', dirname($scriptName));
+    $basePath = rtrim($basePath, '/\\');
+    $relativePath = '/' . ltrim($relativePath, '/\\');
+    
+    return $host ? "{$scheme}://{$host}{$basePath}{$relativePath}" : $relativePath;
 }
 
-function saveBase64ImageIfNeeded(string $image): string
+function slugify(string $text): string
 {
+    // Convert to lowercase
+    $text = strtolower($text);
+    // Replace spaces and special characters with underscore
+    $text = preg_replace('/[^a-z0-9]+/i', '_', $text);
+    // Trim underscores from ends
+    return trim($text, '_');
+}
+
+function saveBase64ImageIfNeeded(string $image, string $suggestedName = ''): string
+{
+    // If it's already an absolute URL, check if it's from our own uploads folder
+    if (str_starts_with($image, 'http')) {
+        $uploadUrlPath = '/uploads/';
+        $pos = strpos($image, $uploadUrlPath);
+        if ($pos !== false) {
+            // Return only the relative part: uploads/filename.jpg
+            return substr($image, $pos + 1);
+        }
+        return $image;
+    }
+
     if (!str_starts_with($image, 'data:image/')) {
         return $image;
     }
@@ -245,23 +288,94 @@ function saveBase64ImageIfNeeded(string $image): string
         respond(400, ['success' => false, 'message' => 'Invalid image data']);
     }
 
-    $maxBytes = 5242880;
-    $uploadDir = __DIR__ . '/../uploads';
-    $uploadUrlPath = '/uploads';
+    $maxBytes = (int) env('MAX_UPLOAD_SIZE', 5242880);
+    
+    // Use path from env with fallback to local path
+    $uploadDir = env('UPLOAD_PATH', 'C:/xampp/htdocs/spares-service/public/uploads');
+    
+    // Comprehensive debugging
+    error_log("=== IMAGE UPLOAD DEBUG START ===");
+    error_log("Target directory: " . $uploadDir);
+    error_log("Directory exists: " . (is_dir($uploadDir) ? "YES" : "NO"));
+    error_log("Directory writable: " . (is_writable($uploadDir) ? "YES" : "NO"));
+    error_log("Current working dir: " . getcwd());
+    error_log("Script location: " . __FILE__);
+    
+    // Create directory if needed
+    if (!is_dir($uploadDir)) {
+        error_log("Creating uploads directory...");
+        if (!mkdir($uploadDir, 0777, true)) {
+            error_log("FAILED to create directory: " . $uploadDir);
+            respond(500, ['success' => false, 'message' => 'Failed to create uploads directory at: ' . $uploadDir]);
+        }
+        error_log("Directory created successfully");
+    }
+
+    if (!is_writable($uploadDir)) {
+        error_log("DIRECTORY NOT WRITABLE: " . $uploadDir);
+        respond(500, ['success' => false, 'message' => 'Uploads directory is not writable: ' . $uploadDir]);
+    }
 
     $extension = strtolower($matches[1]) === 'jpeg' ? 'jpg' : strtolower($matches[1]);
     $binary = base64_decode($matches[2], true);
     if ($binary === false || strlen($binary) > $maxBytes) {
+        error_log("Invalid image data or too large");
         respond(400, ['success' => false, 'message' => 'Image is invalid or too large']);
     }
 
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
+    // Create slugified filename from product title
+    $baseName = $suggestedName ? slugify($suggestedName) : uniqid('product_', true);
+    $name = $baseName . ".{$extension}";
+    
+    // Handle duplicate filenames
+    $counter = 1;
+    while (file_exists($uploadDir . '/' . $name)) {
+        $name = $baseName . '_' . $counter . ".{$extension}";
+        $counter++;
     }
 
-    $name = uniqid('product_', true) . ".{$extension}";
-    $path = $uploadDir . '/' . $name;
-    file_put_contents($path, $binary);
+    // Use ABSOLUTE path for ALL file operations
+    $absolutePath = $uploadDir . '/' . $name;
+    
+    error_log("Final absolute path: " . $absolutePath);
+    error_log("Generated filename: " . $name);
+    error_log("Binary data size: " . strlen($binary) . " bytes");
+    
+    // ATTEMPT FILE WRITE WITH ABSOLUTE PATH
+    error_log("Attempting file_put_contents...");
+    $bytesWritten = file_put_contents($absolutePath, $binary);
+    
+    error_log("file_put_contents result: " . ($bytesWritten === false ? "FALSE" : $bytesWritten . " bytes"));
+    
+    if ($bytesWritten === false) {
+        error_log("FILE WRITE FAILED - Checking error...");
+        $error = error_get_last();
+        error_log("PHP Error: " . ($error ? $error['message'] : 'No error info'));
+        respond(500, ['success' => false, 'message' => 'Failed to write image to disk at: ' . $absolutePath]);
+    }
+    
+    // IMMEDIATE VERIFICATION - FILE MUST PHYSICALLY EXIST
+    error_log("Verifying file existence...");
+    $fileExists = file_exists($absolutePath);
+    error_log("File exists after write: " . ($fileExists ? "YES" : "NO"));
+    
+    if (!$fileExists) {
+        error_log("CRITICAL: File does not exist after write attempt");
+        respond(500, ['success' => false, 'message' => 'File was not created: ' . $absolutePath]);
+    }
+    
+    // Verify file has actual content
+    $actualSize = filesize($absolutePath);
+    error_log("File size check: " . ($actualSize === false ? "FALSE" : $actualSize . " bytes"));
+    
+    if ($actualSize === false || $actualSize === 0) {
+        error_log("CRITICAL: File is empty or unreadable");
+        respond(500, ['success' => false, 'message' => 'File is empty or unreadable: ' . $absolutePath]);
+    }
+    
+    error_log("SUCCESS: Image physically saved to: " . $absolutePath . " (" . $actualSize . " bytes)");
+    error_log("=== IMAGE UPLOAD DEBUG END ===");
 
-    return publicUrlForPath($uploadUrlPath . '/' . $name);
+    // Return relative path for database storage
+    return 'uploads/' . $name;
 }

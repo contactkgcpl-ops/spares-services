@@ -2,15 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaSearch } from 'react-icons/fa';
 import axios from 'axios';
+import logo from '../assets/logo.jpg';
 
 const resolveApiBaseUrl = () => {
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-  if (typeof window !== 'undefined') {
-    return `${window.location.protocol}//${window.location.hostname}:5000`;
-  }
-  return 'http://localhost:5000';
+  return import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api';
 };
 
 const api = axios.create({
@@ -26,7 +21,7 @@ const navItems = [
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  
+
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
   const [allProducts, setAllProducts] = useState([]);
@@ -112,24 +107,24 @@ function Navbar() {
       {/* Main Navbar */}
       <div className="bg-white shadow-[0_2px_15px_rgba(30,42,74,0.04)]">
         <div className="mx-auto flex max-w-[1700px] items-center justify-between px-6 py-5 sm:px-10 lg:px-16 xl:px-24">
-          
+
           {/* Logo */}
-          <Link to="/spares-service/home" className="flex items-center gap-2 text-[#1E2A4A] group">
-            <div className="flex flex-col leading-none">
-              <span className="text-[26px] font-black tracking-tight text-[#1E2A4A] mb-0.5">SALVIN</span>
-              <span className="text-[8px] uppercase font-bold tracking-[0.2em] text-[#536488]">IT SOLUTIONS</span>
-            </div>
+          <Link to="/spares-service/home" className="flex items-center gap-2 group">
+            <img
+              src={logo}
+              alt="Salvin Spares"
+              className="h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
-               <NavLink
+              <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `text-[15px] font-semibold transition-colors duration-200 ${
-                    isActive ? 'text-[#1E2A4A]' : 'text-[#536488] hover:text-[#1E2A4A]'
+                  `text-[15px] font-semibold transition-colors duration-200 ${isActive ? 'text-[#1E2A4A]' : 'text-[#536488] hover:text-[#1E2A4A]'
                   }`
                 }
               >
@@ -141,9 +136,9 @@ function Navbar() {
           {/* Search Bar (Desktop) */}
           <div className="hidden md:flex items-center relative" ref={searchRef}>
             <form onSubmit={handleSearchSubmit} className="relative">
-              <input 
-                type="text" 
-                placeholder="Search products..." 
+              <input
+                type="text"
+                placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={handleSearchFocus}
@@ -193,9 +188,9 @@ function Navbar() {
         <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 space-y-4">
           <div className="relative mb-4" ref={mobileSearchRef}>
             <form onSubmit={handleSearchSubmit} className="relative">
-              <input 
-                type="text" 
-                placeholder="Search products..." 
+              <input
+                type="text"
+                placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={handleSearchFocus}
