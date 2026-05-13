@@ -38,7 +38,7 @@ function ProductsPage() {
         setLoading(true);
         setError('');
         // Add timestamp to query to force bypass of any intermediate caches
-        const response = await api.get(`/api/products?t=${Date.now()}`);
+        const response = await api.get(`/products?t=${Date.now()}`);
         
         // Handle { success, count, data: [...] } structure
         const apiProducts = Array.isArray(response.data?.data) 

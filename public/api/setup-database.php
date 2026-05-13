@@ -8,6 +8,8 @@ $dbname = 'spares_service';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
+$adminEmail = 'admin@gmail.com';
+$adminPassword = 'admin123';
 
 try {
     // Connect to MySQL without specifying database first
@@ -29,6 +31,31 @@ try {
     
     echo "Connected to database '$dbname' successfully.\n";
     
+    // Create categories table
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS categories (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(120) NOT NULL UNIQUE,
+            slug VARCHAR(140) NOT NULL UNIQUE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    );
+    echo "Categories table created or already exists.\n";
+
+    // Create admins table
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS admins (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            email VARCHAR(180) NOT NULL UNIQUE,
+            password_hash VARCHAR(255) NOT NULL,
+            full_name VARCHAR(180) NULL,
+            is_active TINYINT(1) NOT NULL DEFAULT 1,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    );
+    echo "Admins table created or already exists.\n";
+
     // Create products table
     $pdo->exec(
         "CREATE TABLE IF NOT EXISTS products (
@@ -61,6 +88,28 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     );
     echo "Enquiries table created or already exists.\n";
+
+    // Seed categories
+    $pdo->exec(
+        "INSERT IGNORE INTO categories (name, slug) VALUES
+        ('Pump Systems', 'pump_systems'),
+        ('Valves', 'valves'),
+        ('Motors', 'motors'),
+        ('Filters', 'filters'),
+        ('Bearings', 'bearings'),
+        ('Controls', 'controls')"
+    );
+    echo "Categories seeded.\n";
+
+    $adminStmt = $pdo->prepare('SELECT COUNT(*) FROM admins WHERE email = ?');
+    $adminStmt->execute([$adminEmail]);
+    if ((int) $adminStmt->fetchColumn() === 0) {
+        $insertAdmin = $pdo->prepare(
+            'INSERT INTO admins (email, password_hash, full_name, is_active) VALUES (?, ?, ?, 1)'
+        );
+        $insertAdmin->execute([$adminEmail, password_hash($adminPassword, PASSWORD_DEFAULT), 'Administrator']);
+    }
+    echo "Admin account ensured (admin@gmail.com).\n";
     
     // Check if products exist and add sample data if empty
     $count = (int) $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();

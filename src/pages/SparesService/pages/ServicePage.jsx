@@ -5,7 +5,7 @@ import axios from 'axios';
 import heroGraphic from '../assets/hero-img.jpeg';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api',
 });
 
 function ServicePage() {
@@ -32,7 +32,7 @@ function ServicePage() {
       setSubmitting(true);
       setFormStatus('');
       setFormError('');
-      await api.post('/api/contact', formData);
+      await api.post('/contact', formData);
       setFormStatus('Inquiry submitted successfully.');
       setFormData({ fullName: '', companyName: '', email: '', phone: '', subject: '', message: '' });
     } catch (error) {

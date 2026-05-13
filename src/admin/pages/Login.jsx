@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api',
 });
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await api.post('/api/auth/login', { email, password });
+      const response = await api.post('/auth/login', { email, password });
       localStorage.setItem('admin_auth', 'true');
       localStorage.setItem('admin_token', response.data.token);
       const targetPath = location.state?.from?.pathname || '/admin/dashboard';

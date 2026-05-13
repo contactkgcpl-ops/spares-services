@@ -36,13 +36,13 @@ const toArrayFromInput = (value) =>
     .filter(Boolean);
 
 export const getProducts = async () => {
-  const response = await api.get(`/api/products?t=${Date.now()}`);
+  const response = await api.get(`/products?t=${Date.now()}`);
   const products = response.data?.data || [];
   return products.map(normalizeProduct);
 };
 
 export const getProductById = async (id) => {
-  const response = await api.get(`/api/products/${id}`);
+  const response = await api.get(`/products/${id}`);
   return normalizeProduct(response.data?.data);
 };
 
@@ -57,7 +57,7 @@ export const addProduct = async (product) => {
     slug: product.slug?.trim() || (product.title || product.productName || '').toLowerCase().trim().replace(/\s+/g, '-'),
   };
 
-  const response = await api.post('/api/products', payload);
+  const response = await api.post('/products', payload);
   return normalizeProduct(response.data?.data);
 };
 
@@ -75,7 +75,7 @@ export const updateProduct = async (id, updates) => {
     payload.slug = updates.slug.trim();
   }
 
-  const response = await api.put(`/api/products/${id}`, payload);
+  const response = await api.put(`/products/${id}`, payload);
   return normalizeProduct(response.data?.data);
 };
 
@@ -84,7 +84,7 @@ export const uploadImage = async (file, productTitle) => {
   formData.append('file', file);
   formData.append('title', productTitle);
 
-  const response = await api.post('/api/upload.php', formData, {
+  const response = await api.post('/upload.php', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -94,6 +94,6 @@ export const uploadImage = async (file, productTitle) => {
 };
 
 export const deleteProduct = async (id) => {
-  const response = await api.delete(`/api/products/${id}`);
+  const response = await api.delete(`/products/${id}`);
   return response.data;
 };

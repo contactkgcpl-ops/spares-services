@@ -10,7 +10,7 @@ const resolveApiBaseUrl = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
 
-  return '';
+  return 'http://localhost/spares-service/public/api';
 };
 
 const api = axios.create({
@@ -28,7 +28,7 @@ function SparesHome() {
       try {
         setLoading(true);
         setError('');
-        const response = await api.get('/api/products');
+        const response = await api.get('/products');
         const apiProducts = response.data?.data || [];
         const normalizedProducts = apiProducts.map((product) => ({
           ...product,

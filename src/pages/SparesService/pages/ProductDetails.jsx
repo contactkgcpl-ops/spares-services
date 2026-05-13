@@ -43,7 +43,7 @@ function ProductDetails() {
         setLoading(true);
         setError('');
         setNotFound(false);
-        const response = await api.get(`/api/products/${id}`);
+        const response = await api.get(`/products/${id}`);
         const apiProduct = response.data?.data;
         if (!apiProduct) {
           setNotFound(true);

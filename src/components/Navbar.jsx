@@ -47,7 +47,7 @@ function Navbar() {
   const fetchProductsForSearch = async () => {
     if (allProducts.length === 0) {
       try {
-        const response = await api.get('/api/products');
+        const response = await api.get('/products');
         setAllProducts(response.data?.data || []);
       } catch (error) {
         console.error("Failed to load products for search");
