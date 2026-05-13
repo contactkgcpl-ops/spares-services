@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, ShieldCheck, Zap, Factory, Award, ArrowRight } from 'lucide-react';
 import axios from 'axios';
 import heroGraphic from '../assets/hero-img.jpeg';
+import { API_BASE_URL } from '../../../config/api';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api',
+  baseURL: API_BASE_URL,
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
 function ServicePage() {

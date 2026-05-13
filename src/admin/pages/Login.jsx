@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api',
+  baseURL: API_BASE_URL,
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
 const Login = () => {

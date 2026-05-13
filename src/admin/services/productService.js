@@ -1,9 +1,11 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
 
 export const CATEGORY_OPTIONS = ['Pump Systems', 'Valves', 'Motors', 'Filters', 'Bearings', 'Controls'];
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api',
+  baseURL: API_BASE_URL,
   headers: {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });

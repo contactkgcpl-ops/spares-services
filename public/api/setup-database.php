@@ -150,8 +150,8 @@ try {
     
     echo "\nDatabase setup completed successfully!\n";
     echo "You can now test the API at:\n";
-    echo "http://localhost/spares-service/public/api/products.php\n";
-    echo "http://localhost/spares-service/public/api/health.php\n";
+    echo "https://spares.salvinindia.com/public/api/products\n";
+    echo "https://spares.salvinindia.com/public/api/health\n";
     
 } catch (PDOException $e) {
     echo "ERROR: " . $e->getMessage() . "\n";

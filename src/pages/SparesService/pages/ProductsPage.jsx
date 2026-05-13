@@ -8,13 +8,13 @@ import SearchBar from '../components/SearchBar';
 import FilterSidebar from '../components/FilterSidebar';
 import CategoryFilter from '../components/CategoryFilter';
 import useProductFilter from '../hooks/useProductFilter';
-
-const resolveApiBaseUrl = () => {
-  return import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api';
-};
+import { API_BASE_URL } from '../../../config/api';
 
 const api = axios.create({
-  baseURL: resolveApiBaseUrl(),
+  baseURL: API_BASE_URL,
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
 function ProductsPage() {

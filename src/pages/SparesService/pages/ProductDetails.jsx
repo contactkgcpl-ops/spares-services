@@ -3,13 +3,13 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
 import TechnicalSpecs from '../components/TechnicalSpecs';
-
-const resolveApiBaseUrl = () => {
-  return import.meta.env.VITE_API_BASE_URL || 'http://localhost/spares-service/public/api';
-};
+import { API_BASE_URL } from '../../../config/api';
 
 const api = axios.create({
-  baseURL: resolveApiBaseUrl(),
+  baseURL: API_BASE_URL,
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
 const mapSpecs = (specifications = []) =>
