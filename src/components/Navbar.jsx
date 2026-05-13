@@ -86,8 +86,8 @@ function Navbar() {
   return (
     <header className="w-full flex flex-col font-sans relative z-50">
       {/* Top Bar */}
-      <div className="bg-[#1E2A4A] text-white py-2.5 px-6 sm:px-10 lg:px-16 xl:px-24 flex justify-between items-center text-[13px] font-medium">
-        <div className="flex items-center gap-6">
+      <div className="bg-[#1E2A4A] text-white py-2 px-6 sm:px-10 lg:px-16 xl:px-24 flex justify-between items-center text-[12px] font-medium">
+        <div className="flex items-center gap-5">
           <a href="tel:+919023979663" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
             <FaPhoneAlt size={11} /> +91 90239 79663
           </a>
@@ -96,7 +96,7 @@ function Navbar() {
             <FaEnvelope size={12} /> info.salvinindustries@gmail.com
           </a>
         </div>
-        <div className="hidden sm:flex items-center gap-4">
+        <div className="hidden sm:flex items-center gap-3.5">
           <a href="#" className="hover:text-blue-300 transition-colors"><FaFacebookF size={13} /></a>
           <a href="#" className="hover:text-blue-300 transition-colors"><FaInstagram size={13} /></a>
           <a href="#" className="hover:text-blue-300 transition-colors"><FaLinkedinIn size={13} /></a>
@@ -105,26 +105,26 @@ function Navbar() {
       </div>
 
       {/* Main Navbar */}
-      <div className="bg-white shadow-[0_2px_15px_rgba(30,42,74,0.04)]">
-        <div className="mx-auto flex max-w-[1700px] items-center justify-between px-6 py-5 sm:px-10 lg:px-16 xl:px-24">
+      <div className="bg-[#F7F9FC]/95 backdrop-blur-sm border-b border-slate-200/80 shadow-[0_4px_14px_rgba(15,30,74,0.08)]">
+        <div className="mx-auto flex max-w-[1700px] items-center justify-between px-6 py-4 sm:px-10 lg:px-16 xl:px-24">
 
           {/* Logo */}
           <Link to="/spares-service/home" className="flex items-center gap-2 group">
             <img
               src={logo}
               alt="Salvin Spares"
-              className="h-12 w-auto object-contain"
+              className="h-10 w-auto object-contain"
             />
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `text-[15px] font-semibold transition-colors duration-200 ${isActive ? 'text-[#1E2A4A]' : 'text-[#536488] hover:text-[#1E2A4A]'
+                  `text-[14px] font-semibold transition-colors duration-200 ${isActive ? 'text-[#1E2A4A]' : 'text-[#536488] hover:text-[#1E2A4A]'
                   }`
                 }
               >
@@ -142,10 +142,10 @@ function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={handleSearchFocus}
-                className="border border-gray-200 rounded-full py-2.5 pl-5 pr-10 text-[14px] w-64 focus:outline-none focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/30 transition-all text-[#0F1E4A] placeholder-gray-400 shadow-sm"
+                className="border border-gray-200 rounded-full py-2 pl-4 pr-9 text-[13px] w-60 focus:outline-none focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/30 transition-all text-[#0F1E4A] placeholder-gray-400 shadow-sm"
               />
-              <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF7A1A] transition-colors">
-                <FaSearch size={14} />
+              <button type="submit" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF7A1A] transition-colors">
+                <FaSearch size={13} />
               </button>
             </form>
 
@@ -160,7 +160,7 @@ function Navbar() {
                       <button
                         key={product._id || product.id}
                         onClick={() => handleSuggestionClick(name)}
-                        className="w-full text-left px-3 py-2.5 text-sm font-semibold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
+                        className="w-full text-left px-3 py-2 text-[13px] font-semibold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
                       >
                         {name}
                       </button>
@@ -185,8 +185,8 @@ function Navbar() {
 
       {/* Mobile dropdown */}
       {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 space-y-4">
-          <div className="relative mb-4" ref={mobileSearchRef}>
+        <div className="lg:hidden absolute top-full left-0 w-full bg-[#F7F9FC]/95 backdrop-blur-sm shadow-[0_10px_24px_rgba(15,30,74,0.08)] border-t border-slate-200/80 py-3.5 px-5 space-y-3.5">
+          <div className="relative mb-3" ref={mobileSearchRef}>
             <form onSubmit={handleSearchSubmit} className="relative">
               <input
                 type="text"
@@ -194,10 +194,10 @@ function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={handleSearchFocus}
-                className="w-full border border-gray-200 rounded-full py-3 px-5 text-[14px] focus:outline-none focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/30 text-[#0F1E4A] transition-all"
+                className="w-full border border-gray-200 rounded-full py-2.5 px-4 text-[13px] focus:outline-none focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/30 text-[#0F1E4A] transition-all"
               />
-              <button type="submit" className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF7A1A]">
-                <FaSearch size={14} />
+              <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF7A1A]">
+                <FaSearch size={13} />
               </button>
             </form>
 
@@ -212,7 +212,7 @@ function Navbar() {
                       <button
                         key={product._id || product.id}
                         onClick={() => handleSuggestionClick(name)}
-                        className="w-full text-left px-3 py-2.5 text-sm font-semibold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
+                        className="w-full text-left px-3 py-2 text-[13px] font-semibold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
                       >
                         {name}
                       </button>
@@ -229,7 +229,7 @@ function Navbar() {
               to={item.to}
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) =>
-                `block text-[15px] font-semibold py-2 ${isActive ? 'text-[#1E2A4A]' : 'text-[#536488]'}`
+                `block text-[14px] font-semibold py-1.5 ${isActive ? 'text-[#1E2A4A]' : 'text-[#536488]'}`
               }
             >
               {item.label}

@@ -82,17 +82,17 @@ function PremiumHome() {
 
 
       {/* ═══════════  1. HERO SECTION  ═══════════ */}
-      <section className="bg-[#EEF2F7] px-6 py-6 lg:px-10 xl:px-12 pb-10">
-        <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-6 lg:gap-8 lg:grid-cols-[1.25fr_1fr]">
+      <section className="bg-[#EEF2F7] px-6 py-5 lg:px-10 xl:px-12 pb-8">
+        <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-5 lg:gap-6 lg:grid-cols-[1.25fr_1fr]">
 
           {/* LEFT BIG CARD */}
-          <div className="flex min-h-[440px] items-center justify-between rounded-[24px] bg-white p-8 lg:p-10 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white">
+          <div className="flex min-h-[410px] items-center justify-between rounded-[24px] bg-white p-6 md:p-7 lg:p-8 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white">
             <div className="max-w-xl flex flex-col justify-center">
-              <span className="mb-4 inline-flex w-fit rounded-full bg-[#EEF2F7] px-4 py-1.5 text-[13px] font-bold tracking-wide text-[#1E2A4A]">
+              <span className="mb-3 inline-flex w-fit rounded-full bg-[#EEF2F7] px-4 py-1.5 text-xs font-bold tracking-wide text-[#1E2A4A]">
                 Premium Industrial Partner
               </span>
 
-              <h1 className="text-4xl font-extrabold leading-[1.1] text-[#1E2A4A] md:text-4xl lg:text-5xl tracking-tight">
+              <h1 className="text-[2rem] font-extrabold leading-[1.04] text-[#1E2A4A] md:text-[2.25rem] lg:text-[2.65rem] tracking-tight">
                 High-Quality
                 <br />
                 Pneumatic Spares &
@@ -100,17 +100,17 @@ function PremiumHome() {
                 Industrial Parts
               </h1>
 
-              <p className="mt-5 max-w-lg text-[1.05rem] leading-relaxed text-[#536488] font-medium pr-4">
+              <p className="mt-4 max-w-lg text-[15px] leading-6 text-[#536488] font-medium pr-4 md:text-base">
                 Easy to find quality pneumatic parts with quick delivery
                 and dependable engineering service.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <button className="rounded-xl bg-[#1E2A4A] px-8 py-4 text-[15px] font-bold text-white shadow-[0_4px_14px_rgba(30,42,74,0.15)] transition hover:bg-blue-600">
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <button className="rounded-xl bg-[#1E2A4A] px-6 py-3 text-[13px] font-bold text-white shadow-[0_4px_14px_rgba(30,42,74,0.15)] transition hover:bg-blue-600">
                   Shop Now →
                 </button>
 
-                <button className="rounded-xl border border-gray-200 bg-white px-8 py-4 text-[15px] font-bold text-[#1E2A4A] transition hover:bg-[#EEF2F7]">
+                <button className="rounded-xl border border-gray-200 bg-white px-6 py-3 text-[13px] font-bold text-[#1E2A4A] transition hover:bg-[#EEF2F7]">
                   Explore Catalog
                 </button>
               </div>
@@ -121,22 +121,22 @@ function PremiumHome() {
               <img
                 src={heroMain}
                 alt="Industrial Product"
-                className="w-[420px] lg:w-[500px] object-contain"
+                className="w-[360px] lg:w-[430px] object-contain"
               />
             </div>
           </div>
 
           {/* RIGHT SIDE CARDS */}
-          <div className="flex flex-col gap-6 lg:gap-8">
+          <div className="flex flex-col gap-5 lg:gap-6">
 
             {/* CARD 1 */}
-            <div className="flex min-h-[204px] flex-1 items-center justify-between rounded-[24px] bg-white p-8 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
+            <div className="flex min-h-[190px] flex-1 items-center justify-between rounded-[24px] bg-white p-6 md:p-7 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
               <div className="flex flex-col h-full justify-center">
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-blue-600">
                   Featured Item
                 </p>
 
-                <h3 className="text-2xl font-extrabold leading-tight text-[#1E2A4A]">
+                <h3 className="text-xl md:text-[1.35rem] font-extrabold leading-tight text-[#1E2A4A]">
                   Pick & Place
                   <br />
                   System
@@ -147,19 +147,19 @@ function PremiumHome() {
                 <img
                   src={menuImg}
                   alt="Pick & Place"
-                  className="w-[180px] object-contain"
+                  className="w-[160px] object-contain"
                 />
               </div>
             </div>
 
             {/* CARD 2 */}
-            <div className="flex min-h-[204px] flex-1 items-center justify-between rounded-[24px] bg-white p-8 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
+            <div className="flex min-h-[190px] flex-1 items-center justify-between rounded-[24px] bg-white p-6 md:p-7 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
               <div className="flex flex-col h-full justify-center">
                 <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-blue-600">
                   Automation
                 </p>
 
-                <h3 className="text-2xl font-extrabold leading-tight text-[#1E2A4A]">
+                <h3 className="text-xl md:text-[1.35rem] font-extrabold leading-tight text-[#1E2A4A]">
                   Robotic Arm
                 </h3>
               </div>
@@ -168,7 +168,7 @@ function PremiumHome() {
                 <img
                   src={robotImg}
                   alt="Robotic Arm"
-                  className="w-[180px] object-contain"
+                  className="w-[160px] object-contain"
                 />
               </div>
             </div>
@@ -181,14 +181,14 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="py-14 md:py-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
+        className="py-10 md:py-12 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
       >
-        <motion.div variants={fadeUp} custom={0} className="mb-14 flex flex-col items-center text-center">
+        <motion.div variants={fadeUp} custom={0} className="mb-10 flex flex-col items-center text-center">
           <SectionLabel icon={Box}>Our Categories</SectionLabel>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
+          <h2 className="text-[1.6rem] md:text-[1.9rem] font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {categories.map((category, idx) => (
             <motion.div
               key={`${category.name}-${idx}`}
@@ -196,12 +196,12 @@ function PremiumHome() {
               custom={0.05 + idx * 0.05}
               className="bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,42,74,0.02)] overflow-hidden group hover:border-blue-200 hover:shadow-[0_20px_40px_rgba(37,99,235,0.08)] transition-all duration-500 cursor-pointer flex flex-col"
             >
-              <div className="p-5 flex justify-center items-center bg-gradient-to-b from-white to-gray-50/50 h-[180px] relative overflow-hidden">
+              <div className="p-4 flex justify-center items-center bg-gradient-to-b from-white to-gray-50/50 h-[160px] md:h-[170px] relative overflow-hidden">
                 <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/[0.02] transition-colors duration-500"></div>
                 <img src={category.image} alt={category.name} className="relative z-10 max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply drop-shadow-sm" />
               </div>
-              <div className="px-4 py-3 border-t border-gray-50 bg-white text-center flex-1 flex items-center justify-center">
-                <h3 className="text-base font-semibold text-[#1E2A4A] group-hover:text-blue-600 transition-colors duration-300">{category.name}</h3>
+              <div className="px-3.5 py-2.5 border-t border-gray-50 bg-white text-center flex-1 flex items-center justify-center">
+                <h3 className="text-[15px] font-semibold text-[#1E2A4A] group-hover:text-blue-600 transition-colors duration-300">{category.name}</h3>
               </div>
             </motion.div>
           ))}
@@ -213,30 +213,30 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="py-14 md:py-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
+        className="py-10 md:py-12 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
       >
-        <motion.div variants={fadeUp} custom={0} className="mb-16 flex flex-col items-center text-center">
+        <motion.div variants={fadeUp} custom={0} className="mb-10 flex flex-col items-center text-center">
           <SectionLabel icon={Star}>Client Reviews</SectionLabel>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-[#0B1527] tracking-tight">Trusted by industry leaders</h2>
+          <h2 className="text-[1.6rem] md:text-[1.9rem] font-extrabold text-[#0B1527] tracking-tight">Trusted by industry leaders</h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6">
           {testimonials.map((review, idx) => (
             <motion.div
               key={idx}
               variants={fadeUp}
               custom={0.1 + idx * 0.1}
-              className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-[0_8px_30px_rgb(30,42,74,0.03)] hover:shadow-[0_20px_40px_rgba(30,42,74,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative group"
+              className="bg-white p-5 md:p-6 rounded-2xl border border-gray-100 shadow-[0_8px_30px_rgb(30,42,74,0.03)] hover:shadow-[0_20px_40px_rgba(30,42,74,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative group"
             >
               <div className="absolute top-0 right-10 w-20 h-24 bg-gradient-to-b from-blue-50/50 to-transparent rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
               
-              <Quote className="absolute top-10 right-10 w-12 h-12 text-[#EEF2F7] opacity-60 group-hover:text-blue-100 transition-colors duration-500 z-10" />
+              <Quote className="absolute top-8 right-8 w-10 h-10 text-[#EEF2F7] opacity-60 group-hover:text-blue-100 transition-colors duration-500 z-10" />
               
-              <div className="flex text-amber-400 mb-8 gap-1 relative z-10">
+              <div className="flex text-amber-400 mb-6 gap-1 relative z-10">
                 {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 fill-current" />)}
               </div>
               
-              <p className="text-sm leading-6 text-[#536488] mb-6 flex-1 font-medium relative z-10">
+              <p className="text-[13.5px] leading-[1.6] text-[#536488] mb-5 flex-1 font-medium relative z-10">
                 "{review.text}"
               </p>
               
@@ -257,10 +257,10 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
-        className="mt-8 pt-8 pb-14 md:pb-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-20"
+        className="mt-4 pt-4 pb-10 md:pb-12 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-20"
       >
-        <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(30,42,74,0.03)] border border-gray-100/80 p-5 md:p-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
+        <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(30,42,74,0.03)] border border-gray-100/80 p-4 md:p-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-3 divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
             {trustFeatures.map((feature, idx) => {
               const Icon = feature.icon;
               return (
@@ -268,14 +268,14 @@ function PremiumHome() {
                   key={feature.title}
                   variants={fadeUp}
                   custom={idx * 0.1}
-                  className={`flex flex-col sm:flex-row items-center sm:items-start gap-5 px-2 lg:px-8 group cursor-default text-center sm:text-left ${idx > 1 ? 'pt-6 lg:pt-0' : ''}`}
+                  className={`flex flex-col sm:flex-row items-center sm:items-start gap-3.5 px-1.5 lg:px-6 group cursor-default text-center sm:text-left ${idx > 1 ? 'pt-4 lg:pt-0' : ''}`}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#EEF2F7] text-[#1E2A4A] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#1E2A4A] group-hover:text-white transition-all duration-300 shadow-sm">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-full bg-[#EEF2F7] text-[#1E2A4A] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#1E2A4A] group-hover:text-white transition-all duration-300 shadow-sm">
+                    <Icon className="w-4 h-4" />
                   </div>
                   <div className="flex flex-col justify-center h-full">
-                    <h4 className="text-base font-extrabold text-[#0B1527] mb-1.5">{feature.title}</h4>
-                    <p className="text-sm text-[#536488] leading-tight font-medium">{feature.desc}</p>
+                    <h4 className="text-[15px] font-extrabold text-[#0B1527] mb-1">{feature.title}</h4>
+                    <p className="text-[13px] text-[#536488] leading-snug font-medium">{feature.desc}</p>
                   </div>
                 </motion.div>
               )
@@ -289,3 +289,4 @@ function PremiumHome() {
 }
 
 export default PremiumHome;
+

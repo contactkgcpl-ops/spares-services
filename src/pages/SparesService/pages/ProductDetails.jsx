@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import { CheckCircle2 } from 'lucide-react';
 import TechnicalSpecs from '../components/TechnicalSpecs';
 
 const resolveApiBaseUrl = () => {
@@ -84,9 +85,9 @@ function ProductDetails() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#EEF2F7] flex items-center justify-center p-6">
-        <div className="rounded-3xl bg-white p-12 text-center shadow-sm max-w-md w-full">
-          <div className="w-12 h-12 border-4 border-[#0F1E4A]/20 border-t-[#0F1E4A] rounded-full animate-spin mx-auto mb-6"></div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#0F1E4A]">Loading details...</h1>
+        <div className="rounded-3xl bg-white p-8 text-center shadow-sm max-w-md w-full">
+          <div className="w-11 h-11 border-4 border-[#0F1E4A]/20 border-t-[#0F1E4A] rounded-full animate-spin mx-auto mb-5"></div>
+          <h1 className="text-xl font-bold tracking-tight text-[#0F1E4A]">Loading details...</h1>
         </div>
       </div>
     );
@@ -95,12 +96,12 @@ function ProductDetails() {
   if (error) {
     return (
       <div className="min-h-screen bg-[#EEF2F7] flex items-center justify-center p-6">
-        <div className="rounded-3xl bg-white p-12 text-center shadow-sm max-w-md w-full">
-          <h1 className="text-2xl font-bold tracking-tight text-[#0F1E4A] mb-4">Unable to load product</h1>
-          <p className="text-slate-500 mb-8">{error}</p>
+        <div className="rounded-3xl bg-white p-8 text-center shadow-sm max-w-md w-full">
+          <h1 className="text-xl font-bold tracking-tight text-[#0F1E4A] mb-3">Unable to load product</h1>
+          <p className="text-sm text-slate-500 mb-6">{error}</p>
           <Link
             to="/spares-service/products"
-            className="inline-flex rounded-xl bg-[#0F1E4A] px-8 py-3.5 font-bold text-white transition-all duration-300 hover:bg-[#162B68] hover:-translate-y-1"
+            className="inline-flex rounded-xl bg-[#0F1E4A] px-6 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-[#162B68] hover:-translate-y-1"
           >
             Back to products
           </Link>
@@ -112,12 +113,12 @@ function ProductDetails() {
   if (notFound || !product) {
     return (
       <div className="min-h-screen bg-[#EEF2F7] flex items-center justify-center p-6">
-        <div className="rounded-3xl bg-white p-12 text-center shadow-sm max-w-md w-full">
-          <h1 className="text-2xl font-bold tracking-tight text-[#0F1E4A] mb-4">Product not found</h1>
-          <p className="text-slate-500 mb-8">Please return to the product list and select another item.</p>
+        <div className="rounded-3xl bg-white p-8 text-center shadow-sm max-w-md w-full">
+          <h1 className="text-xl font-bold tracking-tight text-[#0F1E4A] mb-3">Product not found</h1>
+          <p className="text-sm text-slate-500 mb-6">Please return to the product list and select another item.</p>
           <Link
             to="/spares-service/products"
-            className="inline-flex rounded-xl bg-[#0F1E4A] px-8 py-3.5 font-bold text-white transition-all duration-300 hover:bg-[#162B68] hover:-translate-y-1"
+            className="inline-flex rounded-xl bg-[#0F1E4A] px-6 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-[#162B68] hover:-translate-y-1"
           >
             Back to catalog
           </Link>
@@ -128,52 +129,56 @@ function ProductDetails() {
 
   return (
     <div className="w-full bg-[#EEF2F7]">
-      <div className="max-w-7xl mx-auto px-6 py-6 space-y-6">
+      <div className="max-w-7xl mx-auto px-6 py-5 md:py-6 space-y-5">
 
         {/* Main Product Section */}
-        <div className="grid lg:grid-cols-2 gap-8 bg-white rounded-2xl p-6 shadow-sm">
+        <div className="grid lg:grid-cols-2 gap-6 bg-white rounded-2xl p-5 md:p-6 shadow-sm">
 
           {/* Left: Product Image */}
-          <div className="flex items-center justify-center rounded-xl bg-[#EEF2F7]/50 p-6">
+          <div className="flex items-center justify-center rounded-xl bg-[#EEF2F7]/50 p-4 md:p-5">
             <img
               src={product.image}
               alt={productTitle}
-              className="max-h-[500px] w-full object-contain transition-transform duration-500 hover:scale-105"
+              className="max-h-[430px] w-full object-contain transition-transform duration-500 hover:scale-105"
             />
           </div>
 
           {/* Right: Product Details */}
-          <div className="flex flex-col justify-center space-y-6">
-            <div className="space-y-3">
+          <div className="flex flex-col justify-center space-y-5">
+            <div className="space-y-2.5">
               <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-[#FF7A1A]">
                 {product.category || 'Industrial Component'}
               </p>
-              <h1 className="text-3xl lg:text-4xl font-extrabold text-[#0F1E4A] leading-tight tracking-tight">
+              <h1 className="text-2xl md:text-[2.1rem] font-extrabold text-[#0F1E4A] leading-tight tracking-tight">
                 {productTitle}
               </h1>
             </div>
 
-            <p className="text-base text-slate-500 leading-relaxed font-medium">
+            <p className="text-sm md:text-base text-slate-500 leading-7 font-medium">
               {product.description}
             </p>
 
             {/* Quick Badges */}
-            <div className="flex items-center gap-6 py-4 border-y border-slate-100">
-              <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-50 text-green-600 font-bold text-base">✓</span>
-                <span className="text-[14px] font-bold text-[#0F1E4A]">In Stock</span>
+            <div className="flex items-center gap-4 md:gap-6 py-3 border-y border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-50 text-green-600">
+                  <CheckCircle2 className="h-4 w-4" />
+                </span>
+                <span className="text-[13px] md:text-[14px] font-bold text-[#0F1E4A]">In Stock</span>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-bold text-base">✓</span>
-                <span className="text-[14px] font-bold text-[#0F1E4A]">12-Month Warranty</span>
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+                  <CheckCircle2 className="h-4 w-4" />
+                </span>
+                <span className="text-[13px] md:text-[14px] font-bold text-[#0F1E4A]">12-Month Warranty</span>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-1">
               <button
                 onClick={handleWhatsAppQuote}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F1E4A] px-8 py-4 text-[15px] font-bold text-white transition-all duration-300 hover:bg-[#162B68] hover:shadow-lg hover:-translate-y-1"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F1E4A] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-[#162B68] hover:shadow-lg hover:-translate-y-1"
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M17.472 14.382c-.297-.149-.595-.149-.893 0l-.495.492c-.057.057-.114.122-.114.187 0 .415.336.75.75.75h4.5c.415 0 .75-.335.75-.75s-.335-.75-.75-.75h-4.492l-.492-.491c-.298-.149-.595-.149-.893 0l-7.5 7.5c-.149.298-.149.595 0 .893l7.5 7.5c.149.298.149.595 0 .893z" />
@@ -184,7 +189,7 @@ function ProductDetails() {
 
               <Link
                 to="/spares-service/products"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-8 py-4 text-[15px] font-bold text-[#0F1E4A] transition-all duration-300 hover:border-slate-300 hover:bg-slate-50"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-bold text-[#0F1E4A] transition-all duration-300 hover:border-slate-300 hover:bg-slate-50"
               >
                 Back to Catalog
               </Link>
@@ -193,29 +198,29 @@ function ProductDetails() {
         </div>
 
         {/* Unified Content Section */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm space-y-8">
+        <div className="bg-white rounded-2xl p-5 md:p-6 shadow-sm space-y-6">
 
           {/* Overview */}
           <div>
-            <h2 className="text-xl font-extrabold text-[#0F1E4A] mb-3">Product Overview</h2>
-            <div className="text-slate-500 text-base leading-relaxed font-medium">
+            <h2 className="text-lg md:text-xl font-extrabold text-[#0F1E4A] mb-2.5">Product Overview</h2>
+            <div className="text-slate-500 text-sm md:text-base leading-7 font-medium">
               {product.fullDescription || product.description}
             </div>
           </div>
 
           {/* Features & Applications */}
           {(product.features?.length > 0 || product.applications?.length > 0) && (
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
               {product.features && product.features.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-extrabold text-[#0F1E4A] mb-4">Key Features</h3>
-                  <div className="flex flex-col gap-3">
+                  <h3 className="text-base md:text-lg font-extrabold text-[#0F1E4A] mb-3">Key Features</h3>
+                  <div className="flex flex-col gap-2.5">
                     {product.features.map((feature, index) => (
-                      <div key={index} className="flex items-center gap-3">
+                      <div key={index} className="flex items-center gap-2.5">
                         <div className="flex-shrink-0 h-5 w-5 rounded-full bg-[#FF7A1A]/10 flex items-center justify-center">
                           <span className="text-[#FF7A1A] text-xs font-bold">✓</span>
                         </div>
-                        <p className="text-slate-600 font-medium">{feature}</p>
+                        <p className="text-sm text-slate-600 font-medium">{feature}</p>
                       </div>
                     ))}
                   </div>
@@ -224,12 +229,12 @@ function ProductDetails() {
 
               {product.applications && product.applications.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-extrabold text-[#0F1E4A] mb-4">Applications</h3>
-                  <div className="flex flex-col gap-3">
+                  <h3 className="text-base md:text-lg font-extrabold text-[#0F1E4A] mb-3">Applications</h3>
+                  <div className="flex flex-col gap-2.5">
                     {product.applications.map((app, index) => (
-                      <div key={index} className="flex items-center gap-3">
-                        <div className="flex-shrink-0 h-2 w-2 rounded-full bg-[#FF7A1A]"></div>
-                        <p className="text-slate-600 font-medium">{app}</p>
+                      <div key={index} className="flex items-center gap-2.5">
+                        <div className="flex-shrink-0 h-1.5 w-1.5 rounded-full bg-[#FF7A1A]"></div>
+                        <p className="text-sm text-slate-600 font-medium">{app}</p>
                       </div>
                     ))}
                   </div>
@@ -240,7 +245,7 @@ function ProductDetails() {
 
           {/* Technical Specs */}
           <div>
-            <h2 className="text-xl font-extrabold text-[#0F1E4A] mb-4">Technical Specifications</h2>
+            <h2 className="text-lg md:text-xl font-extrabold text-[#0F1E4A] mb-3">Technical Specifications</h2>
             <TechnicalSpecs specs={productSpecifications} />
           </div>
 
