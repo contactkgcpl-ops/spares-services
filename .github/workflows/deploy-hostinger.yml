@@ -1,6 +1,9 @@
 name: Deploy to Hostinger
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -26,12 +29,26 @@ jobs:
           VITE_API_BASE_URL: https://spares.salvinindia.com/api
           VITE_UPLOAD_BASE_URL: https://spares.salvinindia.com/api/uploads
 
+      - name: Validate deployment secrets
+        run: |
+          test -n "${DB_HOST}"
+          test -n "${DB_NAME}"
+          test -n "${DB_USER}"
+          test -n "${DB_PASSWORD}"
+          test -n "${AUTH_SECRET}"
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER || secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD || secrets.DB_PASS }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+
       - name: Create PHP env file
         run: |
           cat > dist/api/.env <<'ENV'
           DB_HOST=${{ secrets.DB_HOST }}
           DB_NAME=${{ secrets.DB_NAME }}
-          DB_USER=${{ secrets.DB_USER }}
+          DB_USER=${{ secrets.DB_USER || secrets.DB_USERNAME }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD || secrets.DB_PASS }}
           DB_CHARSET=utf8mb4
           ADMIN_EMAIL=spares@gmail.com

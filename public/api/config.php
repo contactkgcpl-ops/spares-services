@@ -45,7 +45,7 @@ loadEnv(__DIR__ . '/.env');
 function env(string $key, $default = null)
 {
     $value = getenv($key);
-    if ($value === false) {
+    if ($value === false || trim((string) $value) === '') {
         return $default;
     }
     return $value;

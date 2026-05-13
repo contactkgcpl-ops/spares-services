@@ -13,7 +13,7 @@ function db(): PDO
     $host = env('DB_HOST', 'localhost');
     $port = env('DB_PORT', '3306');
     $dbname = env('DB_NAME', 'spares_service');
-    $user = env('DB_USER', 'root');
+    $user = env('DB_USER', env('DB_USERNAME', 'root'));
     $pass = env('DB_PASSWORD', env('DB_PASS', ''));
 
     $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
