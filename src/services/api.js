@@ -1,7 +1,16 @@
 import axios from 'axios';
 
-export const API_BASE_URL = 'http://localhost/spares-service/public/api';
-export const UPLOAD_BASE_URL = 'http://localhost/spares-service/public/uploads';
+const localOrigin =
+  typeof window !== 'undefined' && window.location?.origin
+    ? window.location.origin
+    : '';
+
+export const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? 'http://localhost/spares-service/public/api' : `${localOrigin}/api`);
+export const UPLOAD_BASE_URL =
+  import.meta.env.VITE_UPLOAD_BASE_URL ||
+  (import.meta.env.DEV ? 'http://localhost/spares-service/public/uploads' : `${localOrigin}/api/uploads`);
 
 const normalizeBaseUrl = (url) =>
   (url || '')

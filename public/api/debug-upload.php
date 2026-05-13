@@ -1,22 +1,23 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/helpers.php';
+
 // Enable all error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
-ini_set('error_log', 'C:/xampp/php/logs/php_error.log');
 
 echo "=== COMPREHENSIVE UPLOAD DEBUG ===\n\n";
 
-// 1. Verify we're running from correct XAMPP project
+// 1. Verify runtime project
 echo "1. PROJECT VERIFICATION:\n";
 echo "Current working directory: " . getcwd() . "\n";
 echo "Script location: " . __FILE__ . "\n";
 echo "Document root: " . ($_SERVER['DOCUMENT_ROOT'] ?? 'NOT SET') . "\n";
 
-// 2. Test absolute XAMPP path
-$absoluteUploadDir = 'C:/xampp/htdocs/spares-service/public/uploads';
+// 2. Test configured upload path
+$absoluteUploadDir = uploadDirectory();
 echo "\n2. ABSOLUTE PATH TEST:\n";
 echo "Target upload directory: " . $absoluteUploadDir . "\n";
 echo "Directory exists: " . (is_dir($absoluteUploadDir) ? "YES" : "NO") . "\n";

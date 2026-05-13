@@ -23,34 +23,32 @@ jobs:
       - name: Build frontend
         run: npm run build
         env:
-          VITE_API_BASE_URL: ""
+          VITE_API_BASE_URL: https://spares.salvinindia.com/api
+          VITE_UPLOAD_BASE_URL: https://spares.salvinindia.com/api/uploads
 
-      - name: Create PHP local config
+      - name: Create PHP env file
         run: |
-          cat > dist/api/config.local.php <<'PHP'
-          <?php
-          declare(strict_types=1);
+          cat > dist/api/.env <<'ENV'
+          DB_HOST=${{ secrets.DB_HOST }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD || secrets.DB_PASS }}
+          DB_CHARSET=utf8mb4
+          ADMIN_EMAIL=spares@gmail.com
+          ADMIN_PASSWORD=spares@123
+          AUTH_SECRET=${{ secrets.AUTH_SECRET }}
+          ALLOWED_ORIGIN=https://spares.salvinindia.com
+          MAX_UPLOAD_SIZE=5242880
+          UPLOAD_PATH=../uploads
+          UPLOAD_URL=https://spares.salvinindia.com/api/uploads
+          ENV
 
-          return [
-              'DB_HOST' => '${{ secrets.DB_HOST }}',
-              'DB_NAME' => '${{ secrets.DB_NAME }}',
-              'DB_USER' => '${{ secrets.DB_USER }}',
-              'DB_PASS' => '${{ secrets.DB_PASS }}',
-              'DB_CHARSET' => 'utf8mb4',
-              'ADMIN_EMAIL' => 'Spares@gmail.com',
-              'ADMIN_PASSWORD_HASH' => '$2y$10$KQITQGYBDFLrXFLGr8X90.hh.SwhHX6/2CjHH9M6l35W5/.MzFxg.',
-              'AUTH_SECRET' => '${{ secrets.AUTH_SECRET }}',
-              'ALLOWED_ORIGIN' => 'https://spares.salvinindia.com',
-              'MAX_UPLOAD_BYTES' => '5242880',
-          ];
-          PHP
-
-      - name: Deploy to public_html/spares
+      - name: Deploy to FTP root
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.SPARES_FTP_SERVER }}
           username: ${{ secrets.SPARES_FTP_USERNAME }}
           password: ${{ secrets.SPARES_FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /public_html/spares/
+          server-dir: ./
           dangerous-clean-slate: false

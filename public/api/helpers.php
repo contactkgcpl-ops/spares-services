@@ -14,7 +14,7 @@ function db(): PDO
     $port = env('DB_PORT', '3306');
     $dbname = env('DB_NAME', 'spares_service');
     $user = env('DB_USER', 'root');
-    $pass = env('DB_PASSWORD', '');
+    $pass = env('DB_PASSWORD', env('DB_PASS', ''));
 
     $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass, [
@@ -328,7 +328,12 @@ function seedDefaults(PDO $pdo): void
     }
 
     $adminEmail = trim((string) env('ADMIN_EMAIL', 'admin@gmail.com'));
-    $adminPassword = (string) env('ADMIN_PASSWORD', 'admin123');
+    $configuredPassword = env('ADMIN_PASSWORD', null);
+    $configuredPasswordHash = trim((string) env('ADMIN_PASSWORD_HASH', ''));
+    $adminPassword = (string) ($configuredPassword ?? 'admin123');
+    $adminPasswordHash = $configuredPasswordHash !== ''
+        ? $configuredPasswordHash
+        : password_hash($adminPassword, PASSWORD_DEFAULT);
 
     $stmt = $pdo->prepare('SELECT COUNT(*) FROM admins WHERE email = ?');
     $stmt->execute([$adminEmail]);
@@ -336,7 +341,10 @@ function seedDefaults(PDO $pdo): void
 
     if ($count === 0) {
         $insertAdmin = $pdo->prepare('INSERT INTO admins (email, password_hash, full_name, is_active) VALUES (?, ?, ?, 1)');
-        $insertAdmin->execute([$adminEmail, password_hash($adminPassword, PASSWORD_DEFAULT), 'Administrator']);
+        $insertAdmin->execute([$adminEmail, $adminPasswordHash, 'Administrator']);
+    } elseif ($configuredPassword !== null || $configuredPasswordHash !== '') {
+        $updateAdmin = $pdo->prepare('UPDATE admins SET password_hash = ?, is_active = 1 WHERE email = ?');
+        $updateAdmin->execute([$adminPasswordHash, $adminEmail]);
     }
 
     $productsCount = (int) $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();
@@ -456,7 +464,7 @@ function slugify(string $text): string
 
 function buildUploadPathAndName(string $sourceName, string $extension, ?string $preferredTitle = null): array
 {
-    $uploadDir = rtrim((string) env('UPLOAD_PATH', 'C:/xampp/htdocs/spares-service/public/uploads'), '/\\');
+    $uploadDir = uploadDirectory();
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
@@ -481,6 +489,16 @@ function buildUploadPathAndName(string $sourceName, string $extension, ?string $
     }
 
     return [$uploadDir . '/' . $filename, 'uploads/' . $filename];
+}
+
+function uploadDirectory(): string
+{
+    $uploadDir = rtrim((string) env('UPLOAD_PATH', __DIR__ . '/../uploads'), '/\\');
+    if (!preg_match('/^(?:[A-Za-z]:[\/\\\\]|\/)/', $uploadDir)) {
+        $uploadDir = __DIR__ . '/' . $uploadDir;
+    }
+
+    return rtrim(str_replace('\\', '/', $uploadDir), '/');
 }
 
 function saveBase64ImageIfNeeded(string $image, string $suggestedName = ''): string

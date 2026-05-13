@@ -10,7 +10,7 @@ if ($filename === '') {
     respond(400, ['success' => false, 'message' => 'File name is required']);
 }
 
-$uploadDir = rtrim((string) env('UPLOAD_PATH', 'C:/xampp/htdocs/spares-service/public/uploads'), '/\\');
+$uploadDir = uploadDirectory();
 $target = $uploadDir . DIRECTORY_SEPARATOR . $filename;
 
 if (!is_file($target)) {

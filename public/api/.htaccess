@@ -1,4 +1,4 @@
-<FilesMatch "^(config|config\.local|config\.local\.example|helpers)\.php$">
+<FilesMatch "^(\.env|config\.php|config\.local\.php|config\.local\.example\.php|helpers\.php)$">
   Require all denied
 </FilesMatch>
 
