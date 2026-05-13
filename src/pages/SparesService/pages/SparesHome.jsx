@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import useProductFilter from '../hooks/useProductFilter';
 import heroGraphic from '../assets/hero-img.jpeg';
 import { ShieldCheck, Cog, Zap, Users, Factory, Briefcase, ArrowRight, Target, Award, Lightbulb, CheckCircle2 } from 'lucide-react';
-import { API_BASE_URL } from '../../../config/api';
+import { API_BASE_URL, resolveImageUrl } from '../../../config/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -30,6 +30,7 @@ function SparesHome() {
           ...product,
           id: product._id || product.id,
           name: product.title || product.name || '',
+          image: resolveImageUrl(product.image),
         }));
         setProducts(normalizedProducts);
       } catch (error) {

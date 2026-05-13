@@ -4,12 +4,8 @@ import { ArrowRight, ShieldCheck, Truck, Box, Star, Quote, Clock4, CreditCard, C
 
 import heroGraphic from '../assets/hero-img.jpeg';
 import pumpImage from '../assets/img2.jpg';
-import filterImage from '../assets/img3.png';
-import controlImage from '../assets/img4.jpeg';
-import motorImage from '../assets/img5.jpeg';
-import bearingImage from '../assets/img6.jpeg';
+import tubeImage from '../assets/img12.jpeg';
 import valveImage from '../assets/Valves.jpeg';
-import manufacturingImage from '../assets/img11.jpeg';
 
 import pickPlaceImg from '../assets/img8.jpeg';
 import roboticArmImg from '../assets/img5.jpeg';
@@ -19,14 +15,11 @@ import menuImg from "../assets/1m-removebg-preview.jpg";
 import robotImg from "../assets/2m-removebg-preview.jpg";
 
 const categories = [
-  { name: 'Pump Systems', image: pumpImage },
-  { name: 'Filters', image: filterImage },
-  { name: 'PLC & Controls', image: controlImage },
-  { name: 'Industrial Motors', image: motorImage },
-  { name: 'Bearings', image: bearingImage },
-  { name: 'Filtration Systems', image: filterImage },
-  { name: 'Valves', image: valveImage },
-  { name: 'Spare Parts', image: manufacturingImage },
+  { name: 'Pneumatic Tubes', image: tubeImage },
+  { name: 'Pneumatic Accessories', image: heroMain },
+  { name: 'Pneumatic Cylinders', image: menuImg },
+  { name: 'Solenoid Valves', image: robotImg },
+  { name: 'Flow Control Valves', image: valveImage },
 ];
 
 const trustFeatures = [

@@ -1,7 +1,13 @@
 import axios from 'axios';
-import { API_BASE_URL } from '../../config/api';
+import { API_BASE_URL, resolveImageUrl } from '../../config/api';
 
-export const CATEGORY_OPTIONS = ['Pump Systems', 'Valves', 'Motors', 'Filters', 'Bearings', 'Controls'];
+export const CATEGORY_OPTIONS = [
+  'Pneumatic Tubes',
+  'Pneumatic Accessories',
+  'Pneumatic Cylinders',
+  'Solenoid Valves',
+  'Flow Control Valves',
+];
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -21,6 +27,7 @@ api.interceptors.request.use((config) => {
 const normalizeProduct = (product) => ({
   ...product,
   id: product._id || product.id,
+  image: resolveImageUrl(product.image),
   productName: product.title || product.productName || '',
   technicalDetails: Array.isArray(product.specifications)
     ? product.specifications.join('\n')
@@ -38,7 +45,13 @@ const toArrayFromInput = (value) =>
     .filter(Boolean);
 
 export const getProducts = async () => {
-  const response = await api.get(`/products?t=${Date.now()}`);
+  const cacheBust = Date.now();
+  const response = await api.get(`/products?t=${cacheBust}`);
+
+  if (response.data && response.data.success === false) {
+    throw new Error(response.data.message || 'Unable to load products');
+  }
+
   const products = response.data?.data || [];
   return products.map(normalizeProduct);
 };

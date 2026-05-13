@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
 import TechnicalSpecs from '../components/TechnicalSpecs';
-import { API_BASE_URL } from '../../../config/api';
+import { API_BASE_URL, resolveImageUrl } from '../../../config/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -55,6 +55,7 @@ function ProductDetails() {
           ...apiProduct,
           id: apiProduct._id || apiProduct.id,
           name: apiProduct.title || apiProduct.name || '',
+          image: resolveImageUrl(apiProduct.image),
           features: Array.isArray(apiProduct.features) ? apiProduct.features : [],
           specifications: Array.isArray(apiProduct.specifications) ? apiProduct.specifications : [],
         });

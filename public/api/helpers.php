@@ -183,11 +183,147 @@ function initDatabase(): void
     seedDefaults($pdo);
 }
 
+function officialCatalogCategories(): array
+{
+    return [
+        'Pneumatic Tubes',
+        'Pneumatic Accessories',
+        'Pneumatic Cylinders',
+        'Solenoid Valves',
+        'Flow Control Valves',
+    ];
+}
+
+function officialCatalogProducts(): array
+{
+    return [
+        [
+            'title' => 'PU Tube 8x5mm',
+            'category' => 'Pneumatic Tubes',
+            'image' => 'uploads/pu-tube-8x5mm.jpg',
+            'description' => 'High-flexibility polyurethane tube designed for pneumatic lines with consistent airflow and long service life.',
+            'features' => [
+                'Excellent bend radius for compact routing',
+                'Abrasion-resistant outer surface',
+                'Stable performance across repeated pressure cycles',
+                'Low weight for easy installation',
+            ],
+            'specifications' => [
+                'Outer Diameter: 8 mm',
+                'Inner Diameter: 5 mm',
+                'Material: Polyurethane (PU)',
+                'Working Medium: Compressed Air',
+                'Temperature Range: -20 C to 60 C',
+            ],
+            'slug' => 'pu-tube-8x5mm',
+        ],
+        [
+            'title' => 'Air Filter Regulator Lubricator',
+            'category' => 'Pneumatic Accessories',
+            'image' => 'uploads/air-filter-regulator-lubricator.jpg',
+            'description' => 'Integrated FRL unit for clean, regulated, and lubricated compressed air supply in industrial pneumatic systems.',
+            'features' => [
+                'Combined filtration, pressure control, and lubrication',
+                'Transparent bowl for quick inspection',
+                'Stable downstream pressure delivery',
+                'Compact modular body for panel mounting',
+            ],
+            'specifications' => [
+                'Product Type: FRL Combination Unit',
+                'Filtration Grade: 5 micron',
+                'Pressure Adjustment Range: 0.5 to 8 bar',
+                'Port Size: 1/4 in',
+                'Bowl Material: Polycarbonate with metal guard',
+            ],
+            'slug' => 'air-filter-regulator-lubricator',
+        ],
+        [
+            'title' => 'Pneumatic Cylinder SC63X100',
+            'category' => 'Pneumatic Cylinders',
+            'image' => 'uploads/pneumatic-cylinder-sc63x100.jpg',
+            'description' => 'Durable double-acting pneumatic cylinder engineered for smooth linear motion and dependable actuator performance.',
+            'features' => [
+                'Precision-machined piston for stable movement',
+                'Double-acting design for forward and return stroke',
+                'Long-lasting sealing system',
+                'Industrial-grade aluminum cylinder body',
+            ],
+            'specifications' => [
+                'Model: SC63X100',
+                'Bore Diameter: 63 mm',
+                'Stroke Length: 100 mm',
+                'Type: Double Acting',
+                'Mounting: Standard SC series mounting pattern',
+            ],
+            'slug' => 'pneumatic-cylinder-sc63x100',
+        ],
+        [
+            'title' => 'Solenoid Valve SV520DC',
+            'category' => 'Solenoid Valves',
+            'image' => 'uploads/solenoid-valve-sv520dc.jpg',
+            'description' => '5/2 way directional solenoid valve designed for rapid switching and reliable airflow control in automation lines.',
+            'features' => [
+                'Fast response for automated cycle operation',
+                'Low power coil suitable for continuous duty',
+                'Compact manifold-friendly form factor',
+                'Consistent sealing under repeated actuation',
+            ],
+            'specifications' => [
+                'Model: SV520DC',
+                'Valve Type: 5/2 Way',
+                'Actuation: Single Solenoid',
+                'Coil Voltage: 24V DC',
+                'Working Pressure: 0.15 to 0.8 MPa',
+            ],
+            'slug' => 'solenoid-valve-sv520dc',
+        ],
+        [
+            'title' => 'Flow Control Valve SCV-8',
+            'category' => 'Flow Control Valves',
+            'image' => 'uploads/flow-control-valve-scv-8.jpg',
+            'description' => 'Compact flow control valve for accurate pneumatic speed regulation and smooth actuator motion control.',
+            'features' => [
+                'Fine adjustment needle for precise flow tuning',
+                'Integrated check valve for one-way flow control',
+                'Leak-resistant threaded body',
+                'Quick-fit installation compatibility',
+            ],
+            'specifications' => [
+                'Model: SCV-8',
+                'Port Size: 8 mm',
+                'Control Type: Meter-in/Meter-out compatible',
+                'Body Material: Brass/Nickel plated alloy',
+                'Working Medium: Compressed Air',
+            ],
+            'slug' => 'flow-control-valve-scv-8',
+        ],
+    ];
+}
+
+function insertCatalogProducts(PDO $pdo, array $products): void
+{
+    $insertProduct = $pdo->prepare(
+        'INSERT INTO products (title, category, image, description, features, specifications, slug)
+         VALUES (?, ?, ?, ?, ?, ?, ?)'
+    );
+
+    foreach ($products as $product) {
+        $insertProduct->execute([
+            (string) $product['title'],
+            (string) $product['category'],
+            (string) $product['image'],
+            (string) $product['description'],
+            json_encode($product['features'], JSON_UNESCAPED_UNICODE),
+            json_encode($product['specifications'], JSON_UNESCAPED_UNICODE),
+            (string) $product['slug'],
+        ]);
+    }
+}
+
 function seedDefaults(PDO $pdo): void
 {
-    $defaultCategories = ['Pump Systems', 'Valves', 'Motors', 'Filters', 'Bearings', 'Controls'];
     $insertCategory = $pdo->prepare('INSERT IGNORE INTO categories (name, slug) VALUES (?, ?)');
-    foreach ($defaultCategories as $categoryName) {
+    foreach (officialCatalogCategories() as $categoryName) {
         $insertCategory->execute([$categoryName, slugify($categoryName)]);
     }
 
@@ -205,30 +341,30 @@ function seedDefaults(PDO $pdo): void
 
     $productsCount = (int) $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();
     if ($productsCount === 0) {
-        $insertProduct = $pdo->prepare(
-            'INSERT INTO products (title, category, image, description, features, specifications, slug)
-             VALUES (?, ?, ?, ?, ?, ?, ?)'
-        );
+        insertCatalogProducts($pdo, officialCatalogProducts());
+    }
+}
 
-        $insertProduct->execute([
-            'High-Flow Centrifugal Pump',
-            'Pump Systems',
-            'https://images.unsplash.com/photo-1581092921461-eab10380fef2?q=80&w=1200&auto=format&fit=crop',
-            'High-throughput industrial pump designed for stable pressure and continuous operation.',
-            json_encode(['High flow rate', 'Low vibration', 'Corrosion-resistant body']),
-            json_encode(['Flow Rate: 180 L/min', 'Power: 4.0 kW', 'Material: SS316']),
-            'high_flow_centrifugal_pump',
-        ]);
+function resetOfficialCatalog(PDO $pdo): void
+{
+    $pdo->beginTransaction();
 
-        $insertProduct->execute([
-            'Precision Control Valve',
-            'Valves',
-            'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=1200&auto=format&fit=crop',
-            'Precision valve for fine flow control in high-demand industrial process lines.',
-            json_encode(['Low pressure drop', 'PTFE sealing', 'Compact build']),
-            json_encode(['Type: Globe valve', 'Diameter: 40 mm', 'Pressure Class: PN16']),
-            'precision_control_valve',
-        ]);
+    try {
+        $pdo->exec('DELETE FROM products');
+        $pdo->exec('DELETE FROM categories');
+
+        $insertCategory = $pdo->prepare('INSERT INTO categories (name, slug) VALUES (?, ?)');
+        foreach (officialCatalogCategories() as $categoryName) {
+            $insertCategory->execute([$categoryName, slugify($categoryName)]);
+        }
+
+        insertCatalogProducts($pdo, officialCatalogProducts());
+        $pdo->commit();
+    } catch (Throwable $error) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        throw $error;
     }
 }
 
@@ -292,19 +428,23 @@ function requireText(array $data, string $key): string
 
 function publicUrlForPath(string $relativePath): string
 {
-    $uploadUrl = env('UPLOAD_URL');
-    if ($uploadUrl) {
-        return rtrim($uploadUrl, '/') . '/' . basename($relativePath);
+    $filename = basename($relativePath);
+    $uploadUrl = trim((string) env('UPLOAD_URL', ''));
+    if ($uploadUrl !== '') {
+        return rtrim($uploadUrl, '/') . '/' . $filename;
     }
 
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'] ?? '';
+    $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '';
     $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
     $basePath = str_replace('/api', '', dirname($scriptName));
     $basePath = rtrim($basePath, '/\\');
-    $relativePath = '/' . ltrim($relativePath, '/\\');
 
-    return $host ? "{$scheme}://{$host}{$basePath}{$relativePath}" : $relativePath;
+    if ($host !== '') {
+        return "{$scheme}://{$host}{$basePath}/api/uploads/{$filename}";
+    }
+
+    return 'api/uploads/' . $filename;
 }
 
 function slugify(string $text): string

@@ -11,7 +11,7 @@ try {
     $id = idFromRequest('products');
 
     if ($method === 'GET' && $id === null) {
-        $stmt = $pdo->query('SELECT * FROM products ORDER BY created_at DESC, id DESC');
+       $stmt = $pdo->query('SELECT * FROM products ORDER BY id DESC');
         $products = array_map('productFromRow', $stmt->fetchAll());
         respond(200, ['success' => true, 'count' => count($products), 'data' => $products]);
     }

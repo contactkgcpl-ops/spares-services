@@ -8,14 +8,7 @@ import SearchBar from '../components/SearchBar';
 import FilterSidebar from '../components/FilterSidebar';
 import CategoryFilter from '../components/CategoryFilter';
 import useProductFilter from '../hooks/useProductFilter';
-import { API_BASE_URL } from '../../../config/api';
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    Accept: 'application/json',
-  },
-});
+import { buildApiUrl, resolveImageUrl } from '../../../config/api';
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -37,8 +30,19 @@ function ProductsPage() {
       try {
         setLoading(true);
         setError('');
-        // Add timestamp to query to force bypass of any intermediate caches
-        const response = await api.get(`/products?t=${Date.now()}`);
+        const cacheBust = Date.now();
+        const requestPath = `products?t=${cacheBust}`;
+        const requestUrl = buildApiUrl(requestPath);
+
+        const response = await axios.get(requestUrl, {
+          headers: {
+            Accept: 'application/json',
+          },
+        });
+
+        if (response.data && response.data.success === false) {
+          throw new Error(response.data.message || 'Unable to load products');
+        }
         
         // Handle { success, count, data: [...] } structure
         const apiProducts = Array.isArray(response.data?.data) 
@@ -50,12 +54,17 @@ function ProductsPage() {
           id: product.id || product._id || '',
           title: product.title || product.productName || product.name || 'Industrial Part',
           name: product.title || product.productName || product.name || 'Industrial Part', // Map both just in case
+          image: resolveImageUrl(product.image),
         }));
 
         setProducts(normalizedProducts);
       } catch (fetchError) {
         console.error('Fetch products failed:', fetchError);
-        setError(fetchError?.response?.data?.message || 'Failed to load products. Check console for details.');
+        setError(
+          fetchError?.response?.data?.message ||
+            fetchError?.message ||
+            'Failed to load products. Check console for details.'
+        );
       } finally {
         setLoading(false);
       }

@@ -6,6 +6,7 @@
   RewriteRule ^api/health/?$ api/health.php [QSA,L]
   RewriteRule ^api/auth/login/?$ api/auth/login.php [QSA,L]
   RewriteRule ^api/products/?([0-9]+)?$ api/products.php [QSA,L]
+  RewriteRule ^api/uploads/([^/]+)$ api/uploads.php?file=$1 [QSA,L]
   RewriteRule ^api/upload/?$ api/upload.php [QSA,L]
   RewriteRule ^api/contact/?$ api/contact.php [QSA,L]
   RewriteRule ^api/enquiries/?([0-9]+)?$ api/enquiries.php [QSA,L]

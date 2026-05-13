@@ -44,11 +44,10 @@ CREATE TABLE IF NOT EXISTS enquiries (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT IGNORE INTO categories (name, slug) VALUES
-('Pump Systems', 'pump_systems'),
-('Valves', 'valves'),
-('Motors', 'motors'),
-('Filters', 'filters'),
-('Bearings', 'bearings'),
-('Controls', 'controls');
+('Pneumatic Tubes', 'pneumatic_tubes'),
+('Pneumatic Accessories', 'pneumatic_accessories'),
+('Pneumatic Cylinders', 'pneumatic_cylinders'),
+('Solenoid Valves', 'solenoid_valves'),
+('Flow Control Valves', 'flow_control_valves');
 
 -- Admin row is seeded by PHP API (`initDatabase`) using ADMIN_EMAIL and ADMIN_PASSWORD from `public/api/.env`.
