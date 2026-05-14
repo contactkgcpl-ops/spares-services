@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaSearch } from 'react-icons/fa';
 import axios from 'axios';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/salvin-spares-logo.png';
 import { API_BASE_URL } from '../config/api';
 
 const api = axios.create({
@@ -113,7 +113,7 @@ function Navbar() {
             <img
               src={logo}
               alt="Salvin Spares"
-              className="h-10 w-auto object-contain"
+              className="h-12 w-auto object-contain"
             />
           </Link>
 

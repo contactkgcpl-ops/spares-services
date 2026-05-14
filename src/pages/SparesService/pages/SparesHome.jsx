@@ -45,7 +45,7 @@ function SparesHome() {
 
   return (
     <div className="w-full bg-white overflow-x-hidden font-sans">
-      
+
       {/* 1. CORPORATE HERO SECTION */}
       <section className="relative bg-[#EEF2F7] pt-24 md:pt-28 pb-16 md:pb-20 overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-white rounded-l-full opacity-50 pointer-events-none"></div>
@@ -75,13 +75,13 @@ function SparesHome() {
       {/* 2. COMPANY STORY (ALTERNATING LAYOUTS) */}
       <section className="py-20 md:py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto space-y-16 md:space-y-20">
-          
+
           {/* Block 1: Who We Are (Image Left, Text Right) */}
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
             <div className="order-2 lg:order-1 relative">
-               <div className="w-full h-[340px] md:h-[360px] bg-[#EEF2F7] rounded-3xl p-3.5">
-                 <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&w=800&q=80" alt="Who We Are" className="w-full h-full object-cover rounded-2xl shadow-sm" />
-               </div>
+              <div className="w-full h-[340px] md:h-[360px] bg-[#EEF2F7] rounded-3xl p-3.5">
+                <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&w=800&q=80" alt="Who We Are" className="w-full h-full object-cover rounded-2xl shadow-sm" />
+              </div>
             </div>
             <div className="order-1 lg:order-2 space-y-4 md:space-y-5">
               <h3 className="text-[1.65rem] md:text-[1.95rem] font-extrabold text-[#0F1E4A]">Who We Are</h3>
@@ -115,9 +115,9 @@ function SparesHome() {
               </ul>
             </div>
             <div className="relative">
-               <div className="w-full h-[390px] md:h-[420px] bg-[#0F1E4A] rounded-3xl p-3.5">
-                 <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80" alt="Our Mission" className="w-full h-full object-cover rounded-2xl opacity-90 shadow-sm" />
-               </div>
+              <div className="w-full h-[390px] md:h-[420px] bg-[#0F1E4A] rounded-3xl p-3.5">
+                <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80" alt="Our Mission" className="w-full h-full object-cover rounded-2xl opacity-90 shadow-sm" />
+              </div>
             </div>
           </div>
 
@@ -130,7 +130,7 @@ function SparesHome() {
           <div className="text-center mb-10 md:mb-12">
             <h2 className="text-[1.65rem] md:text-[1.95rem] font-extrabold text-[#0F1E4A]">Why Companies Trust Us</h2>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {[
               { title: 'Reliable Solutions', icon: ShieldCheck },

@@ -48,31 +48,31 @@ function ServicePage() {
 
   return (
     <div className="w-full bg-white overflow-x-hidden font-sans pb-8 mb-0">
-      
+
       {/* 1. NEW PREMIUM HERO SECTION */}
       <section className="w-full bg-white pt-16 md:pt-20 pb-6 px-6 md:px-8 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#0F1E4A] to-[#162B68] rounded-[2.5rem] overflow-hidden p-6 md:p-8 lg:p-12 grid lg:grid-cols-2 gap-8 lg:gap-10 items-center shadow-2xl">
-            
+
             {/* Background shapes for depth */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF7A1A]/10 rounded-full blur-3xl pointer-events-none"></div>
             <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
-            
+
             {/* Left: Content */}
             <div className="relative z-10 space-y-5">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-white/10">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A] animate-pulse"></span>
                 <span className="text-xs font-bold uppercase tracking-widest text-white">Contact Salvin Industries</span>
               </div>
-              
+
               <h1 className="text-3xl md:text-[2.5rem] lg:text-[2.9rem] font-extrabold text-white leading-tight tracking-tight">
                 Let’s Build Better <span className="text-[#FF7A1A]">Industrial Solutions</span> Together
               </h1>
-              
+
               <p className="text-[15px] md:text-base text-blue-100 font-medium max-w-lg leading-7">
                 Get in touch with our dedicated engineering support team. From specialized components to fully automated systems, we provide the expertise to keep your manufacturing operations at peak performance.
               </p>
-              
+
               <div className="flex flex-wrap justify-center gap-3 md:gap-4">
                 <a href="#contact-form" className="inline-flex items-center gap-2 bg-[#FF7A1A] text-white px-6 py-3.5 text-sm rounded-xl font-bold hover:bg-[#e66a12] transition-colors shadow-lg">
                   Send Inquiry
@@ -83,7 +83,7 @@ function ServicePage() {
                 </Link>
               </div>
             </div>
-            
+
             {/* Right: Visual */}
             <div className="relative z-10 lg:h-[410px] flex items-center justify-center mt-6 lg:mt-0">
               {/* Main Image Base */}
@@ -149,7 +149,7 @@ function ServicePage() {
             <h2 className="text-2xl md:text-[2rem] font-extrabold text-[#0F1E4A] mb-3">Send Us a Message</h2>
             <p className="text-slate-600 text-sm md:text-base font-medium">Fill out the form below and our technical team will get back to you shortly.</p>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-3.5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
               <div className="space-y-1.5">
@@ -169,7 +169,7 @@ function ServicePage() {
                 <input name="phone" value={formData.phone} onChange={handleChange} type="tel" placeholder="+91 98765 43210" className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" />
               </div>
             </div>
-            
+
             <div className="space-y-1.5">
               <label className="text-[13px] font-bold text-[#0F1E4A] ml-1">Subject</label>
               <input name="subject" value={formData.subject} onChange={handleChange} type="text" placeholder="Inquiry about Pneumatic Systems" className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF7A1A]/50 focus:border-[#FF7A1A] transition-all" required />
@@ -207,7 +207,7 @@ function ServicePage() {
                 </div>
                 <div>
                   <h4 className="text-base font-bold text-[#0F1E4A]">Salvin Headquarters</h4>
-                  <p className="text-slate-600 text-sm mt-1.5 leading-relaxed">210, Arved Transcube Mall,<br/>Bandhu Nagar, Vijay Nagar,<br/>Ranip, Ahmedabad, Gujarat 382480, India</p>
+                  <p className="text-slate-600 text-sm mt-1.5 leading-relaxed">210, Arved Transcube Mall,<br />Bandhu Nagar, Vijay Nagar,<br />Ranip, Ahmedabad, Gujarat 382480, India</p>
                 </div>
               </div>
             </div>

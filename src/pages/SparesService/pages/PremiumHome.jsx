@@ -6,6 +6,13 @@ import heroGraphic from '../assets/hero-img.jpeg';
 import pumpImage from '../assets/img2.jpg';
 import tubeImage from '../assets/img12.jpeg';
 import valveImage from '../assets/Valves.jpeg';
+import actuatorImg from '../assets/actuator.png';
+import airPrepImg from '../assets/air-prep.png';
+import fittingsImg from '../assets/fittings.png';
+import pValveImg from '../assets/pneumatic-valve.png';
+import mValveImg from '../assets/manual-valve.png';
+import vacuumImg from '../assets/vacuum.png';
+import accessoriesImg from '../assets/accessories.png';
 
 import pickPlaceImg from '../assets/img8.jpeg';
 import roboticArmImg from '../assets/img5.jpeg';
@@ -15,11 +22,14 @@ import menuImg from "../assets/1m-removebg-preview.jpg";
 import robotImg from "../assets/2m-removebg-preview.jpg";
 
 const categories = [
+  { name: 'Pneumatic Actuators', image: actuatorImg },
+  { name: 'Air Preparation Units', image: airPrepImg },
+  { name: 'Pneumatic Fittings', image: fittingsImg },
+  { name: 'Pneumatic Valves', image: pValveImg },
+  { name: 'Manual Valves', image: mValveImg },
+  { name: 'Vacuum Products', image: vacuumImg },
   { name: 'Pneumatic Tubes', image: tubeImage },
-  { name: 'Pneumatic Accessories', image: heroMain },
-  { name: 'Pneumatic Cylinders', image: menuImg },
-  { name: 'Solenoid Valves', image: robotImg },
-  { name: 'Flow Control Valves', image: valveImage },
+  { name: 'Pneumatic Accessories', image: accessoriesImg },
 ];
 
 const trustFeatures = [

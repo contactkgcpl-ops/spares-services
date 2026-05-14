@@ -2,7 +2,7 @@ import { MdEmail } from 'react-icons/md';
 import { FiPhone } from 'react-icons/fi';
 import { FaMapMarkerAlt, FaLinkedinIn, FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import logo from '../assets/salvin-logo.png';
+import logo from '../assets/salvin-spares-logo.png';
 
 const services = [
   'Turnkey Automation',
@@ -24,11 +24,11 @@ function Footer() {
     <footer className="border-t border-[#2D3A4A] bg-[#122136] text-slate-300">
       <div className="mx-auto max-w-[1700px] px-6 py-12 sm:px-10 lg:px-16 xl:px-24">
         <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.2fr]">
-          <div className="space-y-3">
+          <div className="space-y-5">
             <img
               src={logo}
               alt="Salvin Spares"
-              className="h-12 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
             <p className="max-w-lg text-[13px] leading-6 text-slate-300">
               Delivering industrial spare parts, engineering support, and process optimization with clear execution and operational reliability.

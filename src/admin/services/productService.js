@@ -2,11 +2,14 @@ import axios from 'axios';
 import { API_BASE_URL, resolveImageUrl } from '../../config/api';
 
 export const CATEGORY_OPTIONS = [
+  'Pneumatic Actuators',
+  'Air Preparation Units',
+  'Pneumatic Fittings',
+  'Pneumatic Valves',
+  'Manual Valves',
+  'Vacuum Products',
   'Pneumatic Tubes',
   'Pneumatic Accessories',
-  'Pneumatic Cylinders',
-  'Solenoid Valves',
-  'Flow Control Valves',
 ];
 const api = axios.create({
   baseURL: API_BASE_URL,

@@ -186,11 +186,14 @@ function initDatabase(): void
 function officialCatalogCategories(): array
 {
     return [
+        'Pneumatic Actuators',
+        'Air Preparation Units',
+        'Pneumatic Fittings',
+        'Pneumatic Valves',
+        'Manual Valves',
+        'Vacuum Products',
         'Pneumatic Tubes',
         'Pneumatic Accessories',
-        'Pneumatic Cylinders',
-        'Solenoid Valves',
-        'Flow Control Valves',
     ];
 }
 
@@ -219,7 +222,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Air Filter Regulator Lubricator',
-            'category' => 'Pneumatic Accessories',
+            'category' => 'Air Preparation Units',
             'image' => 'uploads/air-filter-regulator-lubricator.jpg',
             'description' => 'Integrated FRL unit for clean, regulated, and lubricated compressed air supply in industrial pneumatic systems.',
             'features' => [
@@ -239,7 +242,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Pneumatic Cylinder SC63X100',
-            'category' => 'Pneumatic Cylinders',
+            'category' => 'Pneumatic Actuators',
             'image' => 'uploads/pneumatic-cylinder-sc63x100.jpg',
             'description' => 'Durable double-acting pneumatic cylinder engineered for smooth linear motion and dependable actuator performance.',
             'features' => [
@@ -259,7 +262,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Solenoid Valve SV520DC',
-            'category' => 'Solenoid Valves',
+            'category' => 'Pneumatic Valves',
             'image' => 'uploads/solenoid-valve-sv520dc.jpg',
             'description' => '5/2 way directional solenoid valve designed for rapid switching and reliable airflow control in automation lines.',
             'features' => [
@@ -279,7 +282,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Flow Control Valve SCV-8',
-            'category' => 'Flow Control Valves',
+            'category' => 'Pneumatic Valves',
             'image' => 'uploads/flow-control-valve-scv-8.jpg',
             'description' => 'Compact flow control valve for accurate pneumatic speed regulation and smooth actuator motion control.',
             'features' => [
@@ -539,3 +542,4 @@ function saveBase64ImageIfNeeded(string $image, string $suggestedName = ''): str
 
     return $relativePath;
 }
+
