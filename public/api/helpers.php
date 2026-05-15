@@ -194,6 +194,15 @@ function officialCatalogCategories(): array
         'Vacuum Products',
         'Pneumatic Tubes',
         'Pneumatic Accessories',
+        'Pneumatic Switches',
+        'Pneumatic Cylinders',
+        'Hydraulic Flow Control',
+        'Pneumatic Grippers',
+        'Pneumatic Motors',
+        'Automation Control Systems',
+        'Automation Interface Systems',
+        'Pneumatic Sensors',
+        'Flow Control Valves',
     ];
 }
 

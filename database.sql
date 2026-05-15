@@ -51,6 +51,15 @@ INSERT IGNORE INTO categories (name, slug) VALUES
 ('Manual Valves', 'manual_valves'),
 ('Vacuum Products', 'vacuum_products'),
 ('Pneumatic Tubes', 'pneumatic_tubes'),
-('Pneumatic Accessories', 'pneumatic_accessories');
+('Pneumatic Accessories', 'pneumatic_accessories'),
+('Pneumatic Switches', 'pneumatic_switches'),
+('Pneumatic Cylinders', 'pneumatic_cylinders'),
+('Hydraulic Flow Control', 'hydraulic_flow_control'),
+('Pneumatic Grippers', 'pneumatic_grippers'),
+('Pneumatic Motors', 'pneumatic_motors'),
+('Automation Control Systems', 'automation_control_systems'),
+('Automation Interface Systems', 'automation_interface_systems'),
+('Pneumatic Sensors', 'pneumatic_sensors'),
+('Flow Control Valves', 'flow_control_valves');
 
 -- Admin row is seeded by PHP API (`initDatabase`) using ADMIN_EMAIL and ADMIN_PASSWORD from `public/api/.env`.

@@ -13,6 +13,8 @@ import pValveImg from '../assets/pneumatic-valve.png';
 import mValveImg from '../assets/manual-valve.png';
 import vacuumImg from '../assets/vacuum.png';
 import accessoriesImg from '../assets/accessories.png';
+import automationImg from '../assets/automation-control.png';
+import sensorImg from '../assets/sensors.png';
 
 import pickPlaceImg from '../assets/img8.jpeg';
 import roboticArmImg from '../assets/img5.jpeg';
@@ -26,10 +28,19 @@ const categories = [
   { name: 'Air Preparation Units', image: airPrepImg },
   { name: 'Pneumatic Fittings', image: fittingsImg },
   { name: 'Pneumatic Valves', image: pValveImg },
+  { name: 'Automation Control Systems', image: automationImg },
+  { name: 'Pneumatic Sensors', image: sensorImg },
   { name: 'Manual Valves', image: mValveImg },
   { name: 'Vacuum Products', image: vacuumImg },
   { name: 'Pneumatic Tubes', image: tubeImage },
   { name: 'Pneumatic Accessories', image: accessoriesImg },
+  { name: 'Pneumatic Switches', image: pValveImg },
+  { name: 'Pneumatic Cylinders', image: actuatorImg },
+  { name: 'Hydraulic Flow Control', image: mValveImg },
+  { name: 'Pneumatic Grippers', image: actuatorImg },
+  { name: 'Pneumatic Motors', image: actuatorImg },
+  { name: 'Automation Interface Systems', image: automationImg },
+  { name: 'Flow Control Valves', image: mValveImg },
 ];
 
 const trustFeatures = [
