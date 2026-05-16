@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, MessageCircle } from 'lucide-react';
 import TechnicalSpecs from '../components/TechnicalSpecs';
 import { API_BASE_URL, resolveImageUrl } from '../../../config/api';
 
@@ -181,10 +181,7 @@ function ProductDetails() {
                 onClick={handleWhatsAppQuote}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F1E4A] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:bg-[#162B68] hover:shadow-lg hover:-translate-y-1"
               >
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M17.472 14.382c-.297-.149-.595-.149-.893 0l-.495.492c-.057.057-.114.122-.114.187 0 .415.336.75.75.75h4.5c.415 0 .75-.335.75-.75s-.335-.75-.75-.75h-4.492l-.492-.491c-.298-.149-.595-.149-.893 0l-7.5 7.5c-.149.298-.149.595 0 .893l7.5 7.5c.149.298.149.595 0 .893z" />
-                  <path d="M12.016 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10zm0 17.5c-4.136 0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5-3.364 7.5-7.5z" />
-                </svg>
+                <MessageCircle className="h-5 w-5" />
                 Request a Quote
               </button>
 

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Search, Filter, Package, AlertCircle, RefreshCw } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Filter, Package, AlertCircle, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import FilterSidebar from '../components/FilterSidebar';
@@ -10,20 +10,27 @@ import CategoryFilter from '../components/CategoryFilter';
 import useProductFilter from '../hooks/useProductFilter';
 import { buildApiUrl, resolveImageUrl } from '../../../config/api';
 
+const PRODUCTS_PER_PAGE = 12;
+
 function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
   const { categories, category, filteredProducts, query, setCategory, setQuery } = useProductFilter(products);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const searchParam = params.get('search');
+    const categoryParam = params.get('category');
     if (searchParam) {
       setQuery(searchParam);
     }
-  }, [location.search, setQuery]);
+    if (categoryParam) {
+      setCategory(categoryParam);
+    }
+  }, [location.search, setQuery, setCategory]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,7 +60,7 @@ function ProductsPage() {
           ...product,
           id: product.id || product._id || '',
           title: product.title || product.productName || product.name || 'Industrial Part',
-          name: product.title || product.productName || product.name || 'Industrial Part', // Map both just in case
+          name: product.title || product.productName || product.name || 'Industrial Part',
           image: resolveImageUrl(product.image),
         }));
 
@@ -72,6 +79,53 @@ function ProductsPage() {
 
     fetchProducts();
   }, []);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [category, query]);
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    return filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+  }, [filteredProducts, currentPage]);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 400, behavior: 'smooth' });
+    }
+  };
+
+  // Generate page numbers to display
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1);
+        pages.push('...');
+        for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        pages.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      }
+    }
+    
+    return pages;
+  };
 
   return (
     <div className="w-full bg-white overflow-x-hidden mb-0 pb-0">
@@ -162,6 +216,11 @@ function ProductsPage() {
                     <h2 className="text-lg md:text-xl font-bold text-slate-900">Available Products</h2>
                     <p className="mt-0.5 text-xs text-slate-600">
                       {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
+                      {totalPages > 1 && (
+                        <span className="text-slate-400 ml-1">
+                          · Page {currentPage} of {totalPages}
+                        </span>
+                      )}
                     </p>
                   </div>
                   <div className="hidden sm:block">
@@ -171,7 +230,7 @@ function ProductsPage() {
               </motion.div>
 
               {/* Products Grid or Empty State */}
-              {filteredProducts.length === 0 ? (
+              {paginatedProducts.length === 0 ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -213,23 +272,102 @@ function ProductsPage() {
                   )}
                 </motion.div>
               ) : (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4 md:gap-5"
-                >
-                  {filteredProducts.map((product, index) => (
+                <>
+                  <AnimatePresence mode="wait">
                     <motion.div
-                      key={product.id}
+                      key={currentPage + category + query}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.1 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
+                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4 md:gap-5"
                     >
-                      <ProductCard key={product.id} product={product} />
+                      {paginatedProducts.map((product, index) => (
+                        <motion.div
+                          key={product.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
+                        >
+                          <ProductCard key={product.id} product={product} />
+                        </motion.div>
+                      ))}
                     </motion.div>
-                  ))}
-                </motion.div>
+                  </AnimatePresence>
+
+                  {/* ─── Pagination Controls ─── */}
+                  {totalPages > 1 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+                      className="flex items-center justify-center gap-2 pt-4 pb-2"
+                    >
+                      {/* Previous Button */}
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[12px] font-bold transition-all duration-300 ${
+                          currentPage === 1
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            : 'bg-white text-slate-700 border border-slate-200 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600 hover:-translate-y-0.5 shadow-sm hover:shadow-md'
+                        }`}
+                      >
+                        <ChevronLeft className="h-3.5 w-3.5" />
+                        <span className="hidden sm:inline">Previous</span>
+                      </button>
+
+                      {/* Page Numbers */}
+                      <div className="flex items-center gap-1.5">
+                        {getPageNumbers().map((page, index) =>
+                          page === '...' ? (
+                            <span
+                              key={`ellipsis-${index}`}
+                              className="flex items-center justify-center w-9 h-9 text-xs font-bold text-slate-400"
+                            >
+                              ···
+                            </span>
+                          ) : (
+                            <button
+                              key={page}
+                              onClick={() => handlePageChange(page)}
+                              className={`flex items-center justify-center w-9 h-9 rounded-xl text-[12px] font-bold transition-all duration-300 ${
+                                currentPage === page
+                                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30 scale-105'
+                                  : 'bg-white text-slate-700 border border-slate-200 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600 hover:-translate-y-0.5'
+                              }`}
+                            >
+                              {page}
+                            </button>
+                          )
+                        )}
+                      </div>
+
+                      {/* Next Button */}
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[12px] font-bold transition-all duration-300 ${
+                          currentPage === totalPages
+                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            : 'bg-white text-slate-700 border border-slate-200 hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600 hover:-translate-y-0.5 shadow-sm hover:shadow-md'
+                        }`}
+                      >
+                        <span className="hidden sm:inline">Next</span>
+                        <ChevronRight className="h-3.5 w-3.5" />
+                      </button>
+                    </motion.div>
+                  )}
+
+                  {/* Page Info */}
+                  {totalPages > 1 && (
+                    <div className="text-center pb-2">
+                      <p className="text-[11px] text-slate-400 font-medium">
+                        Showing {((currentPage - 1) * PRODUCTS_PER_PAGE) + 1}–{Math.min(currentPage * PRODUCTS_PER_PAGE, filteredProducts.length)} of {filteredProducts.length} products
+                      </p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

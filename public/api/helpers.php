@@ -181,29 +181,95 @@ function initDatabase(): void
     );
 
     seedDefaults($pdo);
+
+    // Auto-migrate existing products to new 4-category system
+    migrateProductCategories($pdo);
 }
 
+/**
+ * The 4 main categories used across the entire platform.
+ */
 function officialCatalogCategories(): array
 {
     return [
-        'Pneumatic Actuators',
-        'Air Preparation Units',
-        'Pneumatic Fittings',
-        'Pneumatic Valves',
-        'Manual Valves',
-        'Vacuum Products',
-        'Pneumatic Tubes',
-        'Pneumatic Accessories',
-        'Pneumatic Switches',
-        'Pneumatic Cylinders',
-        'Hydraulic Flow Control',
-        'Pneumatic Grippers',
-        'Pneumatic Motors',
-        'Automation Control Systems',
-        'Automation Interface Systems',
-        'Pneumatic Sensors',
-        'Flow Control Valves',
+        'Pneumatic',
+        'Mechanical',
+        'Electronic',
+        'Electric',
     ];
+}
+
+/**
+ * Maps old subcategory names to the new 4 main categories.
+ */
+function oldToNewCategoryMap(): array
+{
+    return [
+        'Pneumatic Sensors'             => 'Pneumatic',
+        'Pneumatic Actuators'           => 'Pneumatic',
+        'Pneumatic Motors'              => 'Pneumatic',
+        'Pneumatic Grippers'            => 'Pneumatic',
+        'Pneumatic Cylinders'           => 'Pneumatic',
+        'Pneumatic Switches'            => 'Pneumatic',
+        'Pneumatic Fittings'            => 'Pneumatic',
+        'Air Preparation Units'         => 'Pneumatic',
+        'Pneumatic Valves'              => 'Pneumatic',
+        'Pneumatic Accessories'         => 'Pneumatic',
+        'Vacuum Products'               => 'Pneumatic',
+        'Solenoid Valves'               => 'Pneumatic',
+        'Pneumatic Tubes'               => 'Pneumatic',
+        'Flow Control Valves'           => 'Pneumatic',
+        'Hydraulic Flow Control'        => 'Pneumatic',
+        'Automation Control Systems'    => 'Electronic',
+        'Automation Interface Systems'  => 'Electronic',
+        'PLC Modules'                   => 'Electronic',
+        'Controllers'                   => 'Electronic',
+        'PCB Boards'                    => 'Electronic',
+        'Relays'                        => 'Electronic',
+        'Electronic Sensors'            => 'Electronic',
+        'Power Supplies'                => 'Electric',
+        'Electrical Switches'           => 'Electric',
+        'Push Buttons'                  => 'Electric',
+        'MCB'                           => 'Electric',
+        'Industrial Electrical Devices' => 'Electric',
+        'Manual Valves'                 => 'Mechanical',
+        'Bearings'                      => 'Mechanical',
+        'Couplings'                     => 'Mechanical',
+        'Mechanical Hardware'           => 'Mechanical',
+        'Industrial Mechanical Components' => 'Mechanical',
+    ];
+}
+
+/**
+ * Automatically migrates all existing product category values to the new 4-category system.
+ */
+function migrateProductCategories(PDO $pdo): void
+{
+    $map = oldToNewCategoryMap();
+    $validCategories = officialCatalogCategories();
+
+    $stmt = $pdo->query('SELECT id, category FROM products');
+    $products = $stmt->fetchAll();
+
+    $updateStmt = $pdo->prepare('UPDATE products SET category = ? WHERE id = ?');
+
+    foreach ($products as $product) {
+        $currentCategory = trim($product['category']);
+
+        // Already using a valid new category
+        if (in_array($currentCategory, $validCategories, true)) {
+            continue;
+        }
+
+        // Map old category to new
+        if (isset($map[$currentCategory])) {
+            $updateStmt->execute([$map[$currentCategory], (int) $product['id']]);
+        }
+        // If not in map, default to Pneumatic (most products are pneumatic)
+        else {
+            $updateStmt->execute(['Pneumatic', (int) $product['id']]);
+        }
+    }
 }
 
 function officialCatalogProducts(): array
@@ -211,7 +277,7 @@ function officialCatalogProducts(): array
     return [
         [
             'title' => 'PU Tube 8x5mm',
-            'category' => 'Pneumatic Tubes',
+            'category' => 'Pneumatic',
             'image' => 'uploads/pu-tube-8x5mm.jpg',
             'description' => 'High-flexibility polyurethane tube designed for pneumatic lines with consistent airflow and long service life.',
             'features' => [
@@ -231,7 +297,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Air Filter Regulator Lubricator',
-            'category' => 'Air Preparation Units',
+            'category' => 'Pneumatic',
             'image' => 'uploads/air-filter-regulator-lubricator.jpg',
             'description' => 'Integrated FRL unit for clean, regulated, and lubricated compressed air supply in industrial pneumatic systems.',
             'features' => [
@@ -251,7 +317,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Pneumatic Cylinder SC63X100',
-            'category' => 'Pneumatic Actuators',
+            'category' => 'Pneumatic',
             'image' => 'uploads/pneumatic-cylinder-sc63x100.jpg',
             'description' => 'Durable double-acting pneumatic cylinder engineered for smooth linear motion and dependable actuator performance.',
             'features' => [
@@ -271,7 +337,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Solenoid Valve SV520DC',
-            'category' => 'Pneumatic Valves',
+            'category' => 'Pneumatic',
             'image' => 'uploads/solenoid-valve-sv520dc.jpg',
             'description' => '5/2 way directional solenoid valve designed for rapid switching and reliable airflow control in automation lines.',
             'features' => [
@@ -291,7 +357,7 @@ function officialCatalogProducts(): array
         ],
         [
             'title' => 'Flow Control Valve SCV-8',
-            'category' => 'Pneumatic Valves',
+            'category' => 'Pneumatic',
             'image' => 'uploads/flow-control-valve-scv-8.jpg',
             'description' => 'Compact flow control valve for accurate pneumatic speed regulation and smooth actuator motion control.',
             'features' => [
@@ -334,6 +400,7 @@ function insertCatalogProducts(PDO $pdo, array $products): void
 
 function seedDefaults(PDO $pdo): void
 {
+    // Seed new 4 main categories
     $insertCategory = $pdo->prepare('INSERT IGNORE INTO categories (name, slug) VALUES (?, ?)');
     foreach (officialCatalogCategories() as $categoryName) {
         $insertCategory->execute([$categoryName, slugify($categoryName)]);
@@ -506,7 +573,7 @@ function buildUploadPathAndName(string $sourceName, string $extension, ?string $
 function uploadDirectory(): string
 {
     $uploadDir = rtrim((string) env('UPLOAD_PATH', __DIR__ . '/../uploads'), '/\\');
-    if (!preg_match('/^(?:[A-Za-z]:[\/\\\\]|\/)/', $uploadDir)) {
+    if (!preg_match('/^(?:[A-Za-z]:[\\/\\\\]|\\/)/', $uploadDir)) {
         $uploadDir = __DIR__ . '/' . $uploadDir;
     }
 
@@ -551,4 +618,3 @@ function saveBase64ImageIfNeeded(string $image, string $suggestedName = ''): str
 
     return $relativePath;
 }
-

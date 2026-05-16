@@ -4,12 +4,11 @@ import { FaMapMarkerAlt, FaLinkedinIn, FaInstagram, FaFacebookF } from 'react-ic
 import { Link } from 'react-router-dom';
 import logo from '../assets/salvin-spares-logo.png';
 
-const services = [
-  'Turnkey Automation',
-  'Packaging Lines',
-  'Process Engineering',
-  'PLC & SCADA Integration',
-  'Plant Optimization'
+const productCategories = [
+  'Pneumatic',
+  'Mechanical',
+  'Electronic',
+  'Electric',
 ];
 
 const navLinks = [
@@ -36,10 +35,14 @@ function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-3 text-[15px] font-semibold tracking-wide text-white">Services</h3>
+            <h3 className="mb-3 text-[15px] font-semibold tracking-wide text-white">Categories</h3>
             <ul className="space-y-2.5 text-[13px] text-slate-300">
-              {services.map((service) => (
-                <li key={service} className="transition-all duration-300 hover:text-[#D87F2A]">{service}</li>
+              {productCategories.map((category) => (
+                <li key={category} className="transition-all duration-300 hover:text-[#D87F2A]">
+                  <Link to={`/spares-service/products?category=${encodeURIComponent(category)}`} className="hover:text-[#D87F2A] transition-all duration-300">
+                    {category}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>

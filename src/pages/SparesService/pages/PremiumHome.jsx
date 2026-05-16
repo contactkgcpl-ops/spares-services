@@ -1,46 +1,55 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ShieldCheck, Truck, Box, Star, Quote, Clock4, CreditCard, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Truck, Box, Star, Quote, Clock4, CreditCard, CheckCircle2, Wind, Cog, Cpu, Zap } from 'lucide-react';
 
 import heroGraphic from '../assets/hero-img.jpeg';
 import pumpImage from '../assets/img2.jpg';
 import tubeImage from '../assets/img12.jpeg';
 import valveImage from '../assets/Valves.jpeg';
-import actuatorImg from '../assets/actuator.png';
-import airPrepImg from '../assets/air-prep.png';
-import fittingsImg from '../assets/fittings.png';
-import pValveImg from '../assets/pneumatic-valve.png';
-import mValveImg from '../assets/manual-valve.png';
-import vacuumImg from '../assets/vacuum.png';
-import accessoriesImg from '../assets/accessories.png';
-import automationImg from '../assets/automation-control.png';
-import sensorImg from '../assets/sensors.png';
 
-import pickPlaceImg from '../assets/img8.jpeg';
-import roboticArmImg from '../assets/img5.jpeg';
+// Category images
+import pneumaticImg from '../assets/categories/pneumatic.png';
+import mechanicalImg from '../assets/categories/mechanical.png';
+import electronicImg from '../assets/categories/electronic.png';
+import electricImg from '../assets/categories/electric.png';
 
 import heroMain from "../assets/heromain-removebg-preview.jpg";
 import menuImg from "../assets/1m-removebg-preview.jpg";
 import robotImg from "../assets/2m-removebg-preview.jpg";
 
 const categories = [
-  { name: 'Pneumatic Actuators', image: actuatorImg },
-  { name: 'Air Preparation Units', image: airPrepImg },
-  { name: 'Pneumatic Fittings', image: fittingsImg },
-  { name: 'Pneumatic Valves', image: pValveImg },
-  { name: 'Automation Control Systems', image: automationImg },
-  { name: 'Pneumatic Sensors', image: sensorImg },
-  { name: 'Manual Valves', image: mValveImg },
-  { name: 'Vacuum Products', image: vacuumImg },
-  { name: 'Pneumatic Tubes', image: tubeImage },
-  { name: 'Pneumatic Accessories', image: accessoriesImg },
-  { name: 'Pneumatic Switches', image: pValveImg },
-  { name: 'Pneumatic Cylinders', image: actuatorImg },
-  { name: 'Hydraulic Flow Control', image: mValveImg },
-  { name: 'Pneumatic Grippers', image: actuatorImg },
-  { name: 'Pneumatic Motors', image: actuatorImg },
-  { name: 'Automation Interface Systems', image: automationImg },
-  { name: 'Flow Control Valves', image: mValveImg },
+  {
+    name: 'Pneumatic',
+    image: pneumaticImg,
+    icon: Wind,
+    description: 'Cylinders, valves, fittings & air preparation',
+    gradient: 'from-blue-600 to-cyan-500',
+    hoverGlow: 'rgba(59, 130, 246, 0.3)',
+  },
+  {
+    name: 'Mechanical',
+    image: mechanicalImg,
+    icon: Cog,
+    description: 'Bearings, couplings, valves & hardware',
+    gradient: 'from-slate-600 to-zinc-500',
+    hoverGlow: 'rgba(100, 116, 139, 0.3)',
+  },
+  {
+    name: 'Electronic',
+    image: electronicImg,
+    icon: Cpu,
+    description: 'PLCs, controllers, sensors & relays',
+    gradient: 'from-emerald-600 to-teal-500',
+    hoverGlow: 'rgba(16, 185, 129, 0.3)',
+  },
+  {
+    name: 'Electric',
+    image: electricImg,
+    icon: Zap,
+    description: 'Power supplies, MCBs, switches & push buttons',
+    gradient: 'from-orange-500 to-amber-500',
+    hoverGlow: 'rgba(249, 115, 22, 0.3)',
+  },
 ];
 
 const trustFeatures = [
@@ -190,35 +199,78 @@ function PremiumHome() {
         </div>
       </section>
 
-      {/* ═══════════  2. OUR CATEGORIES  ═══════════ */}
+      {/* ═══════════  2. OUR CATEGORIES (PREMIUM REDESIGN)  ═══════════ */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="py-10 md:py-12 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
+        className="py-12 md:py-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
       >
-        <motion.div variants={fadeUp} custom={0} className="mb-10 flex flex-col items-center text-center">
+        <motion.div variants={fadeUp} custom={0} className="mb-12 flex flex-col items-center text-center">
           <SectionLabel icon={Box}>Our Categories</SectionLabel>
-          <h2 className="text-[1.6rem] md:text-[1.9rem] font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
+          <h2 className="text-[1.6rem] md:text-[2rem] font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
+          <p className="mt-3 text-sm md:text-base text-[#536488] max-w-xl font-medium">
+            Explore our comprehensive range of industrial components across four core product families.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {categories.map((category, idx) => (
-            <motion.div
-              key={`${category.name}-${idx}`}
-              variants={fadeUp}
-              custom={0.05 + idx * 0.05}
-              className="bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,42,74,0.02)] overflow-hidden group hover:border-blue-200 hover:shadow-[0_20px_40px_rgba(37,99,235,0.08)] transition-all duration-500 cursor-pointer flex flex-col"
-            >
-              <div className="p-4 flex justify-center items-center bg-gradient-to-b from-white to-gray-50/50 h-[160px] md:h-[170px] relative overflow-hidden">
-                <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/[0.02] transition-colors duration-500"></div>
-                <img src={category.image} alt={category.name} className="relative z-10 max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out mix-blend-multiply drop-shadow-sm" />
-              </div>
-              <div className="px-3.5 py-2.5 border-t border-gray-50 bg-white text-center flex-1 flex items-center justify-center">
-                <h3 className="text-[15px] font-semibold text-[#1E2A4A] group-hover:text-blue-600 transition-colors duration-300">{category.name}</h3>
-              </div>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+          {categories.map((category, idx) => {
+            const Icon = category.icon;
+            return (
+              <motion.div
+                key={category.name}
+                variants={fadeUp}
+                custom={0.1 + idx * 0.1}
+              >
+                <Link
+                  to={`/spares-service/products?category=${encodeURIComponent(category.name)}`}
+                  className="group relative block rounded-[20px] overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2"
+                  style={{
+                    boxShadow: '0 8px 32px rgba(30, 42, 74, 0.06)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 20px 50px ${category.hoverGlow}`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(30, 42, 74, 0.06)';
+                  }}
+                >
+                  {/* Image Container */}
+                  <div className="relative h-[220px] md:h-[260px] overflow-hidden">
+                    <img
+                      src={category.image}
+                      alt={category.name}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-t ${category.gradient} opacity-60 group-hover:opacity-70 transition-opacity duration-500`} />
+                    
+                    {/* Top-right Icon */}
+                    <div className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:bg-white/25 group-hover:scale-110 transition-all duration-500">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+
+                    {/* Bottom Content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+                      <h3 className="text-xl md:text-2xl font-extrabold text-white tracking-tight mb-1.5 drop-shadow-lg">
+                        {category.name}
+                      </h3>
+                      <p className="text-[13px] text-white/85 font-medium leading-relaxed">
+                        {category.description}
+                      </p>
+
+                      {/* Explore Button */}
+                      <div className="mt-3 inline-flex items-center gap-2 text-[12px] font-bold text-white/90 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 group-hover:bg-white/25 group-hover:gap-3 transition-all duration-500">
+                        <span>Explore</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.section>
 
@@ -303,4 +355,3 @@ function PremiumHome() {
 }
 
 export default PremiumHome;
-

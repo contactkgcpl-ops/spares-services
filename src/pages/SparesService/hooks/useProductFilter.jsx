@@ -1,11 +1,15 @@
 import { useMemo, useState } from 'react';
-import { getCategoryList, normalizeSearch } from '../utils/productUtils';
+import { normalizeSearch } from '../utils/productUtils';
+
+// Fixed 4 main categories — always shown regardless of product data
+const MAIN_CATEGORIES = ['All', 'Pneumatic', 'Mechanical', 'Electronic', 'Electric'];
 
 function useProductFilter(products) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
 
-  const categories = useMemo(() => getCategoryList(products), [products]);
+  // Always return the fixed category list
+  const categories = MAIN_CATEGORIES;
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = normalizeSearch(query);

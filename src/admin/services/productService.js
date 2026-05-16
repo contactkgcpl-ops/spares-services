@@ -1,25 +1,50 @@
 import axios from 'axios';
 import { API_BASE_URL, resolveImageUrl } from '../../config/api';
 
+// ─── New 4 Main Categories ───────────────────────────────────────
 export const CATEGORY_OPTIONS = [
-  'Pneumatic Actuators',
-  'Air Preparation Units',
-  'Pneumatic Fittings',
-  'Pneumatic Valves',
-  'Manual Valves',
-  'Vacuum Products',
-  'Pneumatic Tubes',
-  'Pneumatic Accessories',
-  'Pneumatic Switches',
-  'Pneumatic Cylinders',
-  'Hydraulic Flow Control',
-  'Pneumatic Grippers',
-  'Pneumatic Motors',
-  'Automation Control Systems',
-  'Automation Interface Systems',
-  'Pneumatic Sensors',
-  'Flow Control Valves',
+  'Pneumatic',
+  'Mechanical',
+  'Electronic',
+  'Electric',
 ];
+
+// ─── Old-to-New Category Mapping ─────────────────────────────────
+export const OLD_TO_NEW_CATEGORY_MAP = {
+  'Pneumatic Sensors': 'Pneumatic',
+  'Pneumatic Actuators': 'Pneumatic',
+  'Pneumatic Motors': 'Pneumatic',
+  'Pneumatic Grippers': 'Pneumatic',
+  'Pneumatic Cylinders': 'Pneumatic',
+  'Pneumatic Switches': 'Pneumatic',
+  'Pneumatic Fittings': 'Pneumatic',
+  'Air Preparation Units': 'Pneumatic',
+  'Pneumatic Valves': 'Pneumatic',
+  'Pneumatic Accessories': 'Pneumatic',
+  'Vacuum Products': 'Pneumatic',
+  'Solenoid Valves': 'Pneumatic',
+  'Pneumatic Tubes': 'Pneumatic',
+  'Flow Control Valves': 'Pneumatic',
+  'Hydraulic Flow Control': 'Pneumatic',
+  'Automation Control Systems': 'Electronic',
+  'Automation Interface Systems': 'Electronic',
+  'PLC Modules': 'Electronic',
+  'Controllers': 'Electronic',
+  'PCB Boards': 'Electronic',
+  'Relays': 'Electronic',
+  'Electronic Sensors': 'Electronic',
+  'Power Supplies': 'Electric',
+  'Electrical Switches': 'Electric',
+  'Push Buttons': 'Electric',
+  'MCB': 'Electric',
+  'Industrial Electrical Devices': 'Electric',
+  'Manual Valves': 'Mechanical',
+  'Bearings': 'Mechanical',
+  'Couplings': 'Mechanical',
+  'Mechanical Hardware': 'Mechanical',
+  'Industrial Mechanical Components': 'Mechanical',
+};
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -122,5 +147,11 @@ export const uploadImage = async (file, productTitle) => {
 
 export const deleteProduct = async (id) => {
   const response = await api.delete(`/products/${id}`);
+  return response.data;
+};
+
+// ─── Migrate existing DB categories to new system ────────────────
+export const migrateCategories = async () => {
+  const response = await api.post('/products?action=migrate_categories');
   return response.data;
 };
