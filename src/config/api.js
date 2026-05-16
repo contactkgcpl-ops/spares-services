@@ -3,10 +3,10 @@ const localOrigin =
     ? window.location.origin
     : '';
 
-const LOCAL_API_BASE_URL = 'http://localhost/spares-service/public/api';
-const LOCAL_UPLOAD_BASE_URL = 'http://localhost/spares-service/public/uploads';
-const PRODUCTION_API_BASE_URL = `${localOrigin}/api`;
-const PRODUCTION_UPLOAD_BASE_URL = `${localOrigin}/api/uploads`;
+const LOCAL_API_BASE_URL = 'https://spares.salvinindia.com/spares/api';
+const LOCAL_UPLOAD_BASE_URL = 'https://spares.salvinindia.com/spares/uploads';
+const PRODUCTION_API_BASE_URL = 'https://spares.salvinindia.com/spares/api';
+const PRODUCTION_UPLOAD_BASE_URL = 'https://spares.salvinindia.com/spares/uploads';
 
 const sanitizeBaseUrl = (url) =>
   (url || '')
@@ -24,11 +24,11 @@ const normalizePath = (path = '') =>
 
 export const API_BASE_URL = sanitizeBaseUrl(
   import.meta.env.VITE_API_BASE_URL ||
-    (import.meta.env.DEV ? LOCAL_API_BASE_URL : PRODUCTION_API_BASE_URL)
+  (import.meta.env.DEV ? LOCAL_API_BASE_URL : PRODUCTION_API_BASE_URL)
 );
 export const UPLOAD_BASE_URL = sanitizeBaseUrl(
   import.meta.env.VITE_UPLOAD_BASE_URL ||
-    (import.meta.env.DEV ? LOCAL_UPLOAD_BASE_URL : PRODUCTION_UPLOAD_BASE_URL)
+  (import.meta.env.DEV ? LOCAL_UPLOAD_BASE_URL : PRODUCTION_UPLOAD_BASE_URL)
 );
 
 export const buildApiUrl = (path = '') => `${API_BASE_URL}/${normalizePath(path)}`;

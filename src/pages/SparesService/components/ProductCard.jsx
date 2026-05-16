@@ -26,12 +26,26 @@ function ProductCard({ product }) {
       >
         {/* Product Image */}
         <div className="flex justify-center mb-2.5 bg-gray-50/50 rounded-lg p-2.5">
-          <img 
-            src={product.image} 
-            alt={productTitle} 
-            className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105" 
+          <img
+            src={
+              product.image?.startsWith("http")
+                ? product.image
+                : `https://spares.salvinindia.com/spares-service/${product.image}`
+            }
+            alt={productTitle}
+            className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
           />
         </div>
+
+     
+        {/* Product Image */}
+<div className="flex justify-center mb-2.5 bg-gray-50/50 rounded-lg p-2.5">
+  <img 
+  src={product.image} 
+  alt={productTitle} 
+  className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105" 
+/>
+</div>
 
         {/* Product Category Badge */}
         <div className="flex items-center justify-between gap-3 mb-2">
@@ -48,7 +62,7 @@ function ProductCard({ product }) {
           <h3 className="text-[15px] font-bold text-slate-900 leading-tight mb-1.5 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300">
             {productTitle}
           </h3>
-          
+
           <p className="text-xs leading-5 text-slate-500 mb-3 line-clamp-2 flex-1">
             {product.description || 'High-quality industrial component designed for reliable performance.'}
           </p>

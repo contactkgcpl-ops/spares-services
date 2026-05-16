@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.4.0",
     "axios": "^1.16.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.14.0",
