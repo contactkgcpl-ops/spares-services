@@ -23,20 +23,7 @@ function ProductCard({ product }) {
       <Link
         to={`/spares-service/product/${product.id}`}
         className="flex h-full flex-col bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-3.5 border border-slate-100"
-      >
-        {/* Product Image */}
-        <div className="flex justify-center mb-2.5 bg-gray-50/50 rounded-lg p-2.5">
-          <img
-            src={
-              product.image?.startsWith("http")
-                ? product.image
-                : `https://spares.salvinindia.com/spares-service/${product.image}`
-            }
-            alt={productTitle}
-            className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-
+      > 
      
         {/* Product Image */}
 <div className="flex justify-center mb-2.5 bg-gray-50/50 rounded-lg p-2.5">

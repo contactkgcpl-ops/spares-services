@@ -16,7 +16,7 @@ const Products = () => {
   const [deleteTargetId, setDeleteTargetId] = useState('');
 
   useEffect(() => {
-    if (location.state?.message) {
+    if (location.state?.message) {  
       navigate(location.pathname, { replace: true, state: {} });
     }
   }, [location.pathname, location.state, navigate]);
@@ -46,7 +46,7 @@ const Products = () => {
 
   const sortedProducts = useMemo(() => {
     const filtered = products.filter((product) => {
-      const nameMatch = product.productName.toLowerCase().includes(searchTerm.toLowerCase().trim());
+      const nameMatch = product.title?.toLowerCase().includes(searchTerm.toLowerCase().trim());
       const categoryMatch = !selectedCategory || product.category === selectedCategory;
       return nameMatch && categoryMatch;
     });
@@ -126,7 +126,7 @@ const Products = () => {
               ) : (
                 sortedProducts.map((product) => (
                   <tr key={product.id} className="transition-colors hover:bg-[#f8fafc]">
-                    <td className="px-4 py-3 text-sm text-slate-700">{product.productName}</td>
+                    <td className="px-4 py-3 text-sm text-slate-700">{product.title}</td>
                     <td className="px-4 py-3 text-sm text-slate-600">{product.category}</td>
                     <td className="px-4 py-3 text-sm">
                       <div className="flex items-center gap-3">
