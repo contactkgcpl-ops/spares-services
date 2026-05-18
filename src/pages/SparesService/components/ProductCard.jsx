@@ -31,7 +31,7 @@ function ProductCard({ product }) {
   src={
     product.image?.startsWith('http')
       ? product.image
-      : `https://spares.salvinindia.com/spares/uploads/${product.image}`
+      : `https://spares.salvinindia.com/spares${product.image}`
   } 
   alt={productTitle} 
   className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105" 
