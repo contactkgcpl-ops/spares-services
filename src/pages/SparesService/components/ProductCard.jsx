@@ -4,6 +4,7 @@ import { MessageCircle, ArrowRight, Package } from 'lucide-react';
 
 function ProductCard({ product }) {
   const productTitle = product.title || product.name;
+  console.log(product);
 
   const handleWhatsAppQuote = (e) => {
     e.preventDefault();
@@ -40,16 +41,22 @@ function ProductCard({ product }) {
     e.target.src = 'https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image';
   }}
 /> */}
-<img
-  src={product.image}
-  alt={productTitle}
-  className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
-  onError={(e) => {
-    e.target.onerror = null;
-    e.target.src =
-      'https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image';
-  }}
-/>
+          <img
+
+            //src={product.image}
+            src={
+              product.image?.startsWith('http')
+                ? product.image
+                : `https://spares.salvinindia.com/spares/uploads/${product.image}`
+            }
+            alt={productTitle}
+            className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src =
+                'https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image';
+            }}
+          />
         </div>
 
         {/* Product Category Badge */}
