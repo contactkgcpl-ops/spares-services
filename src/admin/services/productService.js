@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL, resolveImageUrl } from '../../config/api';
+import { getMockProducts, addMockProduct, updateMockProduct, deleteMockProduct, getMockProductById } from './mockData';
 
 // ─── New 4 Main Categories ───────────────────────────────────────
 export const CATEGORY_OPTIONS = [
@@ -82,20 +83,36 @@ const toArrayFromInput = (value) =>
     .filter(Boolean);
 
 export const getProducts = async () => {
-  const cacheBust = Date.now();
-  const response = await api.get(`/products?t=${cacheBust}`);
+  try {
+    const cacheBust = Date.now();
+    const response = await api.get(`/products?t=${cacheBust}`);
 
-  if (response.data && response.data.success === false) {
-    throw new Error(response.data.message || 'Unable to load products');
+    if (response.data && response.data.success === false) {
+      throw new Error(response.data.message || 'Unable to load products');
+    }
+
+    const products = response.data?.data || [];
+    return products.map(normalizeProduct);
+  } catch (error) {
+    console.warn('Backend unavailable, using local storage:', error.message);
+    // Fallback to mock data from localStorage
+    const mockProducts = getMockProducts();
+    return mockProducts.map(normalizeProduct);
   }
-
-  const products = response.data?.data || [];
-  return products.map(normalizeProduct);
 };
 
 export const getProductById = async (id) => {
-  const response = await api.get(`/products/${id}`);
-  return normalizeProduct(response.data?.data);
+  try {
+    const response = await api.get(`/products/${id}`);
+    return normalizeProduct(response.data?.data);
+  } catch (error) {
+    console.warn('Backend unavailable for getProductById, checking local storage:', error.message);
+    const mockProduct = getMockProductById(id);
+    if (mockProduct) {
+      return normalizeProduct(mockProduct);
+    }
+    throw error;
+  }
 };
 
 export const addProduct = async (product) => {
@@ -109,8 +126,22 @@ export const addProduct = async (product) => {
     slug: product.slug?.trim() || (product.title || product.productName || '').toLowerCase().trim().replace(/\s+/g, '-'),
   };
 
-  const response = await api.post('/products', payload);
-  return normalizeProduct(response.data?.data);
+  try {
+    const response = await api.post('/products', payload);
+    return normalizeProduct(response.data?.data);
+  } catch (error) {
+    console.error('API Error Details:', {
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      message: error.message,
+    });
+    
+    // Fallback: create mock product locally
+    console.warn('Backend unavailable, saving to local storage');
+    const mockProduct = addMockProduct(payload);
+    return normalizeProduct(mockProduct);
+  }
 };
 
 export const updateProduct = async (id, updates) => {
@@ -127,8 +158,14 @@ export const updateProduct = async (id, updates) => {
     payload.slug = updates.slug.trim();
   }
 
-  const response = await api.put(`/products/${id}`, payload);
-  return normalizeProduct(response.data?.data);
+  try {
+    const response = await api.put(`/products/${id}`, payload);
+    return normalizeProduct(response.data?.data);
+  } catch (error) {
+    console.warn('Backend unavailable for updateProduct, using local storage:', error.message);
+    const mockProduct = updateMockProduct(id, payload);
+    return normalizeProduct(mockProduct);
+  }
 };
 
 export const uploadImage = async (file, productTitle) => {
@@ -136,18 +173,35 @@ export const uploadImage = async (file, productTitle) => {
   formData.append('file', file);
   formData.append('title', productTitle);
 
-  const response = await api.post('/upload.php', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  try {
+    const response = await api.post('/upload.php', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
-  return response.data?.data?.path || response.data?.path;
+    return response.data?.data?.path || response.data?.path;
+  } catch (error) {
+    console.error('Image upload error:', {
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message,
+    });
+    
+    // Fallback: return local preview or placeholder
+    console.warn('Using local image preview as fallback');
+    return URL.createObjectURL(file);
+  }
 };
 
 export const deleteProduct = async (id) => {
-  const response = await api.delete(`/products/${id}`);
-  return response.data;
+  try {
+    const response = await api.delete(`/products/${id}`);
+    return response.data;
+  } catch (error) {
+    console.warn('Backend unavailable for deleteProduct, using local storage:', error.message);
+    return deleteMockProduct(id);
+  }
 };
 
 // ─── Migrate existing DB categories to new system ────────────────

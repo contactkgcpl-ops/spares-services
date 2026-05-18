@@ -58,7 +58,7 @@ const AddProduct = () => {
       if (selectedFile && imageSource === 'file') {
         console.log('Uploading image:', selectedFile.name);
         imagePath = await uploadImage(selectedFile, formData.title);
-        console.log('Image uploaded successfully:', imagePath);
+        console.log('Image path resolved:', imagePath);
       }
 
       // Create product with image path
@@ -67,11 +67,23 @@ const AddProduct = () => {
         image: imagePath,
       };
 
+      console.log('Saving product:', productData);
       await addProduct(productData);
       navigate('/admin/products', { state: { message: 'Product added successfully' } });
     } catch (submitError) {
-      console.error('Save product failed:', submitError?.response?.data || submitError?.message || submitError);
-      setError(submitError?.response?.data?.message || 'Failed to save product');
+      console.error('Save product failed:', {
+        response: submitError?.response?.data,
+        status: submitError?.response?.status,
+        message: submitError?.message,
+      });
+      
+      const errorMessage = 
+        submitError?.response?.data?.message || 
+        submitError?.response?.data?.error ||
+        submitError?.message || 
+        'Failed to save product. Please check your connection and try again.';
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

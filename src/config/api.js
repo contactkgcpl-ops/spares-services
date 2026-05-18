@@ -3,11 +3,11 @@ const localOrigin =
     ? window.location.origin
     : '';
 
-const LOCAL_API_BASE_URL = 'https://spares.salvinindia.com/spares/api';
+const LOCAL_API_BASE_URL = '/spares/api';
 // const LOCAL_UPLOAD_BASE_URL = 'https://spares.salvinindia.com/spares/uploads';
 const PRODUCTION_API_BASE_URL = 'https://spares.salvinindia.com/spares/api';
 // const PRODUCTION_UPLOAD_BASE_URL = 'https://spares.salvinindia.com/spares/uploads';
-const LOCAL_UPLOAD_BASE_URL = 'https://spares.salvinindia.com/uploads';
+const LOCAL_UPLOAD_BASE_URL = '/uploads';
 const PRODUCTION_UPLOAD_BASE_URL = 'https://spares.salvinindia.com/uploads';
 
 const sanitizeBaseUrl = (url) =>
