@@ -27,7 +27,7 @@ function ProductCard({ product }) {
 
         {/* Product Image */}
         <div className="flex justify-center mb-2.5 bg-gray-50/50 rounded-lg p-2.5">
-          <img 
+          {/* <img 
   src={
     product.image?.startsWith('http')
       ? product.image
@@ -38,6 +38,16 @@ function ProductCard({ product }) {
   onError={(e) => {
     e.target.onerror = null;
     e.target.src = 'https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image';
+  }}
+/> */}
+<img
+  src={product.image}
+  alt={productTitle}
+  className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.src =
+      'https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image';
   }}
 />
         </div>
