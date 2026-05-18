@@ -1,8 +1,7 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /spares/
+  RewriteBase /
 
-  # API Routes
   RewriteRule ^api/?$ api/index.php [QSA,L]
   RewriteRule ^api/health/?$ api/health.php [QSA,L]
   RewriteRule ^api/auth/login/?$ api/auth/login.php [QSA,L]
@@ -12,13 +11,10 @@
   RewriteRule ^api/contact/?$ api/contact.php [QSA,L]
   RewriteRule ^api/enquiries/?([0-9]+)?$ api/enquiries.php [QSA,L]
 
-  # Allow uploads folder access
-  RewriteRule ^uploads/ - [L]
+RewriteRule ^index\.html$ - [L]
 
-  # React App
-  RewriteRule ^index\.html$ - [L]
-
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . index.html [L]
+RewriteCond %{REQUEST_URI} !^/spares/uploads/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
 </IfModule>
