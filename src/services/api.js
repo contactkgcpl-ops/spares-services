@@ -7,10 +7,15 @@ const localOrigin =
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
-  (import.meta.env.DEV ? 'http://localhost/spares-service/public/api' : `${localOrigin}/api`);
+  (import.meta.env.DEV
+    ? 'https://spares.salvinindia.com/spares/api'
+    : `${localOrigin}/api`);
+
 export const UPLOAD_BASE_URL =
   import.meta.env.VITE_UPLOAD_BASE_URL ||
-  (import.meta.env.DEV ? 'http://localhost/spares-service/public/uploads' : `${localOrigin}/api/uploads`);
+  (import.meta.env.DEV
+    ? 'https://spares.salvinindia.com/spares/uploads'
+    : `${localOrigin}/api/uploads`);
 
 const normalizeBaseUrl = (url) =>
   (url || '')
