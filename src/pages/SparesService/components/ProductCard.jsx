@@ -42,19 +42,11 @@ function ProductCard({ product }) {
   }}
 /> */}
           <img
-
-            //src={product.image}
-            src={
-              product.image?.startsWith('http')
-                ? product.image
-                : `https://spares.salvinindia.com/spares/uploads/${product.image}`
-            }
+            src={`https://spares.salvinindia.com/spares/uploads/${product.image}`}
             alt={productTitle}
             className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
-              e.target.onerror = null;
-              e.target.src =
-                'https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image';
+              e.target.src = "https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image";
             }}
           />
         </div>
