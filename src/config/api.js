@@ -33,17 +33,35 @@ export const UPLOAD_BASE_URL = sanitizeBaseUrl(
 
 export const buildApiUrl = (path = '') => `${API_BASE_URL}/${normalizePath(path)}`;
 
+// export const resolveImageUrl = (value = '') => {
+//   const source = (value || '').toString().trim();
+//   if (!source) return '';
+//   if (source.startsWith('data:') || /^https?:\/\//i.test(source)) {
+//     return source;
+//   }
+
+//   const clean = source.replace(/^\/+/, '');
+//   if (clean.startsWith('uploads/')) {
+//     return `${UPLOAD_BASE_URL}/${clean.slice('uploads/'.length)}`;
+//   }
+
+//   return `${UPLOAD_BASE_URL}/${clean}`;
+// };
 export const resolveImageUrl = (value = '') => {
   const source = (value || '').toString().trim();
   if (!source) return '';
+
+  // Already a full URL — return as-is
   if (source.startsWith('data:') || /^https?:\/\//i.test(source)) {
     return source;
   }
 
-  const clean = source.replace(/^\/+/, '');
-  if (clean.startsWith('uploads/')) {
-    return `${UPLOAD_BASE_URL}/${clean.slice('uploads/'.length)}`;
+  // Already an absolute path like /uploads/filename.jpg — just prepend domain
+  if (source.startsWith('/')) {
+    return `https://spares.salvinindia.com${source}`;
   }
 
-  return `${UPLOAD_BASE_URL}/${clean}`;
+  // Relative path like uploads/filename.jpg
+  const clean = source.replace(/^uploads\//, '');
+  return `https://spares.salvinindia.com/spares/uploads/${clean}`;
 };
