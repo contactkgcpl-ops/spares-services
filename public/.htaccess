@@ -11,8 +11,10 @@
   RewriteRule ^api/contact/?$ api/contact.php [QSA,L]
   RewriteRule ^api/enquiries/?([0-9]+)?$ api/enquiries.php [QSA,L]
 
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+RewriteRule ^index\.html$ - [L]
+
+RewriteCond %{REQUEST_URI} !^/spares/uploads/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
 </IfModule>
