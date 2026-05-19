@@ -69,11 +69,11 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="pt-14 md:pt-16 pb-8 md:pb-10 px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto relative z-10 border-t border-gray-100"
+        className="pt-10 md:pt-12 pb-6 md:pb-8 px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto relative z-10 border-t border-gray-100"
       >
-        <motion.div variants={fadeUp} custom={0} className="mb-8 flex flex-col items-center text-center">
+        <motion.div variants={fadeUp} custom={0} className="mb-6 flex flex-col items-center text-center">
           <SectionLabel icon={Star}>Client Reviews</SectionLabel>
-          <h2 className="text-[1.85rem] md:text-[2.35rem] font-extrabold text-[#0B1527] tracking-tight leading-tight">
+          <h2 className="text-[1.85rem] md:text-[2.15rem] font-extrabold text-[#0B1527] tracking-tight leading-tight">
             Trusted by Industry Leaders
           </h2>
         </motion.div>
@@ -92,7 +92,7 @@ function PremiumHome() {
                 {[1, 2, 3, 4, 5].map(star => <Star key={star} className="w-4 h-4 fill-current" />)}
               </div>
 
-              <p className="text-[13.5px] leading-relaxed text-[#536488] mb-6 flex-1 font-medium relative z-10">
+              <p className="text-[12.5px] md:text-[13px] leading-relaxed text-[#536488] mb-6 flex-1 font-medium relative z-10">
                 "{review.text}"
               </p>
 
@@ -113,9 +113,9 @@ function PremiumHome() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
-        className="pt-4 pb-16 md:pb-20 px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto relative z-20"
+        className="pt-2 pb-12 md:pb-14 px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto relative z-20"
       >
-        <div className="bg-white rounded-[2.5rem] border border-gray-100/80 p-8 md:p-10 shadow-[0_8px_30px_rgb(30,42,74,0.03)]">
+        <div className="bg-white rounded-[2.5rem] border border-gray-100/80 p-8 shadow-[0_8px_30px_rgb(30,42,74,0.03)]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 divide-y md:divide-y-0 lg:divide-x divide-gray-100">
             {trustFeatures.map((feature, idx) => {
               const Icon = feature.icon;
@@ -130,8 +130,8 @@ function PremiumHome() {
                     <Icon className="w-4.5 h-4.5" />
                   </div>
                   <div className="flex flex-col justify-center h-full">
-                    <h4 className="text-[16px] font-extrabold text-[#0B1527] mb-1">{feature.title}</h4>
-                    <p className="text-[13.5px] text-[#536488] leading-snug font-medium">{feature.desc}</p>
+                    <h4 className="text-[15px] font-extrabold text-[#0B1527] mb-1">{feature.title}</h4>
+                    <p className="text-[12.5px] md:text-[13px] text-[#536488] leading-snug font-medium">{feature.desc}</p>
                   </div>
                 </motion.div>
               )

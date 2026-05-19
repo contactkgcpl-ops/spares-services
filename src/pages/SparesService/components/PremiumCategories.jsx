@@ -52,7 +52,7 @@ export default function PremiumCategories() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-12 md:py-14 px-6 md:px-8 lg:px-12 relative bg-[#EEF2F7] overflow-hidden">
+    <section className="py-10 md:py-12 px-6 md:px-8 lg:px-12 relative bg-[#EEF2F7] overflow-hidden">
       
       {/* Floating particles/background flares */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none animate-pulse" />
@@ -76,8 +76,8 @@ export default function PremiumCategories() {
           </div>
           
           {/* Large Centered Heading with blue gradient last word */}
-          <h2 className="text-[1.85rem] md:text-[2.35rem] font-extrabold text-[#0B1527] tracking-tight leading-[1.12] max-w-lg">
-            Core Product <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Families</span>
+          <h2 className="text-[1.85rem] md:text-[2.15rem] font-extrabold text-[#0B1527] tracking-tight leading-[1.12] max-w-lg">
+            Core <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Products</span>
           </h2>
         </motion.div>
 

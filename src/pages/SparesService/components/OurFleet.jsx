@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Wind, Cog, Cpu, Zap, Settings, ShieldCheck, Activity, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 
-import pneumaticImg from '../assets/categories/pneumatic.png';
-import mechanicalImg from '../assets/categories/mechanical.png';
-import electronicImg from '../assets/categories/electronic.png';
-import electricImg from '../assets/categories/electric.png';
+import pneumaticFleetImg from '../assets/categories/pneumatic_fleet.png';
+import mechanicalFleetImg from '../assets/categories/mechanical_fleet.png';
+import electronicFleetImg from '../assets/categories/electronic_fleet.png';
+import electricFleetImg from '../assets/categories/electric_fleet.png';
 
 const solutionData = [
   {
@@ -14,8 +14,8 @@ const solutionData = [
     title: 'Pneumatic Systems',
     tag: '01 / 04',
     icon: Wind,
-    image: pneumaticImg,
-    productImage: pneumaticImg,
+    image: pneumaticFleetImg,
+    productImage: pneumaticFleetImg,
     linkVal: 'Pneumatic',
     desc: 'High-performance control valves, air preparation modules, and cylinders designed to power industrial automation lines.',
     features: [
@@ -31,8 +31,8 @@ const solutionData = [
     title: 'Mechanical Spares',
     tag: '02 / 04',
     icon: Cog,
-    image: mechanicalImg,
-    productImage: mechanicalImg,
+    image: mechanicalFleetImg,
+    productImage: mechanicalFleetImg,
     linkVal: 'Mechanical',
     desc: 'Heavy-duty alloy gearboxes, bearings, couplings, and power transmission shafts designed for extreme operational stress.',
     features: [
@@ -49,8 +49,8 @@ const solutionData = [
     desc: 'Intelligent controllers, variable frequency drives, responsive PLCs, and touchscreen operator interface HMI systems.',
     tag: '03 / 04',
     icon: Cpu,
-    image: electronicImg,
-    productImage: electronicImg,
+    image: electronicFleetImg,
+    productImage: electronicFleetImg,
     linkVal: 'Electronic',
     features: [
       'Industrial Grade Reliability',
@@ -66,8 +66,8 @@ const solutionData = [
     desc: 'Premium electromagnetic switchgears, thermal overload relays, industrial cabling, and safe power routing panels.',
     tag: '04 / 04',
     icon: Zap,
-    image: electricImg,
-    productImage: electricImg,
+    image: electricFleetImg,
+    productImage: electricFleetImg,
     linkVal: 'Electric',
     features: [
       'Industrial Grade Reliability',
@@ -168,7 +168,7 @@ export default function OurFleet() {
   };
 
   return (
-    <section className="py-14 md:py-16 px-6 md:px-8 lg:px-12 relative bg-white overflow-hidden border-t border-gray-100">
+    <section className="py-10 md:py-12 px-6 md:px-8 lg:px-12 relative bg-white overflow-hidden border-t border-gray-100">
       
       {/* Decorative background glows */}
       <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
@@ -192,7 +192,7 @@ export default function OurFleet() {
           </div>
           
           {/* Large Centered Heading */}
-          <h2 className="text-[1.85rem] md:text-[2.35rem] font-extrabold tracking-tight leading-[1.15] mb-3 max-w-xl">
+          <h2 className="text-[1.85rem] md:text-[2.15rem] font-extrabold tracking-tight leading-[1.15] mb-3 max-w-xl">
             <span className="text-[#0B1527]">Precision Spares</span><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Powering Automation</span>
           </h2>

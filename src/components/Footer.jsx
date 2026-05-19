@@ -29,7 +29,7 @@ function Footer() {
             <img
               src={logo}
               alt="Salvin Spares"
-              className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-103"
+              className="h-14 md:h-[3.75rem] lg:h-[4rem] w-auto object-contain transition-transform duration-300 hover:scale-103"
             />
             <p className="max-w-xs text-[12.5px] leading-relaxed text-slate-400 font-medium">
               Delivering high-performance industrial components, premium spares, and process optimization with technical precision and operations excellence.

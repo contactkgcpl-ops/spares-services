@@ -142,7 +142,7 @@ function Navbar() {
             <img
               src={logo}
               alt="Salvin Spares"
-              className="h-10 md:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-103"
+              className="h-12 md:h-[3.25rem] lg:h-[3.5rem] w-auto object-contain transition-transform duration-300 group-hover:scale-103"
             />
           </Link>
 
