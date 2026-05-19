@@ -5,6 +5,7 @@ import { resolveImageUrl } from '../../../config/api';
 
 function ProductCard({ product }) {
   const productTitle = product.title || product.name;
+  const imageUrl = resolveImageUrl(product.image);
   console.log(product);
 
   const handleWhatsAppQuote = (e) => {
@@ -27,13 +28,13 @@ function ProductCard({ product }) {
         className="flex h-full flex-col bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-3.5 border border-slate-100"
       >
 
-        {/* Product Image */}
         <div className="flex justify-center mb-2.5 bg-gray-50/50 rounded-lg p-2.5">
           <img
-            src={resolveImageUrl(product.image)}
+            src={imageUrl}
             alt={productTitle}
             className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
+              e.target.onerror = null;
               e.target.src = "https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image";
             }}
           />

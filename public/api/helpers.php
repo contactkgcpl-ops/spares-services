@@ -523,15 +523,12 @@ function publicUrlForPath(string $relativePath): string
 
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '';
-    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-    $basePath = str_replace('/api', '', dirname($scriptName));
-    $basePath = rtrim($basePath, '/\\');
 
     if ($host !== '') {
-        return "{$scheme}://{$host}{$basePath}/uploads/{$filename}";
+        return "{$scheme}://{$host}/uploads/" . rawurlencode($filename);
     }
 
-    return 'uploads/' . $filename;
+    return 'uploads/' . rawurlencode($filename);
 }
 
 function slugify(string $text): string
