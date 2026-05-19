@@ -10,11 +10,11 @@ function db(): PDO
         return $pdo;
     }
 
-    $host = env('DB_HOST', 'localhost');
+    $host = env('DB_HOST', env('MYSQL_HOST', env('DB_SERVER', 'localhost')));
     $port = env('DB_PORT', '3306');
     $dbname = env('DB_NAME', 'spares_service');
-    $user = env('DB_USER', env('DB_USERNAME', 'root'));
-    $pass = env('DB_PASSWORD', env('DB_PASS', ''));
+    $user = env('DB_USER', env('DB_USERNAME', env('MYSQL_USER', 'root')));
+    $pass = env('DB_PASSWORD', env('DB_PASS', env('MYSQL_PASSWORD', '')));
 
     $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass, [
@@ -528,10 +528,10 @@ function publicUrlForPath(string $relativePath): string
     $basePath = rtrim($basePath, '/\\');
 
     if ($host !== '') {
-        return "{$scheme}://{$host}{$basePath}/api/uploads/{$filename}";
+        return "{$scheme}://{$host}{$basePath}/uploads/{$filename}";
     }
 
-    return 'api/uploads/' . $filename;
+    return 'uploads/' . $filename;
 }
 
 function slugify(string $text): string

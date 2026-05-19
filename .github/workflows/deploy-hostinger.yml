@@ -37,19 +37,19 @@ jobs:
           test -n "${DB_PASSWORD}"
           test -n "${AUTH_SECRET}"
         env:
-          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_HOST: ${{ secrets.DB_HOST || secrets.MYSQL_HOST || secrets.DB_SERVER }}
           DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER || secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD || secrets.DB_PASS }}
+          DB_USER: ${{ secrets.DB_USER || secrets.DB_USERNAME || secrets.MYSQL_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD || secrets.DB_PASS || secrets.MYSQL_PASSWORD }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
 
       - name: Create PHP env file
         run: |
           cat > dist/api/.env <<'ENV'
-          DB_HOST=${{ secrets.DB_HOST }}
+          DB_HOST=${{ secrets.DB_HOST || secrets.MYSQL_HOST || secrets.DB_SERVER }}
           DB_NAME=${{ secrets.DB_NAME }}
-          DB_USER=${{ secrets.DB_USER || secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD || secrets.DB_PASS }}
+          DB_USER=${{ secrets.DB_USER || secrets.DB_USERNAME || secrets.MYSQL_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD || secrets.DB_PASS || secrets.MYSQL_PASSWORD }}
           DB_CHARSET=utf8mb4
           ADMIN_EMAIL=spares@gmail.com
           ADMIN_PASSWORD=spares@123

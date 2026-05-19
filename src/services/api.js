@@ -6,16 +6,10 @@ const localOrigin =
     : '';
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  (import.meta.env.DEV
-    ? 'https://spares.salvinindia.com/spares/api'
-    : `${localOrigin}/api`);
+  import.meta.env.VITE_API_BASE_URL || '/spares/api';
 
 export const UPLOAD_BASE_URL =
-  import.meta.env.VITE_UPLOAD_BASE_URL ||
-  (import.meta.env.DEV
-    ? 'https://spares.salvinindia.com/spares/uploads'
-    : `${localOrigin}/api/uploads`);
+  import.meta.env.VITE_UPLOAD_BASE_URL || '/uploads';
 
 const normalizeBaseUrl = (url) =>
   (url || '')
