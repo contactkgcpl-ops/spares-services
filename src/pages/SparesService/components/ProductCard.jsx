@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MessageCircle, ArrowRight, Package } from 'lucide-react';
+import { resolveImageUrl } from '../../../config/api';
 
 function ProductCard({ product }) {
   const productTitle = product.title || product.name;
@@ -28,21 +29,8 @@ function ProductCard({ product }) {
 
         {/* Product Image */}
         <div className="flex justify-center mb-2.5 bg-gray-50/50 rounded-lg p-2.5">
-          {/* <img 
-  src={
-    product.image?.startsWith('http')
-      ? product.image
-      : `https://spares.salvinindia.com/spares${product.image}`
-  } 
-  alt={productTitle} 
-  className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105" 
-  onError={(e) => {
-    e.target.onerror = null;
-    e.target.src = 'https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image';
-  }}
-/> */}
           <img
-            src={`https://spares.salvinindia.com/spares/uploads/${product.image}`}
+            src={resolveImageUrl(product.image)}
             alt={productTitle}
             className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
