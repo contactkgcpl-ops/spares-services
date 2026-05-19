@@ -1,17 +1,11 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ShieldCheck, Truck, Box, Star, Quote, Clock4, CheckCircle2, Wind, Cog, Cpu, Zap } from 'lucide-react';
+import { ShieldCheck, Truck, Clock4, CheckCircle2, Star, Quote, Box } from 'lucide-react';
 
 import HeroSlider from '../components/HeroSlider';
-
-import heroGraphic from '../assets/hero-img.jpeg';
-import pumpImage from '../assets/img2.jpg';
-import tubeImage from '../assets/img12.jpeg';
-import valveImage from '../assets/Valves.jpeg';
-
-import heroMain from "../assets/heromain-removebg-preview.jpg";
-import menuImg from "../assets/1m-removebg-preview.jpg";
-import robotImg from "../assets/2m-removebg-preview.jpg";
+import PremiumCategories from '../components/PremiumCategories';
+import OurFleet from '../components/OurFleet';
 
 const trustFeatures = [
   { title: 'Fast Delivery', desc: 'Nationwide industrial dispatch', icon: Truck },
@@ -44,16 +38,14 @@ const testimonials = [
   }
 ];
 
-/* ── animation presets ─────────────────────────── */
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (d = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: d } }),
 };
 
-/* ── reusable section label ────────────────────── */
 const SectionLabel = ({ icon: Icon, children }) => (
-  <div className="inline-flex items-center gap-2.5 text-[11px] font-black uppercase tracking-[0.2em] text-[#1E2A4A] mb-4 bg-white/60 backdrop-blur-md px-4 py-2 rounded-full border border-gray-200/60 shadow-sm">
-    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+  <div className="inline-flex items-center gap-2.5 text-[9px] font-black uppercase tracking-[0.2em] text-blue-600 mb-3 bg-white/80 px-3.5 py-1.5 rounded-full border border-gray-200/60 shadow-sm w-fit">
+    <span className="w-1.2 h-1.2 rounded-full bg-blue-600 animate-pulse" />
     {Icon && <Icon className="w-3.5 h-3.5 text-blue-600" />}
     <span>{children}</span>
   </div>
@@ -67,147 +59,44 @@ function PremiumHome() {
       <HeroSlider />
 
       {/* ═══════════  2. OUR CATEGORIES (PREMIUM REDESIGN)  ═══════════ */}
+      <PremiumCategories />
+
+      {/* ═══════════  3. OUR INDUSTRY SOLUTIONS (HORIZONTAL SLIDER)  ═══════════ */}
+      <OurFleet />
+
+      {/* ═══════════  4. TESTIMONIALS (REDESIGNED)  ═══════════ */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
-        className="py-12 md:py-16 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
+        className="pt-14 md:pt-16 pb-8 md:pb-10 px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto relative z-10 border-t border-gray-100"
       >
-        <motion.div variants={fadeUp} custom={0} className="mb-12 flex flex-col items-center text-center">
-          <SectionLabel icon={Box}>Our Categories</SectionLabel>
-          <h2 className="text-[1.6rem] md:text-[2rem] font-extrabold text-[#0B1527] tracking-tight">Built for demanding environments</h2>
-          <p className="mt-3 text-sm md:text-base text-[#536488] max-w-xl font-medium">
-            Explore our comprehensive range of industrial components across four core product families.
-          </p>
-        </motion.div>
-
-        {/* CURRENT Existing Hero Section (moved inside the categories section, exactly as it was) */}
-        <div className="mx-auto grid max-w-[1500px] grid-cols-1 gap-5 lg:gap-6 lg:grid-cols-[1.25fr_1fr]">
-
-          {/* LEFT BIG CARD */}
-          <div className="flex min-h-[410px] items-center justify-between rounded-[24px] bg-white p-6 md:p-7 lg:p-8 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white">
-            <div className="max-w-xl flex flex-col justify-center">
-              <span className="mb-3 inline-flex w-fit rounded-full bg-[#EEF2F7] px-4 py-1.5 text-xs font-bold tracking-wide text-[#1E2A4A]">
-                Premium Industrial Partner
-              </span>
-
-              <h1 className="text-[2rem] font-extrabold leading-[1.04] text-[#1E2A4A] md:text-[2.25rem] lg:text-[2.65rem] tracking-tight">
-                High-Quality
-                <br />
-                Pneumatic Spares &
-                <br />
-                Industrial Parts
-              </h1>
-
-              <p className="mt-4 max-w-lg text-[15px] leading-6 text-[#536488] font-medium pr-4 md:text-base">
-                Easy to find quality pneumatic parts with quick delivery
-                and dependable engineering service.
-              </p>
-
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <button className="rounded-xl bg-[#1E2A4A] px-6 py-3 text-[13px] font-bold text-white shadow-[0_4px_14px_rgba(30,42,74,0.15)] transition hover:bg-blue-600">
-                  Shop Now →
-                </button>
-
-                <button className="rounded-xl border border-gray-200 bg-white px-6 py-3 text-[13px] font-bold text-[#1E2A4A] transition hover:bg-[#EEF2F7]">
-                  Explore Catalog
-                </button>
-              </div>
-            </div>
-
-            {/* MAIN IMAGE */}
-            <div className="relative flex items-center justify-center bg-transparent">
-              <img
-                src={heroMain}
-                alt="Industrial Product"
-                className="w-[360px] lg:w-[430px] object-contain"
-              />
-            </div>
-          </div>
-
-          {/* RIGHT SIDE CARDS */}
-          <div className="flex flex-col gap-5 lg:gap-6">
-
-            {/* CARD 1 */}
-            <div className="flex min-h-[190px] flex-1 items-center justify-between rounded-[24px] bg-white p-6 md:p-7 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
-              <div className="flex flex-col h-full justify-center">
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-blue-600">
-                  Featured Item
-                </p>
-
-                <h3 className="text-xl md:text-[1.35rem] font-extrabold leading-tight text-[#1E2A4A]">
-                  Pick & Place
-                  <br />
-                  System
-                </h3>
-              </div>
-
-              <div className="relative flex items-center justify-center bg-transparent">
-                <img
-                  src={menuImg}
-                  alt="Pick & Place"
-                  className="w-[160px] object-contain"
-                />
-              </div>
-            </div>
-
-            {/* CARD 2 */}
-            <div className="flex min-h-[190px] flex-1 items-center justify-between rounded-[24px] bg-white p-6 md:p-7 shadow-[0_8px_30px_rgba(30,42,74,0.04)] border border-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(30,42,74,0.08)] group cursor-pointer">
-              <div className="flex flex-col h-full justify-center">
-                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-blue-600">
-                  Automation
-                </p>
-
-                <h3 className="text-xl md:text-[1.35rem] font-extrabold leading-tight text-[#1E2A4A]">
-                  Robotic Arm
-                </h3>
-              </div>
-
-              <div className="relative flex items-center justify-center bg-transparent">
-                <img
-                  src={robotImg}
-                  alt="Robotic Arm"
-                  className="w-[160px] object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* ═══════════  3. TESTIMONIALS (REDESIGNED)  ═══════════ */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        className="py-10 md:py-12 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-10"
-      >
-        <motion.div variants={fadeUp} custom={0} className="mb-10 flex flex-col items-center text-center">
+        <motion.div variants={fadeUp} custom={0} className="mb-8 flex flex-col items-center text-center">
           <SectionLabel icon={Star}>Client Reviews</SectionLabel>
-          <h2 className="text-[1.6rem] md:text-[1.9rem] font-extrabold text-[#0B1527] tracking-tight">Trusted by industry leaders</h2>
+          <h2 className="text-[1.85rem] md:text-[2.35rem] font-extrabold text-[#0B1527] tracking-tight leading-tight">
+            Trusted by Industry Leaders
+          </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((review, idx) => (
             <motion.div
               key={idx}
               variants={fadeUp}
               custom={0.1 + idx * 0.1}
-              className="bg-white p-5 md:p-6 rounded-2xl border border-gray-100 shadow-[0_8px_30px_rgb(30,42,74,0.03)] hover:shadow-[0_20px_40px_rgba(30,42,74,0.08)] hover:-translate-y-2 transition-all duration-500 flex flex-col relative group"
+              className="bg-white p-7 rounded-[2rem] border border-gray-100/80 shadow-[0_8px_30px_rgb(30,42,74,0.03)] hover:shadow-[0_20px_45px_rgba(30,42,74,0.08)] hover:-translate-y-1.5 transition-all duration-500 flex flex-col relative group"
             >
-              <div className="absolute top-0 right-10 w-20 h-24 bg-gradient-to-b from-blue-50/50 to-transparent rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
-
-              <Quote className="absolute top-8 right-8 w-10 h-10 text-[#EEF2F7] opacity-60 group-hover:text-blue-100 transition-colors duration-500 z-10" />
+              <Quote className="absolute top-8 right-8 w-10 h-10 text-gray-100 opacity-60 group-hover:text-blue-50 transition-colors duration-500 z-10" />
 
               <div className="flex text-amber-400 mb-6 gap-1 relative z-10">
                 {[1, 2, 3, 4, 5].map(star => <Star key={star} className="w-4 h-4 fill-current" />)}
               </div>
 
-              <p className="text-[13.5px] leading-[1.6] text-[#536488] mb-5 flex-1 font-medium relative z-10">
+              <p className="text-[13.5px] leading-relaxed text-[#536488] mb-6 flex-1 font-medium relative z-10">
                 "{review.text}"
               </p>
 
-              <div className="flex items-center gap-4 border-t border-gray-100 pt-3 relative z-10">
+              <div className="flex items-center gap-4 border-t border-gray-100 pt-5 relative z-10">
                 <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover shadow-[0_4px_10px_rgba(0,0,0,0.08)] border-2 border-white group-hover:scale-105 transition-transform duration-300" />
                 <div>
                   <h4 className="font-extrabold text-[#0B1527] text-sm">{review.name}</h4>
@@ -219,15 +108,15 @@ function PremiumHome() {
         </div>
       </motion.section>
 
-      {/* ═══════════  4. POLICY / WHY CHOOSE US  ═══════════ */}
+      {/* ═══════════  6. POLICY / WHY CHOOSE US  ═══════════ */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
-        className="mt-4 pt-4 pb-10 md:pb-12 px-6 md:px-8 lg:px-10 max-w-7xl mx-auto relative z-20"
+        className="pt-4 pb-16 md:pb-20 px-6 md:px-8 lg:px-12 max-w-[1500px] mx-auto relative z-20"
       >
-        <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(30,42,74,0.03)] border border-gray-100/80 p-4 md:p-5">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-3 divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
+        <div className="bg-white rounded-[2.5rem] border border-gray-100/80 p-8 md:p-10 shadow-[0_8px_30px_rgb(30,42,74,0.03)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 divide-y md:divide-y-0 lg:divide-x divide-gray-100">
             {trustFeatures.map((feature, idx) => {
               const Icon = feature.icon;
               return (
@@ -235,14 +124,14 @@ function PremiumHome() {
                   key={feature.title}
                   variants={fadeUp}
                   custom={idx * 0.1}
-                  className={`flex flex-col sm:flex-row items-center sm:items-start gap-3.5 px-1.5 lg:px-6 group cursor-default text-center sm:text-left ${idx > 1 ? 'pt-4 lg:pt-0' : ''}`}
+                  className={`flex flex-col sm:flex-row items-center sm:items-start gap-4 px-1.5 lg:px-6 group cursor-default text-center sm:text-left ${idx > 0 ? 'pt-6 md:pt-0' : ''}`}
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#EEF2F7] text-[#1E2A4A] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#1E2A4A] group-hover:text-white transition-all duration-300 shadow-sm">
-                    <Icon className="w-4 h-4" />
+                  <div className="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#0B1527] group-hover:text-white transition-all duration-300 shadow-sm border border-blue-100">
+                    <Icon className="w-4.5 h-4.5" />
                   </div>
                   <div className="flex flex-col justify-center h-full">
-                    <h4 className="text-[15px] font-extrabold text-[#0B1527] mb-1">{feature.title}</h4>
-                    <p className="text-[13px] text-[#536488] leading-snug font-medium">{feature.desc}</p>
+                    <h4 className="text-[16px] font-extrabold text-[#0B1527] mb-1">{feature.title}</h4>
+                    <p className="text-[13.5px] text-[#536488] leading-snug font-medium">{feature.desc}</p>
                   </div>
                 </motion.div>
               )

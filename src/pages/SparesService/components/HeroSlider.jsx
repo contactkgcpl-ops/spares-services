@@ -74,7 +74,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-slate-900 h-[65vh] md:h-[75vh] lg:h-[85vh]">
+    <div className="relative w-full overflow-hidden bg-slate-900 h-[65vh] md:h-[75vh] lg:h-[82vh]">
       {/* Main Swiper Slider */}
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
@@ -137,24 +137,24 @@ export default function HeroSlider() {
                 {/* Dynamic Badge */}
                 <div className="inline-flex">
                   <span 
-                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest text-white backdrop-blur-md border border-white/20"
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-widest text-white backdrop-blur-md border border-white/20"
                     style={{
                       background: 'linear-gradient(135deg, rgba(255,107,0,0.85) 0%, rgba(232,93,0,0.85) 100%)',
                       boxShadow: '0 4px 20px rgba(255,107,0,0.35)',
                     }}
                   >
-                    {React.createElement(slides[activeIndex].icon, { className: 'w-4 h-4' })}
+                    {React.createElement(slides[activeIndex].icon, { className: 'w-3.5 h-3.5' })}
                     {slides[activeIndex].badge}
                   </span>
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight drop-shadow-md">
+                <h1 className="text-2xl sm:text-3.5xl md:text-4.5xl lg:text-[3.25rem] font-black text-white leading-tight tracking-tight drop-shadow-md">
                   {slides[activeIndex].title}
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-base md:text-lg text-white/90 font-medium leading-relaxed max-w-xl drop-shadow-sm">
+                <p className="text-xs md:text-[14.5px] text-white/90 font-medium leading-relaxed max-w-xl drop-shadow-sm">
                   {slides[activeIndex].subtitle}
                 </p>
 
@@ -162,14 +162,14 @@ export default function HeroSlider() {
                 <div className="flex flex-wrap gap-4 mt-2">
                   <Link
                     to="/spares-service/products"
-                    className="inline-flex items-center gap-2 bg-[#ff6b00] hover:bg-[#e85d00] text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-[#ff6b00]/25 text-sm md:text-base"
+                    className="inline-flex items-center gap-2 bg-[#ff6b00] hover:bg-[#e85d00] text-white px-5.5 py-2.5 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-[#ff6b00]/25 text-xs md:text-[13.5px]"
                   >
                     Explore Products
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     to="/spares-service/service"
-                    className="inline-flex items-center gap-2 bg-transparent hover:bg-white/10 text-white border border-white/40 hover:border-white px-6 py-3 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-sm md:text-base backdrop-blur-sm"
+                    className="inline-flex items-center gap-2 bg-transparent hover:bg-white/10 text-white border border-white/40 hover:border-white px-5.5 py-2.5 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-xs md:text-[13.5px] backdrop-blur-sm"
                   >
                     Get Quote
                     <ArrowRight className="w-4 h-4" />
@@ -180,7 +180,7 @@ export default function HeroSlider() {
           </div>
 
           {/* RIGHT SIDE: Interactive Thumbnail Preview Cards (Desktop/Tablet) */}
-          <div className="hidden lg:flex flex-col gap-4 w-[260px] pointer-events-auto">
+          <div className="hidden lg:flex flex-col gap-3.5 w-[240px] pointer-events-auto">
             {slides.map((slide, idx) => {
               const SlideIcon = slide.icon;
               const isActive = activeIndex === idx;
@@ -189,7 +189,7 @@ export default function HeroSlider() {
                 <button
                   key={idx}
                   onClick={() => handleThumbClick(idx)}
-                  className={`group relative flex items-center gap-3.5 p-3 rounded-2xl text-left border transition-all duration-500 overflow-hidden ${
+                  className={`group relative flex items-center gap-3 p-2.5 rounded-2xl text-left border transition-all duration-500 overflow-hidden ${
                     isActive
                       ? 'border-[#ff6b00]/70 bg-white/15 shadow-xl shadow-black/10 scale-105'
                       : 'border-white/10 bg-black/20 hover:bg-white/5 hover:border-white/20'
@@ -199,20 +199,20 @@ export default function HeroSlider() {
                   }}
                 >
                   {/* Miniature Image & Icon Wrapper */}
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
+                  <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
                     <img src={slide.image} alt={slide.badge} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-slate-950/30" />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <SlideIcon className={`w-5 h-5 transition-colors duration-300 ${isActive ? 'text-[#ff6b00]' : 'text-white/80'}`} />
+                      <SlideIcon className={`w-4 h-4 transition-colors duration-300 ${isActive ? 'text-[#ff6b00]' : 'text-white/80'}`} />
                     </div>
                   </div>
 
                   {/* Text details */}
                   <div className="flex flex-col min-w-0">
-                    <span className={`text-[10px] font-black tracking-widest ${isActive ? 'text-[#ff6b00]' : 'text-white/40'}`}>
+                    <span className={`text-[9px] font-black tracking-widest ${isActive ? 'text-[#ff6b00]' : 'text-white/40'}`}>
                       {slide.badge}
                     </span>
-                    <span className={`text-sm font-bold truncate transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/70'}`}>
+                    <span className={`text-xs font-bold truncate transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/70'}`}>
                       {slide.badge.charAt(0) + slide.badge.slice(1).toLowerCase()}
                     </span>
                   </div>
@@ -221,7 +221,7 @@ export default function HeroSlider() {
                   {isActive && (
                     <motion.div 
                       layoutId="thumbIndicator"
-                      className="absolute right-0 top-0 bottom-0 w-[4px] bg-[#ff6b00]"
+                      className="absolute right-0 top-0 bottom-0 w-[3px] bg-[#ff6b00]"
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -241,23 +241,23 @@ export default function HeroSlider() {
           {/* Prev Arrow */}
           <button
             onClick={handlePrev}
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/5 hover:bg-[#ff6b00] hover:border-[#ff6b00] hover:text-white text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-black/10"
+            className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/20 bg-white/5 hover:bg-[#ff6b00] hover:border-[#ff6b00] hover:text-white text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-black/10"
             aria-label="Previous Slide"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4.5 h-4.5" />
           </button>
           
           {/* Next Arrow */}
           <button
             onClick={handleNext}
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 bg-white/5 hover:bg-[#ff6b00] hover:border-[#ff6b00] hover:text-white text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-black/10"
+            className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/20 bg-white/5 hover:bg-[#ff6b00] hover:border-[#ff6b00] hover:text-white text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-black/10"
             aria-label="Next Slide"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4.5 h-4.5" />
           </button>
 
           {/* Slide Indicator Number */}
-          <div className="hidden sm:flex items-center gap-1.5 ml-4 font-mono font-bold text-sm tracking-widest text-white/50 bg-black/25 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/5">
+          <div className="hidden sm:flex items-center gap-1.5 ml-4 font-mono font-bold text-xs tracking-widest text-white/50 bg-black/25 backdrop-blur-md px-3 py-1 rounded-full border border-white/5">
             <span className="text-white">0{activeIndex + 1}</span>
             <span>/</span>
             <span>04</span>
@@ -265,7 +265,7 @@ export default function HeroSlider() {
         </div>
 
         {/* Dynamic Pagination Progress Bar (only on desktop/tablet) */}
-        <div className="hidden md:flex items-center gap-2.5 w-[250px] bg-white/10 h-[3px] rounded-full overflow-hidden relative">
+        <div className="hidden md:flex items-center gap-2.5 w-[200px] bg-white/10 h-[2px] rounded-full overflow-hidden relative">
           <motion.div
             key={activeIndex}
             initial={{ width: '0%' }}
@@ -276,13 +276,13 @@ export default function HeroSlider() {
         </div>
 
         {/* Mobile Pagination Indicator Dots */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-1.5">
           {slides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => handleThumbClick(idx)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeIndex === idx ? 'w-6 bg-[#ff6b00]' : 'w-2 bg-white/40'
+                activeIndex === idx ? 'w-5 bg-[#ff6b00]' : 'w-1.5 bg-white/40'
               }`}
             />
           ))}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaSearch } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import logo from '../assets/salvin-spares-logo.png';
 import { API_BASE_URL } from '../config/api';
@@ -21,6 +22,7 @@ const navItems = [
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,6 +31,19 @@ function Navbar() {
   const navigate = useNavigate();
   const searchRef = useRef(null);
   const mobileSearchRef = useRef(null);
+
+  // Scroll listener for sticky header behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -84,51 +99,77 @@ function Navbar() {
     .slice(0, 5);
 
   return (
-    <header className="w-full flex flex-col font-sans relative z-50">
-      {/* Top Bar */}
-      <div className="bg-[#1E2A4A] text-white py-2 px-6 sm:px-10 lg:px-16 xl:px-24 flex justify-between items-center text-[12px] font-medium">
-        <div className="flex items-center gap-5">
-          <a href="tel:+919023979663" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
-            <FaPhoneAlt size={11} /> +91 90239 79663
-          </a>
-          <span className="text-gray-500 hidden sm:inline">|</span>
-          <a href="mailto:info.salvinindustries@gmail.com" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
-            <FaEnvelope size={12} /> info.salvinindustries@gmail.com
-          </a>
-        </div>
-        <div className="hidden sm:flex items-center gap-3.5">
-          <a href="#" className="hover:text-blue-300 transition-colors"><FaFacebookF size={13} /></a>
-          <a href="#" className="hover:text-blue-300 transition-colors"><FaInstagram size={13} /></a>
-          <a href="#" className="hover:text-blue-300 transition-colors"><FaLinkedinIn size={13} /></a>
-          <a href="#" className="hover:text-blue-300 transition-colors"><FaWhatsapp size={14} /></a>
-        </div>
-      </div>
+    <header className={`w-full flex flex-col font-sans transition-all duration-300 z-50 ${
+      scrolled 
+        ? 'sticky top-0 bg-white/80 backdrop-blur-md shadow-[0_10px_30px_rgba(15,30,74,0.06)] border-b border-slate-200/50' 
+        : 'relative bg-[#F7F9FC]/95 border-b border-slate-200/80'
+    }`}>
+      
+      {/* Top Bar (Hidden on sticky scroll to maintain compact premium header) */}
+      <AnimatePresence>
+        {!scrolled && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-[#1E2A4A] text-white py-2 px-6 sm:px-10 lg:px-16 xl:px-24 flex justify-between items-center text-[11px] font-medium overflow-hidden border-b border-slate-800"
+          >
+            <div className="flex items-center gap-5">
+              <a href="tel:+919023979663" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+                <FaPhoneAlt size={10} /> +91 90239 79663
+              </a>
+              <span className="text-gray-500 hidden sm:inline">|</span>
+              <a href="mailto:info.salvinindustries@gmail.com" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+                <FaEnvelope size={11} /> info.salvinindustries@gmail.com
+              </a>
+            </div>
+            <div className="hidden sm:flex items-center gap-3.5">
+              <a href="#" className="hover:text-blue-300 transition-colors"><FaFacebookF size={12} /></a>
+              <a href="#" className="hover:text-blue-300 transition-colors"><FaInstagram size={12} /></a>
+              <a href="#" className="hover:text-blue-300 transition-colors"><FaLinkedinIn size={12} /></a>
+              <a href="#" className="hover:text-blue-300 transition-colors"><FaWhatsapp size={13} /></a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main Navbar */}
-      <div className="bg-[#F7F9FC]/95 backdrop-blur-sm border-b border-slate-200/80 shadow-[0_4px_14px_rgba(15,30,74,0.08)]">
-        <div className="mx-auto flex max-w-[1700px] items-center justify-between px-6 py-4 sm:px-10 lg:px-16 xl:px-24">
+      <div className={`transition-all duration-300 ${scrolled ? 'py-2.5 shadow-sm bg-transparent' : 'py-4'}`}>
+        <div className="mx-auto flex max-w-[1700px] items-center justify-between px-6 sm:px-10 lg:px-16 xl:px-24">
 
           {/* Logo */}
           <Link to="/spares-service/home" className="flex items-center gap-2 group">
             <img
               src={logo}
               alt="Salvin Spares"
-              className="h-12 w-auto object-contain"
+              className="h-10 md:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-103"
             />
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
+          {/* Navigation Links with custom sliding bottom underline active line */}
+          <nav className="hidden lg:flex items-center gap-7">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `text-[14px] font-semibold transition-colors duration-200 ${isActive ? 'text-[#1E2A4A]' : 'text-[#536488] hover:text-[#1E2A4A]'
+                  `relative text-[13.5px] font-bold py-1.5 px-0.5 transition-colors duration-300 ${
+                    isActive ? 'text-[#0B1527]' : 'text-[#536488] hover:text-[#0B1527]'
                   }`
                 }
               >
-                {item.label}
+                {({ isActive }) => (
+                  <>
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNavLine"
+                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-600 rounded-full"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
             ))}
           </nav>
@@ -142,101 +183,120 @@ function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={handleSearchFocus}
-                className="border border-gray-200 rounded-full py-2 pl-4 pr-9 text-[13px] w-60 focus:outline-none focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/30 transition-all text-[#0F1E4A] placeholder-gray-400 shadow-sm"
+                className="border border-slate-200 rounded-full py-1.5 pl-4 pr-9 text-[12.5px] w-56 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-[#0F1E4A] placeholder-gray-400 shadow-sm"
               />
-              <button type="submit" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF7A1A] transition-colors">
-                <FaSearch size={13} />
+              <button type="submit" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors">
+                <FaSearch size={11} />
               </button>
             </form>
 
             {/* Dropdown Suggestions */}
-            {showDropdown && searchQuery.trim().length > 0 && filteredSuggestions.length > 0 && (
-              <div className="absolute top-full left-0 w-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-xl overflow-hidden z-50">
-                <div className="p-2">
-                  <p className="text-xs font-bold text-slate-400 px-3 py-2 uppercase tracking-widest">Suggestions</p>
-                  {filteredSuggestions.map((product) => {
-                    const name = product.title || product.name || '';
-                    return (
-                      <button
-                        key={product._id || product.id}
-                        onClick={() => handleSuggestionClick(name)}
-                        className="w-full text-left px-3 py-2 text-[13px] font-semibold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
-                      >
-                        {name}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+            <AnimatePresence>
+              {showDropdown && searchQuery.trim().length > 0 && filteredSuggestions.length > 0 && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full right-0 w-64 mt-2 bg-white/95 backdrop-blur-md border border-slate-100 rounded-2xl shadow-xl overflow-hidden z-50"
+                >
+                  <div className="p-2">
+                    <p className="text-[10px] font-black text-slate-400 px-3 py-1.5 uppercase tracking-widest">Suggestions</p>
+                    {filteredSuggestions.map((product) => {
+                      const name = product.title || product.name || '';
+                      return (
+                        <button
+                          key={product._id || product.id}
+                          onClick={() => handleSuggestionClick(name)}
+                          className="w-full text-left px-3 py-2 text-[12.5px] font-bold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
+                        >
+                          {name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden flex flex-col gap-1.5 p-2"
+            className="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-100 transition-colors relative z-50"
+            aria-label="Toggle mobile menu"
           >
-            <span className={`block h-[2px] w-6 bg-[#1E2A4A] transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block h-[2px] w-6 bg-[#1E2A4A] transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-[2px] w-6 bg-[#1E2A4A] transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className={`block h-[2px] w-5.5 bg-[#0B1527] transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+            <span className={`block h-[2px] w-5.5 bg-[#0B1527] transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-[2px] w-5.5 bg-[#0B1527] transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
           </button>
         </div>
       </div>
 
-      {/* Mobile dropdown */}
-      {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-[#F7F9FC]/95 backdrop-blur-sm shadow-[0_10px_24px_rgba(15,30,74,0.08)] border-t border-slate-200/80 py-3.5 px-5 space-y-3.5">
-          <div className="relative mb-3" ref={mobileSearchRef}>
-            <form onSubmit={handleSearchSubmit} className="relative">
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={handleSearchFocus}
-                className="w-full border border-gray-200 rounded-full py-2.5 px-4 text-[13px] focus:outline-none focus:border-[#FF7A1A] focus:ring-2 focus:ring-[#FF7A1A]/30 text-[#0F1E4A] transition-all"
-              />
-              <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF7A1A]">
-                <FaSearch size={13} />
-              </button>
-            </form>
+      {/* Mobile drawer menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-xl border-t border-slate-200/60 py-4 px-6 space-y-4 z-40 overflow-hidden"
+          >
+            <div className="relative mb-2" ref={mobileSearchRef}>
+              <form onSubmit={handleSearchSubmit} className="relative">
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={handleSearchFocus}
+                  className="w-full border border-slate-200 rounded-full py-2 px-4 text-[13px] focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-[#0F1E4A] transition-all"
+                />
+                <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600">
+                  <FaSearch size={12} />
+                </button>
+              </form>
 
-            {/* Mobile Dropdown Suggestions */}
-            {showDropdown && searchQuery.trim().length > 0 && filteredSuggestions.length > 0 && (
-              <div className="absolute top-full left-0 w-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-lg overflow-hidden z-50">
-                <div className="p-2">
-                  <p className="text-xs font-bold text-slate-400 px-3 py-2 uppercase tracking-widest">Suggestions</p>
-                  {filteredSuggestions.map((product) => {
-                    const name = product.title || product.name || '';
-                    return (
-                      <button
-                        key={product._id || product.id}
-                        onClick={() => handleSuggestionClick(name)}
-                        className="w-full text-left px-3 py-2 text-[13px] font-semibold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
-                      >
-                        {name}
-                      </button>
-                    );
-                  })}
+              {/* Mobile Dropdown Suggestions */}
+              {showDropdown && searchQuery.trim().length > 0 && filteredSuggestions.length > 0 && (
+                <div className="absolute top-full left-0 w-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-lg overflow-hidden z-50">
+                  <div className="p-2">
+                    <p className="text-[10px] font-black text-slate-400 px-3 py-1.5 uppercase tracking-widest">Suggestions</p>
+                    {filteredSuggestions.map((product) => {
+                      const name = product.title || product.name || '';
+                      return (
+                        <button
+                          key={product._id || product.id}
+                          onClick={() => handleSuggestionClick(name)}
+                          className="w-full text-left px-3 py-2 text-[12.5px] font-bold text-[#0F1E4A] hover:bg-[#EEF2F7] rounded-lg transition-colors truncate"
+                        >
+                          {name}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-
-          </div>
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              onClick={() => setMobileOpen(false)}
-              className={({ isActive }) =>
-                `block text-[14px] font-semibold py-1.5 ${isActive ? 'text-[#1E2A4A]' : 'text-[#536488]'}`
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </div>
-      )}
+              )}
+            </div>
+            
+            <nav className="flex flex-col gap-3">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setMobileOpen(false)}
+                  className={({ isActive }) =>
+                    `block text-[14px] font-bold py-2 border-b border-slate-100 transition-colors ${
+                      isActive ? 'text-blue-600' : 'text-[#536488] hover:text-[#0B1527]'
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
