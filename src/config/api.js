@@ -1,5 +1,5 @@
 const DEFAULT_API_BASE_URL = '/spares/api';
-const DEFAULT_UPLOAD_BASE_URL = '/uploads';
+const DEFAULT_UPLOAD_BASE_URL = '/spares/upload';
 
 const sanitizeBaseUrl = (url) =>
   (url || '')
@@ -38,7 +38,7 @@ const filenameFromUploadPath = (value) => {
       return endpointFile;
     }
 
-    const match = parsed.pathname.match(/(?:^|\/)uploads\/([^?#]+)/i);
+    const match = parsed.pathname.match(/(?:^|\/)uploads?\/([^?#]+)/i);
     if (match?.[1]) {
       return match[1].split('/').filter(Boolean).pop() || '';
     }
@@ -47,7 +47,7 @@ const filenameFromUploadPath = (value) => {
   }
 
   const clean = source.split(/[?#]/)[0].replace(/\\/g, '/').replace(/^\/+/, '');
-  const uploadMatch = clean.match(/(?:^|\/)uploads\/(.+)$/i);
+  const uploadMatch = clean.match(/(?:^|\/)uploads?\/(.+)$/i);
   if (uploadMatch?.[1]) {
     return uploadMatch[1].split('/').filter(Boolean).pop() || '';
   }

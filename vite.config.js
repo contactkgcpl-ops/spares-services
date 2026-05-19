@@ -20,6 +20,10 @@ export default defineConfig(({ mode }) => {
           target: targetDomain,
           changeOrigin: true,
         },
+        '/spares/upload': {
+          target: targetDomain,
+          changeOrigin: true,
+        },
       },
     },
   };

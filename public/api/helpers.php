@@ -525,10 +525,10 @@ function publicUrlForPath(string $relativePath): string
     $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '';
 
     if ($host !== '') {
-        return "{$scheme}://{$host}/uploads/" . rawurlencode($filename);
+        return "{$scheme}://{$host}/spares/upload/" . rawurlencode($filename);
     }
 
-    return 'uploads/' . rawurlencode($filename);
+    return 'spares/upload/' . rawurlencode($filename);
 }
 
 function slugify(string $text): string
