@@ -142,7 +142,7 @@ function Navbar() {
             <img
               src={logo}
               alt="Salvin Spares"
-              className="h-12 md:h-[3.25rem] lg:h-[3.5rem] w-auto object-contain transition-transform duration-300 group-hover:scale-103"
+              className="h-12 md:h-[3.25rem] lg:h-[3.5rem] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 
@@ -222,12 +222,12 @@ function Navbar() {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-100 transition-colors relative z-50"
+            className="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-100 transition-colors relative z-50 ml-auto"
             aria-label="Toggle mobile menu"
           >
-            <span className={`block h-[2px] w-5.5 bg-[#0B1527] transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
-            <span className={`block h-[2px] w-5.5 bg-[#0B1527] transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-[2px] w-5.5 bg-[#0B1527] transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
+            <span className={`block h-[2px] w-6 bg-[#0B1527] transition-all duration-300 origin-center ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block h-[2px] w-6 bg-[#0B1527] transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-[2px] w-6 bg-[#0B1527] transition-all duration-300 origin-center ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </div>

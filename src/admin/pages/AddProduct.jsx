@@ -10,7 +10,7 @@ const initialForm = {
   category: '',
   features: '',
   specifications: '',
-};
+}; 
 
 const AddProduct = () => {
   const navigate = useNavigate();
