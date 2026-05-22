@@ -85,19 +85,29 @@ const toArrayFromInput = (value) =>
 export const getProducts = async () => {
   try {
     const cacheBust = Date.now();
-    const response = await api.get(`/products?t=${cacheBust}`);
+    const response = await api.get(`/products?t=${cacheBust}`, {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
+    });
 
     if (response.data && response.data.success === false) {
       throw new Error(response.data.message || 'Unable to load products');
     }
 
-    const products = response.data?.data || [];
-    return products.map(normalizeProduct);
+    const products = Array.isArray(response.data?.data) ? response.data.data : [];
+
+    if (!Array.isArray(products)) {
+      throw new Error('Invalid API response format');
+    }
+
+    return products.map(normalizeProduct).filter(p => p && p.id);
   } catch (error) {
     console.warn('Backend unavailable, using local storage:', error.message);
-    // Fallback to mock data from localStorage
     const mockProducts = getMockProducts();
-    return mockProducts.map(normalizeProduct);
+    return Array.isArray(mockProducts) ? mockProducts.map(normalizeProduct) : [];
   }
 };
 

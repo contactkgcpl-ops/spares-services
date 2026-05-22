@@ -14,10 +14,16 @@ function useProductFilter(products) {
   const filteredProducts = useMemo(() => {
     const normalizedQuery = normalizeSearch(query);
     const normalizedCategory = normalizeSearch(category);
+
     return products.filter((product) => {
-      const productName = product.title || product.name || '';
+      if (!product || !product.id) return false;
+
+      const productName = String(product.title || product.name || '').trim();
+      const productCategory = String(product.category || '').trim();
+
       const matchesQuery = normalizedQuery === '' || normalizeSearch(productName).includes(normalizedQuery);
-      const matchesCategory = normalizedCategory === 'all' || normalizeSearch(product.category) === normalizedCategory;
+      const matchesCategory = normalizedCategory === 'all' || normalizeSearch(productCategory) === normalizedCategory;
+
       return matchesQuery && matchesCategory;
     });
   }, [category, products, query]);

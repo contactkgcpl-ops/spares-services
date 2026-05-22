@@ -12,11 +12,6 @@
   RewriteRule ^upload/?$ upload.php [QSA,L]
   RewriteRule ^contact/?$ contact.php [QSA,L]
   RewriteRule ^enquiries/?([0-9]+)?$ enquiries.php [QSA,L]
-</IfModule>
   RewriteRule ^uploads/([^/]+)/?$ uploads.php?file=$1 [QSA,L]
-  RewriteRule ^contact/?$ contact.php [QSA,L]
-  
-  # Enquiries API
-  RewriteRule ^enquiries/([0-9]+)/?$ enquiries.php?id=$1 [QSA,L]
-  RewriteRule ^enquiries/?$ enquiries.php [QSA,L]
 </IfModule>
+

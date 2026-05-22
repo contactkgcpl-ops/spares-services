@@ -44,25 +44,39 @@ function ProductsPage() {
         const response = await axios.get(requestUrl, {
           headers: {
             Accept: 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
           },
         });
 
         if (response.data && response.data.success === false) {
           throw new Error(response.data.message || 'Unable to load products');
         }
-        
+
         // Handle { success, count, data: [...] } structure
-        const apiProducts = Array.isArray(response.data?.data) 
-          ? response.data.data 
+        const apiProducts = Array.isArray(response.data?.data)
+          ? response.data.data
           : (Array.isArray(response.data) ? response.data : []);
 
-        const normalizedProducts = apiProducts.map((product) => ({
-          ...product,
-          id: product.id || product._id || '',
-          title: product.title || product.productName || product.name || 'Industrial Part',
-          name: product.title || product.productName || product.name || 'Industrial Part',
-          image: resolveImageUrl(product.image),
-        }));
+        if (!Array.isArray(apiProducts)) {
+          throw new Error('Invalid API response format');
+        }
+
+        const normalizedProducts = apiProducts
+          .filter(product => product && product.id)
+          .map((product) => ({
+            ...product,
+            id: String(product.id || product._id).trim(),
+            title: String(product.title || product.productName || product.name || 'Industrial Part').trim(),
+            name: String(product.title || product.productName || product.name || 'Industrial Part').trim(),
+            image: resolveImageUrl(product.image),
+            category: String(product.category || 'Industrial').trim(),
+          }));
+
+        if (normalizedProducts.length === 0) {
+          console.warn('No valid products found in API response');
+        }
 
         setProducts(normalizedProducts);
       } catch (fetchError) {
@@ -72,6 +86,7 @@ function ProductsPage() {
             fetchError?.message ||
             'Failed to load products. Check console for details.'
         );
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -275,7 +290,7 @@ function ProductsPage() {
                 <>
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={currentPage + category + query}
+                      key={`${currentPage}-${category}-${query}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
@@ -284,12 +299,12 @@ function ProductsPage() {
                     >
                       {paginatedProducts.map((product, index) => (
                         <motion.div
-                          key={product.id}
+                          key={`product-${product.id}`}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
                         >
-                          <ProductCard key={product.id} product={product} />
+                          <ProductCard key={`card-${product.id}`} product={product} />
                         </motion.div>
                       ))}
                     </motion.div>

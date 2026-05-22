@@ -4,18 +4,22 @@ import { MessageCircle, ArrowRight, Package } from 'lucide-react';
 import { resolveImageUrl } from '../../../config/api';
 
 function ProductCard({ product }) {
-  const productTitle = product.title || product.name;
-  const imageUrl = resolveImageUrl(product.image);
-  console.log(product);
+  const productTitle = String(product?.title || product?.name || 'Industrial Part').trim();
+  const productCategory = String(product?.category || 'Industrial').trim();
+  const imageUrl = resolveImageUrl(product?.image);
 
   const handleWhatsAppQuote = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const message = `Hello, I want a quote for ${productTitle}${product.category ? ` (${product.category})` : ''}`;
+    const message = `Hello, I want a quote for ${productTitle}${productCategory ? ` (${productCategory})` : ''}`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/919023979663?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
   };
+
+  if (!product || !product.id) {
+    return null;
+  }
 
   return (
     <motion.div
@@ -33,9 +37,11 @@ function ProductCard({ product }) {
             src={imageUrl}
             alt={productTitle}
             className="w-full h-36 object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
+            loading="eager"
             onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image";
+              if (e.target.src !== "https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image") {
+                e.target.src = "https://placehold.co/600x400/f8fafc/1e2a4a?text=No+Image";
+              }
             }}
           />
         </div>
@@ -45,7 +51,7 @@ function ProductCard({ product }) {
           <div className="flex-1">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-600 border border-slate-200">
               <Package className="h-2.5 w-2.5" />
-              {product.category || 'Industrial'}
+              {productCategory}
             </span>
           </div>
         </div>
@@ -57,7 +63,7 @@ function ProductCard({ product }) {
           </h3>
 
           <p className="text-xs leading-5 text-slate-500 mb-3 line-clamp-2 flex-1">
-            {product.description || 'High-quality industrial component designed for reliable performance.'}
+            {product?.description || 'High-quality industrial component designed for reliable performance.'}
           </p>
 
           {/* Action Buttons */}
