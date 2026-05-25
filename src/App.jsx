@@ -6,6 +6,7 @@ import PremiumHome from './pages/SparesService/pages/PremiumHome';
 import ProductsPage from './pages/SparesService/pages/ProductsPage';
 import ProductDetails from './pages/SparesService/pages/ProductDetails';
 import ServicePage from './pages/SparesService/pages/ServicePage';
+import ServicesPage from './pages/SparesService/pages/ServicesPage';
 import Sidebar from './admin/components/Sidebar';
 import ProtectedRoute from './admin/components/ProtectedRoute';
 import Login from './admin/pages/Login';
@@ -38,6 +39,7 @@ function App() {
           <Route path="/spares-service/about" element={<SparesHome />} />
           <Route path="/spares-service/products" element={<ProductsPage />} />
           <Route path="/spares-service/product/:id" element={<ProductDetails />} />
+          <Route path="/spares-service/services" element={<ServicesPage />} />
           <Route path="/spares-service/service" element={<ServicePage />} />
           <Route path="/admin/login" element={<Login />} />
           <Route

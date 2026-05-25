@@ -17,6 +17,7 @@ const navItems = [
   { label: 'Home', to: '/spares-service/home' },
   { label: 'About Us', to: '/spares-service/about' },
   { label: 'Products', to: '/spares-service/products' },
+  { label: 'Services', to: '/spares-service/services' },
   { label: 'Contact Us', to: '/spares-service/service' }
 ];
 
