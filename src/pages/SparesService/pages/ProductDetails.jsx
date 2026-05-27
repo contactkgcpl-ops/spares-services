@@ -79,7 +79,7 @@ function ProductDetails() {
   const handleWhatsAppQuote = () => {
     const message = `Hello, I want a quote for ${productTitle}${product.category ? ` (${product.category})` : ''}`;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919023979663?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/919898727796?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
   };
 

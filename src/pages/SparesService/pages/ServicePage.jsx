@@ -123,7 +123,7 @@ function ServicePage() {
       <section className="py-14 md:py-16 px-6 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            { icon: Phone, title: 'Phone Number', detail: '+91 90239 79663', subDetail: 'Mon-Sat, 9AM-6PM' },
+            { icon: Phone, title: 'Phone Number', detail: '+91 9898727796', subDetail: 'Mon-Sat, 9AM-6PM' },
             { icon: Mail, title: 'Email Address', detail: 'info.salvinindustries@gmail.com', subDetail: 'Online support 24/7' },
             { icon: MapPin, title: 'Office Address', detail: '210, Arved Transcube Mall', subDetail: 'Bandhu Nagar, Vijay Nagar, Ranip, Ahmedabad, Gujarat 382480' },
             { icon: Clock, title: 'Business Hours', detail: 'Monday - Saturday', subDetail: '9:00 AM - 6:00 PM' }
@@ -252,7 +252,7 @@ function ServicePage() {
             Need Industrial Solutions?
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <a href="tel:+919023979663" className="inline-flex items-center justify-center gap-2 bg-[#FF7A1A] text-white px-6 py-3.5 text-sm rounded-xl font-bold hover:bg-[#e66a12] transition-colors">
+            <a href="tel:+919898727796" className="inline-flex items-center justify-center gap-2 bg-[#FF7A1A] text-white px-6 py-3.5 text-sm rounded-xl font-bold hover:bg-[#e66a12] transition-colors">
               <Phone className="w-4 h-4" />
               Call Now
             </a>

@@ -76,8 +76,8 @@ function Footer() {
               </div>
               <div className="flex items-start gap-3 group">
                 <FiPhone className="mt-1 h-4 w-4 text-blue-500 group-hover:scale-110 transition-transform" />
-                <a href="tel:+919023979663" className="hover:text-blue-500 transition-all duration-300">
-                  +91 90239 79663
+                <a href="tel:+919898727796" className="hover:text-blue-500 transition-all duration-300">
+                  +91 9898727796
                 </a>
               </div>
               <div className="flex items-start gap-3">

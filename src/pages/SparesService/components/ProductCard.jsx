@@ -13,7 +13,7 @@ function ProductCard({ product }) {
     e.stopPropagation();
     const message = `Hello, I want a quote for ${productTitle}${productCategory ? ` (${productCategory})` : ''}`;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/919023979663?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/919898727796?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
   };
 

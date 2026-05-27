@@ -19,7 +19,7 @@ import amcImage from '../assets/about/showcase_pneumatic.png';
 import bdsImage from '../assets/img10.jpeg';
 import installImage from '../assets/about/workflow_bg.png';
 
-const whatsappLink = 'https://wa.me/919023979663?text=Hello%20Salvin%20Industries%2C%20I%20want%20to%20book%20a%20service.';
+const whatsappLink = 'https://wa.me/919898727796?text=Hello%20Salvin%20Industries%2C%20I%20want%20to%20book%20a%20service.';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },

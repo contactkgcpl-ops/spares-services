@@ -116,8 +116,8 @@ function Navbar() {
             className="bg-[#1E2A4A] text-white py-2 px-6 sm:px-10 lg:px-16 xl:px-24 flex justify-between items-center text-[11px] font-medium overflow-hidden border-b border-slate-800"
           >
             <div className="flex items-center gap-5">
-              <a href="tel:+919023979663" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
-                <FaPhoneAlt size={10} /> +91 90239 79663
+              <a href="tel:+919898727796" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
+                <FaPhoneAlt size={10} /> +91 9898727796
               </a>
               <span className="text-gray-500 hidden sm:inline">|</span>
               <a href="mailto:info.salvinindustries@gmail.com" className="flex items-center gap-2 hover:text-blue-300 transition-colors">
