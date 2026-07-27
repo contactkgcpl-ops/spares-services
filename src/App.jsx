@@ -15,6 +15,12 @@ import Products from './admin/pages/Products';
 import AddProduct from './admin/pages/AddProduct';
 import EditProduct from './admin/pages/EditProduct';
 
+import MachineriesPage from './pages/SparesService/pages/MachineriesPage';
+import MachineDetailsPage from './pages/SparesService/pages/MachineDetailsPage';
+import AdminMachines from './admin/pages/AdminMachines';
+import AdminMachineCategories from './admin/pages/AdminMachineCategories';
+import AdminMachineEnquiries from './admin/pages/AdminMachineEnquiries';
+
 const AdminShell = ({ children }) => (
   <div className="flex min-h-screen bg-[#F6F3F0] text-slate-700">
     <Sidebar />
@@ -39,6 +45,8 @@ function App() {
           <Route path="/spares-service/about" element={<SparesHome />} />
           <Route path="/spares-service/products" element={<ProductsPage />} />
           <Route path="/spares-service/product/:id" element={<ProductDetails />} />
+          <Route path="/spares-service/machineries" element={<MachineriesPage />} />
+          <Route path="/spares-service/machineries/:slug" element={<MachineDetailsPage />} />
           <Route path="/spares-service/services" element={<ServicesPage />} />
           <Route path="/spares-service/service" element={<ServicePage />} />
           <Route path="/admin/login" element={<Login />} />
@@ -78,6 +86,36 @@ function App() {
               <ProtectedRoute>
                 <AdminShell>
                   <EditProduct />
+                </AdminShell>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/machines"
+            element={
+              <ProtectedRoute>
+                <AdminShell>
+                  <AdminMachines />
+                </AdminShell>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/machine-categories"
+            element={
+              <ProtectedRoute>
+                <AdminShell>
+                  <AdminMachineCategories />
+                </AdminShell>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/machine-enquiries"
+            element={
+              <ProtectedRoute>
+                <AdminShell>
+                  <AdminMachineEnquiries />
                 </AdminShell>
               </ProtectedRoute>
             }

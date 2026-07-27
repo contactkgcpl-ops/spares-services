@@ -17,11 +17,26 @@ const Sidebar = () => {
           Dashboard
         </NavLink>
         <NavLink to="/admin/products" className={linkClassName}>
-          Products
+          Spares Products
         </NavLink>
         <NavLink to="/admin/add-product" className={linkClassName}>
           Add Product
         </NavLink>
+
+        <div className="pt-4 pb-1 border-t border-slate-200">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Machine Module</p>
+          <div className="space-y-1">
+            <NavLink to="/admin/machines" className={linkClassName}>
+              Machines
+            </NavLink>
+            <NavLink to="/admin/machine-categories" className={linkClassName}>
+              Categories
+            </NavLink>
+            <NavLink to="/admin/machine-enquiries" className={linkClassName}>
+              Enquiries
+            </NavLink>
+          </div>
+        </div>
       </nav>
     </aside>
   );

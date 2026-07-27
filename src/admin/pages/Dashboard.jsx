@@ -56,7 +56,7 @@ const Dashboard = () => {
         )}
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
-            <p className="text-sm text-slate-600">Total Products</p>
+            <p className="text-sm text-slate-600">Total Products (Spares)</p>
             <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">{products.length}</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
@@ -66,6 +66,39 @@ const Dashboard = () => {
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#f47c20]">
             <p className="text-sm text-slate-600">Records Updated</p>
             <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">{recentCount}</p>
+          </div>
+        </div>
+
+        {/* Machine Section Quick Access */}
+        <div className="mt-8 rounded-xl border border-slate-200 bg-slate-900 p-6 text-white shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span className="rounded bg-[#f47c20] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                Machine Module
+              </span>
+              <h2 className="mt-2 text-xl font-bold">Machines & Equipment Management</h2>
+              <p className="text-sm text-slate-400">Manage machine machines, categories, subcategories, and customer enquiries.</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/admin/machines"
+                className="rounded-lg bg-[#f47c20] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#dc6e19]"
+              >
+                Manage Machines
+              </Link>
+              <Link
+                to="/admin/machine-categories"
+                className="rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-700"
+              >
+                Machine Categories
+              </Link>
+              <Link
+                to="/admin/machine-enquiries"
+                className="rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-700"
+              >
+                Machine Enquiries
+              </Link>
+            </div>
           </div>
         </div>
 
