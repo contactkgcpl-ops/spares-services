@@ -12,6 +12,10 @@
   RewriteRule ^upload/?$ upload.php [QSA,L]
   RewriteRule ^contact/?$ contact.php [QSA,L]
   RewriteRule ^enquiries/?([0-9]+)?$ enquiries.php [QSA,L]
+  RewriteRule ^machines/?([0-9]+)?$ machines.php [QSA,L]
+  RewriteRule ^machine_categories/?([0-9]+)?$ machine_categories.php [QSA,L]
+  RewriteRule ^machine_subcategories/?([0-9]+)?$ machine_subcategories.php [QSA,L]
+  RewriteRule ^machine_enquiries/?([0-9]+)?$ machine_enquiries.php [QSA,L]
   RewriteRule ^uploads/([^/]+)/?$ uploads.php?file=$1 [QSA,L]
 </IfModule>
 

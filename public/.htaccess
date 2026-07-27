@@ -10,11 +10,17 @@
   RewriteRule ^api/upload/?$ api/upload.php [QSA,L]
   RewriteRule ^api/contact/?$ api/contact.php [QSA,L]
   RewriteRule ^api/enquiries/?([0-9]+)?$ api/enquiries.php [QSA,L]
+  RewriteRule ^api/machines/?([0-9]+)?$ api/machines.php [QSA,L]
+  RewriteRule ^api/machine_categories/?([0-9]+)?$ api/machine_categories.php [QSA,L]
+  RewriteRule ^api/machine_subcategories/?([0-9]+)?$ api/machine_subcategories.php [QSA,L]
+  RewriteRule ^api/machine_enquiries/?([0-9]+)?$ api/machine_enquiries.php [QSA,L]
+  RewriteRule ^api/(.+)$ api/$1 [QSA,L]
 
-RewriteRule ^index\.html$ - [L]
+  RewriteRule ^index\.html$ - [L]
 
-RewriteCond %{REQUEST_URI} !^/spares/uploads/
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
+  RewriteCond %{REQUEST_URI} !^/api/
+  RewriteCond %{REQUEST_URI} !^/uploads/
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
 </IfModule>
