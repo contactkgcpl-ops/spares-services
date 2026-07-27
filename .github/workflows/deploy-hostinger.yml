@@ -46,14 +46,14 @@ jobs:
       - name: Create PHP env file
         run: |
           cat > dist/api/.env <<'ENV'
-          DB_HOST=${{ secrets.DB_HOST || secrets.MYSQL_HOST || secrets.DB_SERVER }}
+          DB_HOST=${{ secrets.DB_HOST || 'localhost' }}
           DB_NAME=${{ secrets.DB_NAME }}
-          DB_USER=${{ secrets.DB_USER || secrets.DB_USERNAME || secrets.MYSQL_USER }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD || secrets.DB_PASS || secrets.MYSQL_PASSWORD }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           DB_CHARSET=utf8mb4
           ADMIN_EMAIL=spares@gmail.com
           ADMIN_PASSWORD=spares@123
-          AUTH_SECRET=${{ secrets.AUTH_SECRET }}
+          AUTH_SECRET=${{ secrets.AUTH_SECRET || 'salvin_spares_secret_key' }}
           ALLOWED_ORIGIN=https://kmgmachineries.in
           MAX_UPLOAD_SIZE=5242880
           UPLOAD_PATH=../uploads
