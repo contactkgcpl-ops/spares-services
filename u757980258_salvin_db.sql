@@ -369,8 +369,8 @@ CREATE TABLE `machine_products` (
 INSERT INTO `machine_products` (`id`, `title`, `category`, `image`, `description`, `features`, `specifications`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'High-Flow Centrifugal Pump', 'Pump Systems', 'https://images.unsplash.com/photo-1581092921461-eab10380fef2?q=80&w=1200&auto=format&fit=crop', 'High-throughput industrial pump designed for stable pressure and continuous operation.', '[\"High flow rate\",\"Low vibration\",\"Corrosion-resistant body\"]', '[\"Flow Rate: 180 L\\/min\",\"Power: 4.0 kW\",\"Material: SS316\"]', 'high-flow-centrifugal-pump', '2026-05-11 14:38:48', '2026-05-11 14:38:48'),
 (2, 'Precision Control Valve', 'Valves', 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=1200&auto=format&fit=crop', 'Precision valve for fine flow control in high-demand industrial process lines.', '[\"Low pressure drop\",\"PTFE sealing\",\"Compact build\"]', '[\"Type: Globe valve\",\"Diameter: 40 mm\",\"Pressure Class: PN16\"]', 'precision-control-valve', '2026-05-11 14:38:48', '2026-05-11 14:38:48'),
-(3, 'sss', 'Bearings', 'https://spares.salvinindia.com/spares-service/public/uploads/product_6a01e9f87cb1c5.53704046.png', 'sdfd', '[\"sdsfdf\"]', '[\"fdfdf\"]', 'sss', '2026-05-11 14:38:48', '2026-05-11 14:38:48'),
-(4, 'fkgd', 'Pump Systems', 'https://spares.salvinindia.com/spares-service/public/uploads/product_6a01eb4f9dbe62.50498192.png', 'dklgkm', '[\"kcpvkfdog\"]', '[\"slifjmdlfjdm\"]', 'fkgd', '2026-05-11 14:44:31', '2026-05-11 14:44:31');
+(3, 'sss', 'Bearings', 'https://kmgmachineries.in/spares-service/public/uploads/product_6a01e9f87cb1c5.53704046.png', 'sdfd', '[\"sdsfdf\"]', '[\"fdfdf\"]', 'sss', '2026-05-11 14:38:48', '2026-05-11 14:38:48'),
+(4, 'fkgd', 'Pump Systems', 'https://kmgmachineries.in/spares-service/public/uploads/product_6a01eb4f9dbe62.50498192.png', 'dklgkm', '[\"kcpvkfdog\"]', '[\"slifjmdlfjdm\"]', 'fkgd', '2026-05-11 14:44:31', '2026-05-11 14:44:31');
 
 -- --------------------------------------------------------
 

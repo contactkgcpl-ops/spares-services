@@ -26,8 +26,8 @@ jobs:
       - name: Build frontend
         run: npm run build
         env:
-          VITE_API_BASE_URL: https://spares.salvinindia.com/api
-          VITE_UPLOAD_BASE_URL: https://spares.salvinindia.com/api/uploads
+          VITE_API_BASE_URL: https://kmgmachineries.in/api
+          VITE_UPLOAD_BASE_URL: https://kmgmachineries.in/api/uploads
 
       - name: Validate deployment secrets
         run: |
@@ -54,10 +54,10 @@ jobs:
           ADMIN_EMAIL=spares@gmail.com
           ADMIN_PASSWORD=spares@123
           AUTH_SECRET=${{ secrets.AUTH_SECRET }}
-          ALLOWED_ORIGIN=https://spares.salvinindia.com
+          ALLOWED_ORIGIN=https://kmgmachineries.in
           MAX_UPLOAD_SIZE=5242880
           UPLOAD_PATH=../uploads
-          UPLOAD_URL=https://spares.salvinindia.com/api/uploads
+          UPLOAD_URL=https://kmgmachineries.in/api/uploads
           ENV
 
       - name: Deploy to FTP root
