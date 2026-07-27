@@ -18,7 +18,7 @@ if ($email === '' || $password === '') {
 
 try {
     initDatabase();
-    $stmt = db()->prepare('SELECT id, email, password_hash, full_name, is_active FROM admins WHERE email = ? LIMIT 1');
+    $stmt = db()->prepare('SELECT id, email, password_hash, full_name, is_active FROM spares_admins WHERE email = ? LIMIT 1');
     $stmt->execute([$email]);
     $admin = $stmt->fetch();
 

@@ -1,14 +1,14 @@
 CREATE DATABASE IF NOT EXISTS spares_service CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE spares_service;
 
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE IF NOT EXISTS spares_categories (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(120) NOT NULL UNIQUE,
   slug VARCHAR(140) NOT NULL UNIQUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS admins (
+CREATE TABLE IF NOT EXISTS spares_admins (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(180) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS admins (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE IF NOT EXISTS spares_products (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   category VARCHAR(120) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS products (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS enquiries (
+CREATE TABLE IF NOT EXISTS spares_enquiried (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   full_name VARCHAR(180) NOT NULL,
   company_name VARCHAR(180) NULL,
@@ -44,14 +44,14 @@ CREATE TABLE IF NOT EXISTS enquiries (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 4 Main Categories
-INSERT IGNORE INTO categories (name, slug) VALUES
+INSERT IGNORE INTO spares_categories (name, slug) VALUES
 ('Pneumatic', 'pneumatic'),
 ('Mechanical', 'mechanical'),
 ('Electronic', 'electronic'),
 ('Electric', 'electric');
 
 -- Migrate old category values to new 4-category system
-UPDATE products SET category = 'Pneumatic' WHERE category IN (
+UPDATE spares_products SET category = 'Pneumatic' WHERE category IN (
   'Pneumatic Sensors', 'Pneumatic Actuators', 'Pneumatic Motors',
   'Pneumatic Grippers', 'Pneumatic Cylinders', 'Pneumatic Switches',
   'Pneumatic Fittings', 'Air Preparation Units', 'Pneumatic Valves',
@@ -59,22 +59,23 @@ UPDATE products SET category = 'Pneumatic' WHERE category IN (
   'Pneumatic Tubes', 'Flow Control Valves', 'Hydraulic Flow Control'
 );
 
-UPDATE products SET category = 'Electronic' WHERE category IN (
+UPDATE spares_products SET category = 'Electronic' WHERE category IN (
   'Automation Control Systems', 'Automation Interface Systems',
   'PLC Modules', 'Controllers', 'PCB Boards', 'Relays', 'Electronic Sensors'
 );
 
-UPDATE products SET category = 'Electric' WHERE category IN (
+UPDATE spares_products SET category = 'Electric' WHERE category IN (
   'Power Supplies', 'Electrical Switches', 'Push Buttons',
   'MCB', 'Industrial Electrical Devices'
 );
 
-UPDATE products SET category = 'Mechanical' WHERE category IN (
+UPDATE spares_products SET category = 'Mechanical' WHERE category IN (
   'Manual Valves', 'Bearings', 'Couplings',
   'Mechanical Hardware', 'Industrial Mechanical Components'
 );
 
 -- Remove old categories
-DELETE FROM categories WHERE name NOT IN ('Pneumatic', 'Mechanical', 'Electronic', 'Electric');
+DELETE FROM spares_categories WHERE name NOT IN ('Pneumatic', 'Mechanical', 'Electronic', 'Electric');
 
 -- Admin row is seeded by PHP API (`initDatabase`) using ADMIN_EMAIL and ADMIN_PASSWORD from `public/api/.env`.
+

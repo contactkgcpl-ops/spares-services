@@ -21,7 +21,7 @@ try {
     }
 
     $stmt = db()->prepare(
-        'INSERT INTO enquiries (full_name, company_name, email, phone, subject, message)
+        'INSERT INTO spares_enquiried (full_name, company_name, email, phone, subject, message)
          VALUES (:full_name, :company_name, :email, :phone, :subject, :message)'
     );
     $stmt->execute([

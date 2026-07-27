@@ -11,13 +11,13 @@ try {
     $id = idFromRequest('products');
 
     if ($method === 'GET' && $id === null) {
-       $stmt = $pdo->query('SELECT * FROM products ORDER BY id DESC');
+       $stmt = $pdo->query('SELECT * FROM spares_products ORDER BY id DESC');
         $products = array_map('productFromRow', $stmt->fetchAll());
         respond(200, ['success' => true, 'count' => count($products), 'data' => $products]);
     }
 
     if ($method === 'GET' && $id !== null) {
-        $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT * FROM spares_products WHERE id = ?');
         $stmt->execute([$id]);
         $product = $stmt->fetch();
         if (!$product) {
@@ -39,7 +39,7 @@ try {
         $slug = trim((string) ($body['slug'] ?? slugify($title)), '_');
 
         $stmt = $pdo->prepare(
-            'INSERT INTO products (title, category, image, description, features, specifications, slug)
+            'INSERT INTO spares_products (title, category, image, description, features, specifications, slug)
              VALUES (:title, :category, :image, :description, :features, :specifications, :slug)'
         );
         $stmt->execute([
@@ -53,7 +53,7 @@ try {
         ]);
 
         $newId = (int) $pdo->lastInsertId();
-        $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT * FROM spares_products WHERE id = ?');
         $stmt->execute([$newId]);
         respond(201, ['success' => true, 'message' => 'Product created successfully', 'data' => productFromRow($stmt->fetch())]);
     }
@@ -67,7 +67,7 @@ try {
         $slug = trim((string) ($body['slug'] ?? slugify($title)), '_');
 
         $stmt = $pdo->prepare(
-            'UPDATE products
+            'UPDATE spares_products
              SET title = :title, category = :category, image = :image, description = :description,
                  features = :features, specifications = :specifications, slug = :slug
              WHERE id = :id'
@@ -83,7 +83,7 @@ try {
             ':slug' => $slug,
         ]);
 
-        $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT * FROM spares_products WHERE id = ?');
         $stmt->execute([$id]);
         $product = $stmt->fetch();
         if (!$product) {
@@ -93,14 +93,15 @@ try {
     }
 
     if ($method === 'DELETE' && $id !== null) {
-        $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT * FROM spares_products WHERE id = ?');
         $stmt->execute([$id]);
         $product = $stmt->fetch();
         if (!$product) {
             respond(404, ['success' => false, 'message' => 'Product not found']);
         }
 
-        $delete = $pdo->prepare('DELETE FROM products WHERE id = ?');
+        $delete = $pdo->prepare('DELETE FROM spares_products WHERE id = ?');
+        $delete->execute([$id]);
         $delete->execute([$id]);
         respond(200, ['success' => true, 'message' => 'Product deleted successfully', 'data' => productFromRow($product)]);
     }

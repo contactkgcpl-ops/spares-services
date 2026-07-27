@@ -129,12 +129,47 @@ function requireAdmin(): void
     }
 }
 
+function autoRenameLegacyTables(PDO $pdo): void
+{
+    $renames = [
+        'admins' => 'spares_admins',
+        'categories' => 'spares_categories',
+        'enquiries' => 'spares_enquiried',
+        'enquiried' => 'spares_enquiried',
+        'products' => 'spares_products',
+    ];
+
+    foreach ($renames as $oldTable => $newTable) {
+        if ($oldTable === $newTable) {
+            continue;
+        }
+
+        try {
+            $stmtOld = $pdo->prepare("SHOW TABLES LIKE ?");
+            $stmtOld->execute([$oldTable]);
+            $oldExists = (bool) $stmtOld->fetchColumn();
+
+            $stmtNew = $pdo->prepare("SHOW TABLES LIKE ?");
+            $stmtNew->execute([$newTable]);
+            $newExists = (bool) $stmtNew->fetchColumn();
+
+            if ($oldExists && !$newExists) {
+                $pdo->exec("RENAME TABLE `{$oldTable}` TO `{$newTable}`");
+            }
+        } catch (Throwable $e) {
+            // Silently ignore if table rename fails or permissions restricted
+        }
+    }
+}
+
 function initDatabase(): void
 {
     $pdo = db();
 
+    autoRenameLegacyTables($pdo);
+
     $pdo->exec(
-        "CREATE TABLE IF NOT EXISTS categories (
+        "CREATE TABLE IF NOT EXISTS spares_categories (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(120) NOT NULL UNIQUE,
             slug VARCHAR(140) NOT NULL UNIQUE,
@@ -143,7 +178,7 @@ function initDatabase(): void
     );
 
     $pdo->exec(
-        "CREATE TABLE IF NOT EXISTS admins (
+        "CREATE TABLE IF NOT EXISTS spares_admins (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             email VARCHAR(180) NOT NULL UNIQUE,
             password_hash VARCHAR(255) NOT NULL,
@@ -155,7 +190,7 @@ function initDatabase(): void
     );
 
     $pdo->exec(
-        "CREATE TABLE IF NOT EXISTS products (
+        "CREATE TABLE IF NOT EXISTS spares_products (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             category VARCHAR(120) NOT NULL,
@@ -170,7 +205,7 @@ function initDatabase(): void
     );
 
     $pdo->exec(
-        "CREATE TABLE IF NOT EXISTS enquiries (
+        "CREATE TABLE IF NOT EXISTS spares_enquiried (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             full_name VARCHAR(180) NOT NULL,
             company_name VARCHAR(180) NULL,
@@ -251,10 +286,10 @@ function migrateProductCategories(PDO $pdo): void
     $map = oldToNewCategoryMap();
     $validCategories = officialCatalogCategories();
 
-    $stmt = $pdo->query('SELECT id, category FROM products');
+    $stmt = $pdo->query('SELECT id, category FROM spares_products');
     $products = $stmt->fetchAll();
 
-    $updateStmt = $pdo->prepare('UPDATE products SET category = ? WHERE id = ?');
+    $updateStmt = $pdo->prepare('UPDATE spares_products SET category = ? WHERE id = ?');
 
     foreach ($products as $product) {
         $currentCategory = trim($product['category']);
@@ -384,7 +419,7 @@ function officialCatalogProducts(): array
 function insertCatalogProducts(PDO $pdo, array $products): void
 {
     $insertProduct = $pdo->prepare(
-        'INSERT INTO products (title, category, image, description, features, specifications, slug)
+        'INSERT INTO spares_products (title, category, image, description, features, specifications, slug)
          VALUES (?, ?, ?, ?, ?, ?, ?)'
     );
 
@@ -404,7 +439,7 @@ function insertCatalogProducts(PDO $pdo, array $products): void
 function seedDefaults(PDO $pdo): void
 {
     // Seed new 4 main categories
-    $insertCategory = $pdo->prepare('INSERT IGNORE INTO categories (name, slug) VALUES (?, ?)');
+    $insertCategory = $pdo->prepare('INSERT IGNORE INTO spares_categories (name, slug) VALUES (?, ?)');
     foreach (officialCatalogCategories() as $categoryName) {
         $insertCategory->execute([$categoryName, slugify($categoryName)]);
     }
@@ -417,19 +452,19 @@ function seedDefaults(PDO $pdo): void
         ? $configuredPasswordHash
         : password_hash($adminPassword, PASSWORD_DEFAULT);
 
-    $stmt = $pdo->prepare('SELECT COUNT(*) FROM admins WHERE email = ?');
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM spares_admins WHERE email = ?');
     $stmt->execute([$adminEmail]);
     $count = (int) $stmt->fetchColumn();
 
     if ($count === 0) {
-        $insertAdmin = $pdo->prepare('INSERT INTO admins (email, password_hash, full_name, is_active) VALUES (?, ?, ?, 1)');
+        $insertAdmin = $pdo->prepare('INSERT INTO spares_admins (email, password_hash, full_name, is_active) VALUES (?, ?, ?, 1)');
         $insertAdmin->execute([$adminEmail, $adminPasswordHash, 'Administrator']);
     } elseif ($configuredPassword !== null || $configuredPasswordHash !== '') {
-        $updateAdmin = $pdo->prepare('UPDATE admins SET password_hash = ?, is_active = 1 WHERE email = ?');
+        $updateAdmin = $pdo->prepare('UPDATE spares_admins SET password_hash = ?, is_active = 1 WHERE email = ?');
         $updateAdmin->execute([$adminPasswordHash, $adminEmail]);
     }
 
-    $productsCount = (int) $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();
+    $productsCount = (int) $pdo->query('SELECT COUNT(*) FROM spares_products')->fetchColumn();
     if ($productsCount === 0) {
         insertCatalogProducts($pdo, officialCatalogProducts());
     }
@@ -440,10 +475,10 @@ function resetOfficialCatalog(PDO $pdo): void
     $pdo->beginTransaction();
 
     try {
-        $pdo->exec('DELETE FROM products');
-        $pdo->exec('DELETE FROM categories');
+        $pdo->exec('DELETE FROM spares_products');
+        $pdo->exec('DELETE FROM spares_categories');
 
-        $insertCategory = $pdo->prepare('INSERT INTO categories (name, slug) VALUES (?, ?)');
+        $insertCategory = $pdo->prepare('INSERT INTO spares_categories (name, slug) VALUES (?, ?)');
         foreach (officialCatalogCategories() as $categoryName) {
             $insertCategory->execute([$categoryName, slugify($categoryName)]);
         }

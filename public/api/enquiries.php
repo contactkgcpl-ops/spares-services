@@ -11,12 +11,12 @@ try {
     $id = idFromRequest('enquiries');
 
     if ($method === 'GET' && $id === null) {
-        $stmt = db()->query('SELECT * FROM enquiries ORDER BY created_at DESC, id DESC');
+        $stmt = db()->query('SELECT * FROM spares_enquiried ORDER BY created_at DESC, id DESC');
         respond(200, ['success' => true, 'data' => $stmt->fetchAll()]);
     }
 
     if ($method === 'GET' && $id !== null) {
-        $stmt = db()->prepare('SELECT * FROM enquiries WHERE id = ?');
+        $stmt = db()->prepare('SELECT * FROM spares_enquiried WHERE id = ?');
         $stmt->execute([$id]);
         $row = $stmt->fetch();
         if (!$row) {
