@@ -5,6 +5,7 @@ import {
   fetchMachineCategories,
   fetchMachineSubcategories,
   submitMachineEnquiry,
+  resolveMachineImage,
 } from '../../../admin/services/machineService';
 
 const MACHINES_PER_PAGE = 9;
@@ -230,9 +231,10 @@ export default function MachineriesPage() {
                   <article key={machine.id || machine.machine_id} className="mach-card">
                     <NavLink to={`/spares-service/machineries/${slug}`} className="mach-card-img">
                       <img
-                        src={machine.image || machine.image_url}
+                        src={resolveMachineImage(machine.image_url || machine.image)}
                         alt={machine.machine_name}
                         onError={(e) => {
+                          e.target.onerror = null;
                           e.target.src = 'https://via.placeholder.com/350x250?text=Machine';
                         }}
                       />

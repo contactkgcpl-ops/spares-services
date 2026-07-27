@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { API_BASE_URL } from '../../config/api';
+import { API_BASE_URL, resolveImageUrl } from '../../config/api';
+
+export { resolveImageUrl as resolveMachineImage };
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -100,3 +102,4 @@ export const submitMachineEnquiry = async (enquiryData) => {
   const response = await api.post('/machine_enquiries.php', enquiryData);
   return response.data;
 };
+

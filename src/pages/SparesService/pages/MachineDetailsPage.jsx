@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMachineBySlugOrId, submitMachineEnquiry } from '../../../admin/services/machineService';
+import { fetchMachineBySlugOrId, submitMachineEnquiry, resolveMachineImage } from '../../../admin/services/machineService';
 
 export default function MachineDetailsPage() {
   const { slug } = useParams();
@@ -104,9 +104,10 @@ export default function MachineDetailsPage() {
             {/* IMAGE CARD */}
             <div className="detail-image-card">
               <img
-                src={machine.image || machine.image_url}
+                src={resolveMachineImage(machine.image_url || machine.image)}
                 alt={machine.machine_name}
                 onError={(e) => {
+                  e.target.onerror = null;
                   e.target.src = 'https://via.placeholder.com/600x400?text=Machine+Image';
                 }}
               />

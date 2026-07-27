@@ -66,22 +66,15 @@ export const resolveImageUrl = (value = '') => {
   const source = (value || '').toString().trim();
   if (!source) return '';
 
-  if (source.startsWith('data:')) {
+  if (source.startsWith('data:') || /^https?:\/\//i.test(source)) {
     return source;
   }
 
-  const uploadFilename = filenameFromUploadPath(source);
-  if (uploadFilename) {
-    return buildUploadUrl(uploadFilename);
+  const clean = source.replace(/^\/+/, '');
+
+  if (/^uploads\//i.test(clean)) {
+    return `/${clean}`;
   }
 
-  if (/^https?:\/\//i.test(source)) {
-    return source;
-  }
-
-  if (source.startsWith('/')) {
-    return source;
-  }
-
-  return `${UPLOAD_BASE_URL}/${source.replace(/^\/+/, '')}`;
+  return `/uploads/${clean}`;
 };

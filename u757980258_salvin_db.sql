@@ -375,10 +375,10 @@ INSERT INTO `machine_products` (`id`, `title`, `category`, `image`, `description
 -- --------------------------------------------------------
 
 --
--- Table structure for table `submachine_categories`
+-- Table structure for table `machine_subcategories`
 --
 
-CREATE TABLE `submachine_categories` (
+CREATE TABLE `machine_subcategories` (
   `id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
@@ -387,10 +387,10 @@ CREATE TABLE `submachine_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `submachine_categories`
+-- Dumping data for table `machine_subcategories`
 --
 
-INSERT INTO `submachine_categories` (`id`, `category_id`, `name`, `slug`, `created_at`) VALUES
+INSERT INTO `machine_subcategories` (`id`, `category_id`, `name`, `slug`, `created_at`) VALUES
 (8, 2, 'Bottle Packaging', 'bottle-packaging', '2026-05-11 05:39:57'),
 (9, 2, 'Eye Drop Packaging', 'eye-drop-packaging', '2026-05-11 05:40:17'),
 (10, 2, 'Pouch Packaging', 'pouch-packaging', '2026-05-11 05:40:24'),
@@ -445,12 +445,12 @@ ALTER TABLE `machine_products`
   ADD UNIQUE KEY `slug` (`slug`);
 
 --
--- Indexes for table `submachine_categories`
+-- Indexes for table `machine_subcategories`
 --
-ALTER TABLE `submachine_categories`
+ALTER TABLE `machine_subcategories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_subcategory` (`category_id`,`slug`),
-  ADD KEY `idx_submachine_categories_category` (`category_id`);
+  ADD KEY `idx_machine_subcategories_category` (`category_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -481,9 +481,9 @@ ALTER TABLE `machine_products`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `submachine_categories`
+-- AUTO_INCREMENT for table `machine_subcategories`
 --
-ALTER TABLE `submachine_categories`
+ALTER TABLE `machine_subcategories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
@@ -495,13 +495,13 @@ ALTER TABLE `submachine_categories`
 --
 ALTER TABLE `machine_machines`
   ADD CONSTRAINT `fk_machine_machines_category` FOREIGN KEY (`category_id`) REFERENCES `machine_categories` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_machine_machines_subcategory` FOREIGN KEY (`subcategory_id`) REFERENCES `submachine_categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_machine_machines_subcategory` FOREIGN KEY (`subcategory_id`) REFERENCES `machine_subcategories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `submachine_categories`
+-- Constraints for table `machine_subcategories`
 --
-ALTER TABLE `submachine_categories`
-  ADD CONSTRAINT `fk_submachine_categories_category` FOREIGN KEY (`category_id`) REFERENCES `machine_categories` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `machine_subcategories`
+  ADD CONSTRAINT `fk_machine_subcategories_category` FOREIGN KEY (`category_id`) REFERENCES `machine_categories` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
