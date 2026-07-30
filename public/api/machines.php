@@ -10,7 +10,8 @@ try {
     $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
     $id = idFromRequest('machines');
 
-    function machineSelectSql(): string {
+    function machineSelectSql(): string
+    {
         return '
             SELECT
                 m.id,
@@ -33,7 +34,8 @@ try {
         ';
     }
 
-    function normalizeMachineRow(array $row): array {
+    function normalizeMachineRow(array $row): array
+    {
         $row['id'] = (int) $row['id'];
         $row['machine_id'] = (int) $row['id'];
         $row['category_db_id'] = (int) ($row['category_db_id'] ?? 0);
@@ -51,31 +53,29 @@ try {
         return $row;
     }
 
-    if ($method === 'GET' && $id === null) {
-        $slug = trim((string) ($_GET['slug'] ?? ''));
-        if ($slug !== '') {
-            $stmt = $pdo->prepare(machineSelectSql() . ' WHERE m.slug = ? LIMIT 1');
-            $stmt->execute([$slug]);
+    if ($method === 'GET') {
+        $identifier = trim((string) ($_GET['slug'] ?? $_GET['id'] ?? ''));
+
+        if ($identifier !== '' && !isset($_GET['all'])) {
+            if (ctype_digit($identifier)) {
+                $stmt = $pdo->prepare(machineSelectSql() . ' WHERE m.id = ? LIMIT 1');
+                $stmt->execute([(int) $identifier]);
+            } else {
+                $stmt = $pdo->prepare(machineSelectSql() . ' WHERE m.slug = ? OR LOWER(REPLACE(m.machine_name, " ", "-")) = ? LIMIT 1');
+                $stmt->execute([$identifier, strtolower($identifier)]);
+            }
+
             $row = $stmt->fetch();
-            if (!$row) {
+            if ($row) {
+                respond(200, ['success' => true, 'data' => normalizeMachineRow($row)]);
+            } else {
                 respond(404, ['success' => false, 'message' => 'Machine not found']);
             }
-            respond(200, ['success' => true, 'data' => normalizeMachineRow($row)]);
         }
 
         $stmt = $pdo->query(machineSelectSql() . ' ORDER BY m.created_at DESC');
         $rows = array_map('normalizeMachineRow', $stmt->fetchAll());
         respond(200, ['success' => true, 'count' => count($rows), 'data' => $rows]);
-    }
-
-    if ($method === 'GET' && $id !== null) {
-        $stmt = $pdo->prepare(machineSelectSql() . ' WHERE m.id = ? LIMIT 1');
-        $stmt->execute([$id]);
-        $row = $stmt->fetch();
-        if (!$row) {
-            respond(404, ['success' => false, 'message' => 'Machine not found']);
-        }
-        respond(200, ['success' => true, 'data' => normalizeMachineRow($row)]);
     }
 
     if (in_array($method, ['POST', 'PUT', 'DELETE'], true)) {

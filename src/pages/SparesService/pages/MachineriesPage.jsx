@@ -237,7 +237,7 @@ export default function MachineriesPage() {
                         alt={machine.machine_name}
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = 'https://via.placeholder.com/350x250?text=Machine';
+                          e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="350" height="250" viewBox="0 0 350 250"><rect width="350" height="250" fill="%23f1f5f9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="%2364748b">Machine</text></svg>';
                         }}
                       />
                     </NavLink>

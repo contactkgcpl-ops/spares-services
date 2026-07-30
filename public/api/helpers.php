@@ -12,9 +12,9 @@ function db(): PDO
 
     $host = env('DB_HOST', env('MYSQL_HOST', env('DB_SERVER', 'localhost')));
     $port = env('DB_PORT', '3306');
-    $dbname = env('DB_NAME', 'spares_service');
-    $user = env('DB_USER', env('DB_USERNAME', env('MYSQL_USER', 'root')));
-    $pass = env('DB_PASSWORD', env('DB_PASS', env('MYSQL_PASSWORD', '')));
+    $dbname = env('DB_NAME', 'kmg_db');
+    $user = env('DB_USER', env('DB_USERNAME', env('MYSQL_USER', 'kmg_spares')));
+    $pass = env('DB_PASSWORD', env('DB_PASS', env('MYSQL_PASSWORD', 'Keval@2026#')));
 
     $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass, [

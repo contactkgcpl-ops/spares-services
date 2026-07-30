@@ -28,9 +28,13 @@ export default function MachineDetailsPage() {
         setLoading(true);
         setError('');
         const data = await fetchMachineBySlugOrId(slug);
-        setMachine(data);
-        if (data) {
-          updateMachineDetailsSEO(data, slug);
+        let targetMachine = data;
+        if (Array.isArray(data)) {
+          targetMachine = data.find((m) => m.slug === slug || String(m.id) === slug) || data[0];
+        }
+        setMachine(targetMachine);
+        if (targetMachine) {
+          updateMachineDetailsSEO(targetMachine, slug);
         }
       } catch (err) {
         setError('Machine not found or failed to load.');
@@ -112,7 +116,7 @@ export default function MachineDetailsPage() {
                 alt={machine.machine_name}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = 'https://via.placeholder.com/600x400?text=Machine+Image';
+                  e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%23f1f5f9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="%2364748b">Machine Image</text></svg>';
                 }}
               />
             </div>

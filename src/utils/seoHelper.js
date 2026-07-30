@@ -11,7 +11,7 @@ export function updateMachineDetailsSEO(machine, currentSlug) {
   const categoryName = machine.category_name || 'Food Machinery';
   const rawDesc = machine.description || `High efficiency ${machineName} manufactured by Salvin Industries.`;
   const cleanDesc = rawDesc.replace(/<[^>]*>?/gm, '').slice(0, 160);
-  
+
   const pageTitle = `${machineName} - ${categoryName} Manufacturer | Salvin Industries`;
   const canonicalUrl = `https://spares.salvinindia.com/spares-service/machineries/${machine.slug || currentSlug}`;
   const imageUrl = resolveMachineImage(machine.image_url || machine.image);
