@@ -13,7 +13,9 @@
   RewriteRule ^api/machines/?([0-9]+)?$ api/machines.php [QSA,L]
   RewriteRule ^api/machine_categories/?([0-9]+)?$ api/machine_categories.php [QSA,L]
   RewriteRule ^api/machine_subcategories/?([0-9]+)?$ api/machine_subcategories.php [QSA,L]
-  RewriteRule ^api/machine_enquiries/?([0-9]+)?$ api/machine_enquiries.php [QSA,L]
+  RewriteRule ^sitemap\.xml$ api/sitemap.php [QSA,L]
+  RewriteRule ^api/sitemap\.xml$ api/sitemap.php [QSA,L]
+  RewriteRule ^api/sitemap\.php$ api/sitemap.php [QSA,L]
   RewriteRule ^api/(.+)$ api/$1 [QSA,L]
 
   RewriteRule ^index\.html$ - [L]
