@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { Search, PenTool, Cpu, Factory } from 'lucide-react';
 
 const workflowSteps = [
-  { id: 1, title: 'System Analysis', desc: 'Evaluating industrial requirements.', icon: Search },
-  { id: 2, title: 'Precision Engineering', desc: 'Custom mechanical modeling.', icon: PenTool },
-  { id: 3, title: 'Component Integration', desc: 'Seamless system connection.', icon: Cpu },
-  { id: 4, title: 'Industrial Deployment', desc: 'Live operational launch.', icon: Factory },
+  { id: 1, title: 'Consultation & Design', desc: 'Evaluating plant capacity & layout.', icon: Search },
+  { id: 2, title: 'Precision Fabrication', desc: 'SS 304 food-grade machining.', icon: PenTool },
+  { id: 3, title: 'Trial & Quality Test', desc: 'Grinding fineness & sealing test.', icon: Cpu },
+  { id: 4, title: 'Plant Commissioning', desc: 'On-site installation & training.', icon: Factory },
 ];
 
 export default function AboutWorkflow() {

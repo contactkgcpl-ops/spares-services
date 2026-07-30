@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { Target, Users, Factory, Award } from 'lucide-react';
 
 const stats = [
-  { id: 1, number: '500+', label: 'Industrial Projects', icon: Factory },
-  { id: 2, number: '98%', label: 'Client Satisfaction', icon: Users },
-  { id: 3, number: '24/7', label: 'Technical Support', icon: Target },
-  { id: 4, number: '1000+', label: 'Components Delivered', icon: Award },
+  { id: 1, number: '600+', label: 'Plants & Machines Installed', icon: Factory },
+  { id: 2, number: '18+', label: 'Years Technical Excellence', icon: Users },
+  { id: 3, number: '100%', label: 'SS 304 Food-Grade Quality', icon: Target },
+  { id: 4, number: '100+', label: 'Global Export Destinations', icon: Award },
 ];
 
 export default function AboutStats() {

@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import { ShieldCheck, Settings, Award, Headphones, Shield, Activity } from 'lucide-react';
 
 const features = [
-  { title: 'Industrial Expertise', desc: 'Over a decade of specialized industrial supply experience.', icon: Settings },
-  { title: 'Reliable Components', desc: 'Sourced from the best manufacturers globally.', icon: ShieldCheck },
-  { title: 'Precision Engineering', desc: 'Exact tolerances for critical automation tasks.', icon: Activity },
-  { title: 'Technical Support', desc: '24/7 engineering assistance for seamless operation.', icon: Headphones },
-  { title: 'Quality Assurance', desc: '100% verified genuine parts and systems.', icon: Award },
-  { title: 'Performance Reliability', desc: 'Built for extreme industrial environments.', icon: Shield },
+  { title: 'SS 304 Food-Grade Standards', desc: 'Sanitary food-grade construction compliant with FSSAI & international safety norms.', icon: Settings },
+  { title: '18+ Years Industry Expertise', desc: 'Over 18 years of technical mastery in spice grinding, pulverizing & food packaging.', icon: ShieldCheck },
+  { title: 'Custom Plant Engineering', desc: 'Tailored machine capacities and floor layouts built precisely for your factory requirements.', icon: Activity },
+  { title: '24/7 Engineering Support', desc: 'Round-the-clock technical assistance, spare parts supply & field maintenance.', icon: Headphones },
+  { title: 'High Output Efficiency', desc: 'Uniform grinding fineness, low power consumption & maximum production yield.', icon: Award },
+  { title: 'Global Export Quality', desc: 'Export-grade packaging machinery trusted by food processors worldwide.', icon: Shield },
 ];
 
 export default function AboutFeatures() {

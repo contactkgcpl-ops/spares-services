@@ -7,6 +7,7 @@ import {
   submitMachineEnquiry,
   resolveMachineImage,
 } from '../../../admin/services/machineService';
+import { updateMachineriesListSEO } from '../../../utils/seoHelper';
 
 const MACHINES_PER_PAGE = 9;
 
@@ -43,6 +44,7 @@ export default function MachineriesPage() {
         setMachines(machData);
         setCategories(catData);
         setSubcategories(subCatData);
+        updateMachineriesListSEO(machData);
       } catch (err) {
         setError('Failed to load machineries data.');
       } finally {

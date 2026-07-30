@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMachineBySlugOrId, submitMachineEnquiry, resolveMachineImage } from '../../../admin/services/machineService';
+import { updateMachineDetailsSEO } from '../../../utils/seoHelper';
 
 export default function MachineDetailsPage() {
   const { slug } = useParams();
@@ -28,6 +29,9 @@ export default function MachineDetailsPage() {
         setError('');
         const data = await fetchMachineBySlugOrId(slug);
         setMachine(data);
+        if (data) {
+          updateMachineDetailsSEO(data, slug);
+        }
       } catch (err) {
         setError('Machine not found or failed to load.');
       } finally {

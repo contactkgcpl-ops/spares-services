@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaSearch } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import logo from '../assets/salvin-spares-logo.png';
+import logo from '../assets/salvin_logo.png';
 import { API_BASE_URL } from '../config/api';
 
 const api = axios.create({
@@ -16,8 +16,8 @@ const api = axios.create({
 const navItems = [
   { label: 'Home', to: '/spares-service/home' },
   { label: 'About Us', to: '/spares-service/about' },
-  { label: 'Products', to: '/spares-service/products' },
-  { label: 'Machineries', to: '/spares-service/machineries' },
+  { label: 'Food Machineries', to: '/spares-service/machineries' },
+  { label: 'Industrial Spares', to: '/spares-service/products' },
   { label: 'Services', to: '/spares-service/services' },
   { label: 'Contact Us', to: '/spares-service/service' }
 ];
