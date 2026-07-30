@@ -113,7 +113,8 @@ export default function MachineDetailsPage() {
             <div className="detail-image-card">
               <img
                 src={resolveMachineImage(machine.image_url || machine.image)}
-                alt={machine.machine_name}
+                alt={`${machine.machine_name} - Food Processing Machine KMG Machineries`}
+                title={`${machine.machine_name} - KMG Machineries`}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%23f1f5f9"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="%2364748b">Machine Image</text></svg>';
@@ -123,7 +124,7 @@ export default function MachineDetailsPage() {
 
             {/* INFO CARD */}
             <div className="detail-info-card">
-              <h3>Description & Technical Overview</h3>
+              <h2>Description & Technical Overview</h2>
               <p>{machine.description}</p>
             </div>
           </div>
@@ -132,7 +133,7 @@ export default function MachineDetailsPage() {
           <div className="detail-sidebar">
             {/* SPECS CARD */}
             <div className="specs-card">
-              <h3>Technical Specifications</h3>
+              <h2>Technical Specifications</h2>
               {Array.isArray(machine.specifications) && machine.specifications.length > 0 ? (
                 <table className="specs-table">
                   <tbody>
@@ -165,6 +166,25 @@ export default function MachineDetailsPage() {
                 GET A QUOTE
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* RELATED INTERNAL LINKING SECTION FOR SEO */}
+        <div className="mt-12 pt-8 border-t border-slate-200">
+          <h2 className="text-lg font-extrabold text-slate-900 mb-4">Related Food Processing Plants & Packaging Machineries</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs font-bold text-blue-600">
+            <Link to="/spares-service/machineries" className="p-3 bg-slate-50 rounded-xl border border-slate-200 hover:border-blue-500 hover:text-blue-700 flex items-center justify-between transition-colors">
+              <span>Fruit & Tomato Plant ➔ Fruit Processing</span>
+            </Link>
+            <Link to="/spares-service/machineries" className="p-3 bg-slate-50 rounded-xl border border-slate-200 hover:border-blue-500 hover:text-blue-700 flex items-center justify-between transition-colors">
+              <span>Spice Plant ➔ Powder Packaging Machine</span>
+            </Link>
+            <Link to="/spares-service/machineries" className="p-3 bg-slate-50 rounded-xl border border-slate-200 hover:border-blue-500 hover:text-blue-700 flex items-center justify-between transition-colors">
+              <span>Liquid Bottling Line ➔ Soft Drink Plant</span>
+            </Link>
+            <Link to="/spares-service/products" className="p-3 bg-slate-50 rounded-xl border border-slate-200 hover:border-blue-500 hover:text-blue-700 flex items-center justify-between transition-colors">
+              <span>Pneumatic Spares ➔ Automation Parts</span>
+            </Link>
           </div>
         </div>
       </div>

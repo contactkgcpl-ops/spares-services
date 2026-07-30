@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../config/api';
+import { updateContactPageSEO } from '../../../utils/seoHelper';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -23,6 +24,10 @@ function ServicePage() {
   const [formStatus, setFormStatus] = useState('');
   const [formError, setFormError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    updateContactPageSEO();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

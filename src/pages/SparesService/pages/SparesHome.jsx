@@ -10,6 +10,8 @@ import pharmaImg from '../../../assets/images/ind_pharma.png';
 import beveragesImg from '../../../assets/images/ind_beverages.png';
 import kevalGandhiImg from '../../../assets/images/keval-gandhi.jpg';
 
+import { updateAboutPageSEO } from '../../../utils/seoHelper';
+
 const carouselImages = [
   { img: spicesImg, title: 'Spices Grinding Machine & Pulverizer Plant' },
   { img: powderImg, title: 'Automatic Powder Packaging Machine' },
@@ -23,6 +25,7 @@ function SparesHome() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    updateAboutPageSEO();
   }, []);
 
   useEffect(() => {

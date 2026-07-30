@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
@@ -7,11 +7,14 @@ import ExperienceSection from '../components/ExperienceSection';
 import IndustriesWeServe from '../components/IndustriesWeServe';
 import WhyChooseUs from '../components/WhyChooseUs';
 import GlobalPresence from '../components/GlobalPresence';
-
-
+import { updateHomePageSEO } from '../../../utils/seoHelper';
 
 function PremiumHome() {
   const whatsappLink = 'https://wa.me/919898727796?text=Hello%20Salvin%20Industries%2C%20I%20want%20to%20book%20a%20service.';
+
+  useEffect(() => {
+    updateHomePageSEO();
+  }, []);
 
   return (
     <div className="bg-[#EEF2F7] min-h-screen text-[#536488] font-sans antialiased overflow-x-hidden relative">

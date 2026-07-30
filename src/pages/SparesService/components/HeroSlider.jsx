@@ -36,6 +36,8 @@ export default function HeroSlider() {
       {/* Subtle light background glow */}
       <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[500px] h-[500px] bg-blue-300/20 rounded-full blur-3xl pointer-events-none" />
 
+      <h1 className="sr-only">Food Processing Machinery Manufacturer in India - KMG Machineries</h1>
+
       <div className="relative mx-auto max-w-[1700px] px-6 sm:px-10 lg:px-16 xl:px-24">
         <Swiper
           modules={[Autoplay, Navigation, Pagination]}
@@ -57,9 +59,9 @@ export default function HeroSlider() {
                 
                 {/* Left Side: Title & Description Paragraph */}
                 <div className="lg:col-span-6 flex flex-col items-start z-10">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#0B1527] mb-3">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#0B1527] mb-3">
                     {slide.title}
-                  </h1>
+                  </h2>
                   <p className="text-xs sm:text-sm text-[#475569] font-medium leading-relaxed">
                     {slide.description}
                   </p>

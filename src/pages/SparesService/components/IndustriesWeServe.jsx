@@ -116,7 +116,8 @@ export default function IndustriesWeServe() {
                   <div className="flex-1 bg-slate-900 overflow-hidden flex items-center justify-center">
                     <img
                       src={item.image}
-                      alt={item.title}
+                      alt={`${item.title} - Food Processing Machinery KMG Machineries`}
+                      title={`${item.title} Plant - KMG Machineries`}
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-108"
                     />
                   </div>
@@ -149,8 +150,9 @@ export default function IndustriesWeServe() {
                   <Link
                     to="/spares-service/machineries"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1B4D3E] hover:text-emerald-700 transition-colors mb-2 group"
+                    title={`Explore ${item.title} Machineries`}
                   >
-                    <span>Learn More</span>
+                    <span>Explore {item.title}</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>

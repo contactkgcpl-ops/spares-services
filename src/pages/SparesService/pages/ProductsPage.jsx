@@ -9,6 +9,7 @@ import FilterSidebar from '../components/FilterSidebar';
 import CategoryFilter from '../components/CategoryFilter';
 import useProductFilter from '../hooks/useProductFilter';
 import { buildApiUrl, resolveImageUrl } from '../../../config/api';
+import { updateProductsListSEO } from '../../../utils/seoHelper';
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -19,6 +20,10 @@ function ProductsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
   const { categories, category, filteredProducts, query, setCategory, setQuery } = useProductFilter(products);
+
+  useEffect(() => {
+    updateProductsListSEO();
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
